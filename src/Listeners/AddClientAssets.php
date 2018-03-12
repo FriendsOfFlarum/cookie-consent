@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapTech\CookieConsent\Listener;
+namespace ZapTech\CookieConsent\Listeners;
 
 use DirectoryIterator;
 use Flarum\Event\ConfigureClientView;
