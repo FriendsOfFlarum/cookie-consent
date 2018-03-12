@@ -39,4 +39,30 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
       _export('default', CookieConsentSettingsModal);
     }
   };
+});;
+'use strict';
+
+System.register('zaptech/cookie-consent/main', ['flarum/app', 'flarum/extend', 'flarum/components/PermissionGrid', 'zaptech/cookie-consent/components/CookieConsentSettingsModal'], function (_export, _context) {
+  "use strict";
+
+  var app, extend, PermissionGrid, CustomHeaderSettingsModal;
+  return {
+    setters: [function (_flarumApp) {
+      app = _flarumApp.default;
+    }, function (_flarumExtend) {
+      extend = _flarumExtend.extend;
+    }, function (_flarumComponentsPermissionGrid) {
+      PermissionGrid = _flarumComponentsPermissionGrid.default;
+    }, function (_zaptechCookieConsentComponentsCookieConsentSettingsModal) {
+      CustomHeaderSettingsModal = _zaptechCookieConsentComponentsCookieConsentSettingsModal.default;
+    }],
+    execute: function () {
+
+      app.initializers.add('zaptech-cookie-consent', function () {
+        app.extensionSettings['zaptech-cookie-consent'] = function () {
+          return app.modal.show(new CustomHeaderSettingsModal());
+        };
+      });
+    }
+  };
 });
