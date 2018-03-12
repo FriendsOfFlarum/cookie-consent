@@ -6,7 +6,7 @@ export default class CookieConsentSettingsModal extends SettingsModal {
   }
 
   title() {
-    return app.translator.trans('cookie-consent.admin.settings.title');
+    "Cookie Consent Plugin";
   }
 
   form() {

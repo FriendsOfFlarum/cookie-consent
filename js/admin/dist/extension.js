@@ -25,7 +25,7 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
         }, {
           key: 'title',
           value: function title() {
-            return app.translator.trans('cookie-consent.admin.settings.title');
+            "Cookie Consent Plugin";
           }
         }, {
           key: 'form',
