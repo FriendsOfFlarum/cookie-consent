@@ -1,0 +1,32 @@
+{
+
+    "name": "zaptech/cookie-consent",
+    "description": "Cookie consent notice for flarum",
+    "type": "flarum-extension",
+    "license": "Unlicense",
+    "require": {
+        "flarum/core": "^0.1.0-beta.6"
+    },
+
+    "support": {
+        "issues": "https://github.com/ZapTechAdmin/zaptech-cookie-consent/issues",
+        "source": "https://github.com/ZapTechAdmin/zaptech-cookie-consent"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "ZapTech\\CookieConsent\\": "src/"
+        }
+    },
+
+    "extra": {
+        "flarum-extension": {
+            "title": "Cookie Consent",
+            "icon": {
+                "name": "utensils",
+                "backgroundColor": "#ff5733",
+                "color": "#f3bc00"
+            }           
+        }
+    }
+}
