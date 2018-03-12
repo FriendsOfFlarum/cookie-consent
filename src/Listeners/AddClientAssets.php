@@ -29,13 +29,13 @@ class AddClientAssets
                 __DIR__ . '/../../js/forum/dist/extension.js',
                 __DIR__ . '/../../less/forum/extension.less'
             ]);
-            $event->addBootstrapper('zaptech/global-color-changer/main');
+            $event->addBootstrapper('zaptech/cookie-consent/main');
         }
         if ($event->isAdmin()) {
             $event->addAssets([
                 __DIR__ . '/../../js/admin/dist/extension.js',
             ]);
-            $event->addBootstrapper('zaptech/global-color-changer/main');
+            $event->addBootstrapper('zaptech/cookie-consent/main');
         }
     }
     public function addLocales(ConfigureLocales $event)
