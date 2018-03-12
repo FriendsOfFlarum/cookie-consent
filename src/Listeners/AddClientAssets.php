@@ -46,14 +46,4 @@ class AddClientAssets
             }
         }
     }
-    public function addSettings(SettingWasSet $event)
-    {
-        
-    }
-    #private function getHexVar(WebAppView $view)
-    #{
-    #        foreach ($this->getHexVar() as $name => $value) {
-    #            $hexcode .= ""
-    #        }
-    #    }
 }
