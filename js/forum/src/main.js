@@ -6,7 +6,7 @@ import Page from 'flarum/components/Page';
 
 app.initializers.add('zaptech-cookie-consent', () => {
     extend(Page.prototype, 'init', function() {
-document.querySelector("head").innerHTML += '<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />';
+        document.querySelector("head").innerHTML += '<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />';
         document.querySelector("head").innerHTML += '<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>';
         document.querySelector("head").innerHTML += '    <script>';
         document.querySelector("head").innerHTML += 'window.addEventListener("load", function(){';
