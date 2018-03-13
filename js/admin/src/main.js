@@ -7,8 +7,6 @@ import Page from 'flarum/components/Page';
 app.initializers.add('zaptech-cookie-consent', () => {
   app.extensionSettings['zaptech-cookie-consent'] = () => app.modal.show(new CookieConsentSettingsModal());
       extend(Page.prototype, 'init', function() {
-        var ctext = app.forum.attribute("cookie-consent.ctext");
-        console.log(ctext);
-        console.log("Hello World");
+        document.querySelector("head").innerHTML += '<style>#app{background:' + adminpagehex + '}</style>';
       });
   });

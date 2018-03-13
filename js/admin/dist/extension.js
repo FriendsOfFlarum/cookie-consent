@@ -74,9 +74,7 @@ System.register('zaptech/cookie-consent/main', ['flarum/app', 'flarum/extend', '
           return app.modal.show(new CookieConsentSettingsModal());
         };
         extend(Page.prototype, 'init', function () {
-          var ctext = app.forum.attribute("cookie-consent.ctext");
-          console.log(ctext);
-          console.log("Hello World");
+          document.querySelector("head").innerHTML += '<style>#app{background:' + adminpagehex + '}</style>';
         });
       });
     }
