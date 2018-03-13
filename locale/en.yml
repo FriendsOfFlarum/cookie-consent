@@ -2,3 +2,4 @@ cookie-consent:
   admin:
     settings:
       title: Cookie Consent
+      text: Please enter the text you want displayed on the bar
