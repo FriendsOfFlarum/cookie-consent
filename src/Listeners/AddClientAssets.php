@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapTech\CookieConsent\Listeners;
+namespace ZapTech\CConsent\Listeners;
 
 use DirectoryIterator;
 use Flarum\Event\ConfigureClientView;
@@ -24,13 +24,6 @@ class AddClientAssets
      */
     public function addAssets(ConfigureClientView $event)
     {
-        //if ($event->isForum()) {
-        //    $event->addAssets([
-        //        __DIR__ . '/../../js/forum/dist/extension.js',
-        //        __DIR__ . '/../../less/forum/extension.less'
-        //    ]);
-        //    $event->addBootstrapper('zaptech/cookie-consent/main');
-        //}
         if ($event->isAdmin()) {
             $event->addAssets([
                 __DIR__ . '/../../js/admin/dist/extension.js',
