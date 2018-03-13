@@ -1,6 +1,5 @@
 <?php
-
-namespace ZapTech\CConsent\Listeners;
+namespace ZapTech\CConsent;
 
 use Illuminate\Contracts\Events\Dispatcher;
 
