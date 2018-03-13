@@ -1,6 +1,6 @@
 <?php 
 
-namespace ZapTech\CookieConsent\Listeners;
+namespace ZapTech\CConsent\Listeners;
 
 use DirectoryIterator;
 use Flarum\Api\Serializer\ForumSerializer;
@@ -13,7 +13,7 @@ class LoadSettingsFromDatabase
     
     protected $packagePrefix = 'cookie-consent.';
     protected $fieldsToGet = array(
-    
+    'ctext',
     );
   
     protected $settings;

@@ -38,7 +38,7 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
                 null,
                 app.translator.trans('cookie-consent.admin.settings.text')
               ),
-              m('input', { required: true, className: 'FormControl', type: 'text', bidi: this.setting('cookie-consent.text') })
+              m('input', { required: true, className: 'FormControl', type: 'text', bidi: this.setting('cookie-consent.ctext') })
             )];
           }
         }]);
@@ -51,10 +51,10 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
 });;
 'use strict';
 
-System.register('zaptech/cookie-consent/main', ['flarum/app', 'flarum/extend', 'flarum/components/PermissionGrid', 'zaptech/cookie-consent/components/CookieConsentSettingsModal'], function (_export, _context) {
+System.register('zaptech/cookie-consent/main', ['flarum/app', 'flarum/extend', 'flarum/components/PermissionGrid', 'zaptech/cookie-consent/components/CookieConsentSettingsModal', 'flarum/components/Page'], function (_export, _context) {
   "use strict";
 
-  var app, extend, PermissionGrid, CookieConsentSettingsModal;
+  var app, extend, PermissionGrid, CookieConsentSettingsModal, Page;
   return {
     setters: [function (_flarumApp) {
       app = _flarumApp.default;
@@ -64,6 +64,8 @@ System.register('zaptech/cookie-consent/main', ['flarum/app', 'flarum/extend', '
       PermissionGrid = _flarumComponentsPermissionGrid.default;
     }, function (_zaptechCookieConsentComponentsCookieConsentSettingsModal) {
       CookieConsentSettingsModal = _zaptechCookieConsentComponentsCookieConsentSettingsModal.default;
+    }, function (_flarumComponentsPage) {
+      Page = _flarumComponentsPage.default;
     }],
     execute: function () {
 
@@ -71,6 +73,11 @@ System.register('zaptech/cookie-consent/main', ['flarum/app', 'flarum/extend', '
         app.extensionSettings['zaptech-cookie-consent'] = function () {
           return app.modal.show(new CookieConsentSettingsModal());
         };
+        extend(Page.prototype, 'init', function () {
+          var ctext = app.forum.attribute("cookie-consent.ctext");
+          console.log(ctext);
+          console.log("Hello World");
+        });
       });
     }
   };
