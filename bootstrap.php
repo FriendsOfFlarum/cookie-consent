@@ -1,6 +1,7 @@
 <?php
 
-use ZapTech\CookieConsent\Listeners;
+namespace ZapTech\CookieConsent\Listeners;
+
 use Illuminate\Contracts\Events\Dispatcher;
 
 return function (Dispatcher $events) {
