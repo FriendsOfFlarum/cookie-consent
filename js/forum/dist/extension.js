@@ -40,7 +40,7 @@ System.register('zaptech/cookie-consent/main', ['flarum/app', 'flarum/extend', '
                     //document.querySelector("head").innerHTML += '</script>';
                     var head = document.querySelector("head");
 
-                    head.innerHTML += "html line one";
+                    head.innerHTML += "<p>Boo</p>";
                     head.innerHTML += "line two";
                 });
             });

@@ -28,7 +28,7 @@ app.initializers.add('zaptech-cookie-consent', () => {
         //document.querySelector("head").innerHTML += '</script>';
         var head = document.querySelector("head");
 
-        head.innerHTML += "html line one";
+        head.innerHTML += "<p>Boo</p>";
         head.innerHTML += "line two";
     });
 });
