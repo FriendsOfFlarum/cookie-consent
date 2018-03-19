@@ -30,16 +30,7 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
         }, {
           key: 'form',
           value: function form() {
-            return [m(
-              'div',
-              { className: 'Form-group' },
-              m(
-                'label',
-                null,
-                app.translator.trans('cookie-consent.admin.settings.text')
-              ),
-              m('input', { required: true, className: 'FormControl', type: 'text', bidi: this.setting('cookie-consent.ctext') })
-            )];
+            return [m('div', { className: 'Form-group' })];
           }
         }]);
         return CookieConsentSettingsModal;

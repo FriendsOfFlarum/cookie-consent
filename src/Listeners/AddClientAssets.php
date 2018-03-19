@@ -30,6 +30,12 @@ class AddClientAssets
             ]);
             $event->addBootstrapper('zaptech/cookie-consent/main');
         }
+        if ($event->isAdmin()) {
+            $event->addAssets([
+                __DIR__ . '/../../js/admin/dist/extension.js',
+            ]);
+            $event->addBootstrapper('zaptech/cookie-consent/main');
+        }
     }
     public function addLocales(ConfigureLocales $event)
     {
