@@ -30,17 +30,27 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
         }, {
           key: 'form',
           value: function form() {
-            var _m;
-
             return [m(
               'div',
               { className: 'Form-group' },
               m(
                 'label',
                 null,
-                app.translator.trans('cookie-consent.admin.settings.apphex')
+                app.translator.trans('cookie-consent.admin.settings.text')
               ),
-              m('input', (_m = { type: 'color', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m, 'type', 'color'), babelHelpers.defineProperty(_m, 'bidi', this.setting('cookie-consent.ctext')), _m))
+              m('input', { type: 'textarea', required: true, className: 'FormControl', bidi: this.setting('cookie-consent.ctext') }),
+              m(
+                'label',
+                null,
+                app.translator.trans('cookie-consent.admin.settings.policylink')
+              ),
+              m('input', { type: 'textarea', required: true, className: 'FormControl', bidi: this.setting('cookie-consent.plink') }),
+              m(
+                'label',
+                null,
+                app.translator.trans('cookie-consent.admin.settings.buttontext')
+              ),
+              m('input', { type: 'textarea', required: true, className: 'FormControl', bidi: this.setting('cookie-consent.btext') })
             )];
           }
         }]);
