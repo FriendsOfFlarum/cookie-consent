@@ -12,7 +12,8 @@ export default class CookieConsentSettingsModal extends SettingsModal {
   form() {
     return [
       <div className="Form-group">
-        
+        <label>{app.translator.trans('cookie-consent.admin.settings.apphex')}</label>
+        <input type="color" required className="FormControl" type="color" bidi={this.setting('cookie-consent.ctext')}></input>
       </div>
     ];
 }}
