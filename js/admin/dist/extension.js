@@ -30,7 +30,18 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
         }, {
           key: 'form',
           value: function form() {
-            return [m('div', { className: 'Form-group' })];
+            var _m;
+
+            return [m(
+              'div',
+              { className: 'Form-group' },
+              m(
+                'label',
+                null,
+                app.translator.trans('cookie-consent.admin.settings.apphex')
+              ),
+              m('input', (_m = { type: 'color', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m, 'type', 'color'), babelHelpers.defineProperty(_m, 'bidi', this.setting('cookie-consent.ctext')), _m))
+            )];
           }
         }]);
         return CookieConsentSettingsModal;
