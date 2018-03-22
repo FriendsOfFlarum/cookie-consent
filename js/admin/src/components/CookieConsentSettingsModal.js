@@ -24,7 +24,7 @@ export default class CookieConsentSettingsModal extends SettingsModal {
         <input type="text" required className="FormControl" type="text" bidi={this.setting('cookie-consent.bcolor')}></input>
         <label>{app.translator.trans('cookie-consent.admin.settings.bcolor1')}</label>
         <input type="text" required className="FormControl" type="text" bidi={this.setting('cookie-consent.bcolor1')}></input>
-        <input type="hidden" required className="FormControl" type="text" bidi={this.setting('cookie-consent.bcolor2')}></input>
+        <input type="hidden" required className="FormControl" type="hidden" bidi={this.setting('cookie-consent.bcolor2')}></input>
         <label class="switch">
         <input type="checkbox" checked></input>
         <span class="slider round"></span>
