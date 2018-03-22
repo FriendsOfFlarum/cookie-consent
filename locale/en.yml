@@ -5,3 +5,4 @@ cookie-consent:
       ctext: Please enter the text you want displayed on the bar
       blink: Please enter the link to your cookie consent policy
       btext: Please enter the text to be displayed on the close button
+      atext: Please enter the text to be displayed on the accept button
