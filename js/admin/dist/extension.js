@@ -30,7 +30,7 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
         }, {
           key: 'form',
           value: function form() {
-            var _m, _m2, _m3, _m4, _m5, _m6, _m7;
+            var _m, _m2, _m3, _m4, _m5, _m6, _m7, _m8;
 
             return [m(
               'div',
@@ -76,7 +76,19 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
                 null,
                 app.translator.trans('cookie-consent.admin.settings.bcolor2')
               ),
-              m('input', (_m7 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m7, 'type', 'text'), babelHelpers.defineProperty(_m7, 'bidi', this.setting('cookie-consent.bcolor2')), _m7))
+              m('input', (_m7 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m7, 'type', 'text'), babelHelpers.defineProperty(_m7, 'bidi', this.setting('cookie-consent.bcolor2')), _m7)),
+              m(
+                'label',
+                null,
+                app.translator.trans('cookie-consent.admin.settings.bcolor2')
+              ),
+              m('input', (_m8 = { type: 'checkbox', required: true, className: 'switch' }, babelHelpers.defineProperty(_m8, 'type', 'checkbox'), babelHelpers.defineProperty(_m8, 'bidi', this.setting('cookie-consent.bcolor2')), _m8)),
+              m(
+                'label',
+                { 'class': 'switch' },
+                m('input', { type: 'checkbox', checked: true }),
+                m('span', { 'class': 'slider round' })
+              )
             )];
           }
         }]);
@@ -111,7 +123,11 @@ System.register('zaptech/cookie-consent/main', ['flarum/app', 'flarum/extend', '
         app.extensionSettings['zaptech-cookie-consent'] = function () {
           return app.modal.show(new CookieConsentSettingsModal());
         };
-        extend(Page.prototype, 'init', function () {});
+        extend(Page.prototype, 'init', function () {
+          $('head').prepend('<div id="cookieconsent"></div>');
+          $('head').append('<style>.switch{position:relative;display:inline-block;width:60px;height:34px}.switch input{display:none}.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;-webkit-transition:.4s;transition:.4s}.slider:before{position:absolute;content:"";height:26px;width:26px;left:4px;bottom:4px;background-color:#fff;-webkit-transition:.4s;transition:.4s}input:checked+.slider{background-color:#2196F3}input:focus+.slider{box-shadow:0 0 1px #2196F3}input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:translateX(26px);transform:translateX(26px)}.slider.round{border-radius:34px}.slider.round:before{border-radius:50%}</style>');
+          var toppadding = Number($('#cookieconsent').height()) + 52;
+        });
       });
     }
   };
