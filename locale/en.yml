@@ -6,6 +6,6 @@ cookie-consent:
       blink: Please enter the link to your cookie consent policy
       btext: Please enter the text to be displayed on the close button
       atext: Please enter the text to be displayed on the accept button
-      bcolor: Please enter the color for the background of the popup
-      bcolor1: Please enter the color for the text of the popup
-      bcolor2: Please enter the color for the color of the accept button
+      bcolor: Please enter a HEX code for the background of the popup
+      bcolor1: Please enter a HEX code for the text of the popup
+      bcolor2: Please enter a HEX code for the color of the accept button
