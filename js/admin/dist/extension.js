@@ -30,7 +30,7 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
         }, {
           key: 'form',
           value: function form() {
-            var _m, _m2, _m3, _m4;
+            var _m, _m2, _m3, _m4, _m5, _m6, _m7;
 
             return [m(
               'div',
@@ -58,7 +58,25 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
                 null,
                 app.translator.trans('cookie-consent.admin.settings.atext')
               ),
-              m('input', (_m4 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m4, 'type', 'text'), babelHelpers.defineProperty(_m4, 'bidi', this.setting('cookie-consent.atext')), _m4))
+              m('input', (_m4 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m4, 'type', 'text'), babelHelpers.defineProperty(_m4, 'bidi', this.setting('cookie-consent.atext')), _m4)),
+              m(
+                'label',
+                null,
+                app.translator.trans('cookie-consent.admin.settings.bcolor')
+              ),
+              m('input', (_m5 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m5, 'type', 'text'), babelHelpers.defineProperty(_m5, 'bidi', this.setting('cookie-consent.bcolor')), _m5)),
+              m(
+                'label',
+                null,
+                app.translator.trans('cookie-consent.admin.settings.bcolor1')
+              ),
+              m('input', (_m6 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m6, 'type', 'text'), babelHelpers.defineProperty(_m6, 'bidi', this.setting('cookie-consent.bcolor1')), _m6)),
+              m(
+                'label',
+                null,
+                app.translator.trans('cookie-consent.admin.settings.bcolor2')
+              ),
+              m('input', (_m7 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m7, 'type', 'text'), babelHelpers.defineProperty(_m7, 'bidi', this.setting('cookie-consent.bcolor2')), _m7))
             )];
           }
         }]);
