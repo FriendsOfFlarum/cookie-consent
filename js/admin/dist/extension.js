@@ -40,19 +40,19 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
                 null,
                 app.translator.trans('cookie-consent.admin.settings.ctext')
               ),
-              m('input', (_m = { type: 'color', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m, 'type', 'color'), babelHelpers.defineProperty(_m, 'bidi', this.setting('cookie-consent.ctext')), _m)),
+              m('input', (_m = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m, 'type', 'text'), babelHelpers.defineProperty(_m, 'bidi', this.setting('cookie-consent.ctext')), _m)),
               m(
                 'label',
                 null,
                 app.translator.trans('cookie-consent.admin.settings.btext')
               ),
-              m('input', (_m2 = { type: 'color', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m2, 'type', 'color'), babelHelpers.defineProperty(_m2, 'bidi', this.setting('cookie-consent.btext')), _m2)),
+              m('input', (_m2 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m2, 'type', 'text'), babelHelpers.defineProperty(_m2, 'bidi', this.setting('cookie-consent.btext')), _m2)),
               m(
                 'label',
                 null,
                 app.translator.trans('cookie-consent.admin.settings.blink')
               ),
-              m('input', (_m3 = { type: 'color', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m3, 'type', 'color'), babelHelpers.defineProperty(_m3, 'bidi', this.setting('cookie-consent.blink')), _m3))
+              m('input', (_m3 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m3, 'type', 'text'), babelHelpers.defineProperty(_m3, 'bidi', this.setting('cookie-consent.blink')), _m3))
             )];
           }
         }]);
