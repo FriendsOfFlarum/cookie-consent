@@ -2,6 +2,6 @@ cookie-consent:
   admin:
     settings:
       title: Cookie Consent
-      text: Please enter the text you want displayed on the bar
-      policylink: Please enter the link to your cookie consent policy
-      buttontext: Please enter the text to be displayed on the close button
+      ctext: Please enter the text you want displayed on the bar
+      blink: Please enter the link to your cookie consent policy
+      btext: Please enter the text to be displayed on the close button
