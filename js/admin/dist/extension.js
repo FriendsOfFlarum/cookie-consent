@@ -71,16 +71,11 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
                 app.translator.trans('cookie-consent.admin.settings.bcolor1')
               ),
               m('input', (_m6 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m6, 'type', 'text'), babelHelpers.defineProperty(_m6, 'bidi', this.setting('cookie-consent.bcolor1')), _m6)),
-              m(
-                'label',
-                null,
-                app.translator.trans('cookie-consent.admin.settings.bcolor2')
-              ),
-              m('input', (_m7 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m7, 'type', 'text'), babelHelpers.defineProperty(_m7, 'bidi', this.setting('cookie-consent.bcolor2')), _m7)),
+              m('input', (_m7 = { type: 'hidden', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m7, 'type', 'text'), babelHelpers.defineProperty(_m7, 'bidi', this.setting('cookie-consent.bcolor2')), _m7)),
               m(
                 'label',
                 { 'class': 'switch' },
-                m('input', { type: 'checkbox', checked: true, bidi: this.setting('cookie-consent.bcolor2') }),
+                m('input', { type: 'checkbox', checked: true }),
                 m('span', { 'class': 'slider round' })
               )
             )];
