@@ -6,7 +6,7 @@ import Page from 'flarum/components/Page';
 
 app.initializers.add('zaptech-cookie-consent', () => {
     extend(Page.prototype, 'init', function() {
-        var ctext, btext, blink;
+        var ctext, btext, blink, atext;
         ctext = app.forum.attribute("cookie-consent.ctext");
         btext = app.forum.attribute("cookie-consent.btext");
         blink = app.forum.attribute("cookie-consent.blink");

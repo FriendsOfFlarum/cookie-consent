@@ -18,7 +18,7 @@ System.register('zaptech/cookie-consent/main', ['flarum/app', 'flarum/extend', '
 
             app.initializers.add('zaptech-cookie-consent', function () {
                 extend(Page.prototype, 'init', function () {
-                    var ctext, btext, blink;
+                    var ctext, btext, blink, atext;
                     ctext = app.forum.attribute("cookie-consent.ctext");
                     btext = app.forum.attribute("cookie-consent.btext");
                     blink = app.forum.attribute("cookie-consent.blink");
