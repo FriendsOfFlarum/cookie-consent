@@ -14,6 +14,8 @@ class LoadSettingsFromDatabase
     protected $packagePrefix = 'cookie-consent.';
     protected $fieldsToGet = array(
     'ctext',
+    'btext',
+    'blink'
     );
   
     protected $settings;
