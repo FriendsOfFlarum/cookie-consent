@@ -16,7 +16,10 @@ class LoadSettingsFromDatabase
     'ctext',
     'btext',
     'blink',
-    'atext'
+    'atext',
+    'bcolor',
+    'bcolor1',
+    'bcolor2'
     );
   
     protected $settings;
