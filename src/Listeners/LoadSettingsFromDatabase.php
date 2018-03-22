@@ -15,7 +15,8 @@ class LoadSettingsFromDatabase
     protected $fieldsToGet = array(
     'ctext',
     'btext',
-    'blink'
+    'blink',
+    'atext'
     );
   
     protected $settings;
