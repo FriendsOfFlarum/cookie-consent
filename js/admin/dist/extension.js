@@ -30,7 +30,7 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
         }, {
           key: 'form',
           value: function form() {
-            var _m, _m2, _m3;
+            var _m, _m2, _m3, _m4;
 
             return [m(
               'div',
@@ -52,7 +52,13 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
                 null,
                 app.translator.trans('cookie-consent.admin.settings.blink')
               ),
-              m('input', (_m3 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m3, 'type', 'text'), babelHelpers.defineProperty(_m3, 'bidi', this.setting('cookie-consent.blink')), _m3))
+              m('input', (_m3 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m3, 'type', 'text'), babelHelpers.defineProperty(_m3, 'bidi', this.setting('cookie-consent.blink')), _m3)),
+              m(
+                'label',
+                null,
+                app.translator.trans('cookie-consent.admin.settings.atext')
+              ),
+              m('input', (_m4 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m4, 'type', 'text'), babelHelpers.defineProperty(_m4, 'bidi', this.setting('cookie-consent.atext')), _m4))
             )];
           }
         }]);
