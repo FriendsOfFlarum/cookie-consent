@@ -68,9 +68,9 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
               m(
                 'label',
                 null,
-                app.translator.trans('cookie-consent.admin.settings.bcolor1')
+                app.translator.trans('cookie-consent.admin.settings.bcolor2')
               ),
-              m('input', (_m6 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m6, 'type', 'text'), babelHelpers.defineProperty(_m6, 'bidi', this.setting('cookie-consent.bcolor1')), _m6))
+              m('input', (_m6 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m6, 'type', 'text'), babelHelpers.defineProperty(_m6, 'bidi', this.setting('cookie-consent.bcolor2')), _m6))
             )];
           }
         }]);
