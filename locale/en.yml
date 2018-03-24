@@ -5,7 +5,7 @@ cookie-consent:
       ctext: Please enter the text you want displayed on the bar
       blink: Please enter the link to your cookie consent policy
       btext: Please enter the text to be displayed on the close button
-      atext: Please enter the text to be displayed on the accept button
+      ltext: Please enter the text to be displayed on the Learn More Link
       bcolor: Please enter a HEX code for the background of the popup
       bcolor1: Please enter a HEX code for the text of the popup
       bcolor2: Please enter a HEX code for the color of the accept button
