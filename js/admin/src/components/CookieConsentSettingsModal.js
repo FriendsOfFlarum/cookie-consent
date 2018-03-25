@@ -18,8 +18,8 @@ export default class CookieConsentSettingsModal extends SettingsModal {
         <input type="text" required className="FormControl" type="text" bidi={this.setting('cookie-consent.btext')}></input>
         <label>{app.translator.trans('cookie-consent.admin.settings.blink')}</label>
         <input type="text" required className="FormControl" type="text" bidi={this.setting('cookie-consent.blink')}></input>
-        <label>{app.translator.trans('cookie-consent.admin.settings.lmtext')}</label>
-        <input type="text" required className="FormControl" type="text" bidi={this.setting('cookie-consent.lmtext')}></input>
+        <label>{app.translator.trans('cookie-consent.admin.settings.lrntext')}</label>
+        <input type="text" required className="FormControl" type="text" bidi={this.setting('cookie-consent.lrntext')}></input>
         <label>{app.translator.trans('cookie-consent.admin.settings.bcolor')}</label>
         <input type="text" required className="FormControl" type="text" bidi={this.setting('cookie-consent.bcolor')}></input>
         <label>{app.translator.trans('cookie-consent.admin.settings.bcolor2')}</label>

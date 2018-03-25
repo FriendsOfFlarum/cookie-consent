@@ -26,8 +26,7 @@ System.register('zaptech/cookie-consent/main', ['flarum/app', 'flarum/extend', '
                     bcolor = app.forum.attribute("cookie-consent.bcolor");
                     bcolor1 = app.forum.attribute("cookie-consent.bcolor1");
                     bcolor2 = app.forum.attribute("cookie-consent.bcolor2");
-                    $('head').prepend('<div id="cookieconsent"></div>');
-                    $('#cookieconsent').append('<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css"/><script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script><script>window.addEventListener("load", function(){window.cookieconsent.initialise({"palette":{"popup":{"background": "' + bcolor + '", "text": "#000000"}, "button":{"background": "' + bcolor2 + '", "text": "#000000"}}, "theme": "classic", "content":{"message": "' + ctext + '", "dismiss": "' + lmtext + '", "link": "' + btext + '", "href": "' + blink + '"}})});</script>');
+                    $('head').prepend('<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css"/><script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script><script>window.addEventListener("load", function(){window.cookieconsent.initialise({"palette":{"popup":{"background": "' + bcolor + '"}, "button":{"background": "' + bcolor2 + '"}}, "theme": "classic", "content":{"message": "' + ctext + '", "dismiss": "' + btext + '", "link": "' + lrntext + '", "href": "' + blink + '"}})});</script>');
                     var toppadding = Number($('#cookieconsent').height()) + 52;
                 });
             });
