@@ -56,9 +56,9 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
               m(
                 'label',
                 null,
-                app.translator.trans('cookie-consent.admin.settings.lmtext')
+                app.translator.trans('cookie-consent.admin.settings.lrntext')
               ),
-              m('input', (_m4 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m4, 'type', 'text'), babelHelpers.defineProperty(_m4, 'bidi', this.setting('cookie-consent.lmtext')), _m4)),
+              m('input', (_m4 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m4, 'type', 'text'), babelHelpers.defineProperty(_m4, 'bidi', this.setting('cookie-consent.lrntext')), _m4)),
               m(
                 'label',
                 null,
