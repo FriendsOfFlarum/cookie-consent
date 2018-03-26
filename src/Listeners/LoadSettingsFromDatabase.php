@@ -20,7 +20,8 @@ class LoadSettingsFromDatabase
     'lrntext',
     'bcolor',
     'bcolor1',
-    'bcolor2'
+    'bcolor2',
+    'bcolor3'
     );
   
     protected $settings;
