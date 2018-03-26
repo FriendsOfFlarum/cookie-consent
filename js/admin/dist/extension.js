@@ -30,47 +30,61 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
         }, {
           key: 'form',
           value: function form() {
-            var _m, _m2, _m3, _m4, _m5, _m6;
+            var _m, _m2, _m3, _m4, _m5, _m6, _m7;
 
             return [m(
               'div',
               { className: 'Form-group' },
               m(
-                'label',
-                null,
-                app.translator.trans('cookie-consent.admin.settings.ctext')
+                'div',
+                { className: 'MainForm' },
+                m(
+                  'label',
+                  null,
+                  app.translator.trans('cookie-consent.admin.settings.ctext')
+                ),
+                m('input', (_m = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m, 'type', 'text'), babelHelpers.defineProperty(_m, 'bidi', this.setting('cookie-consent.ctext')), _m)),
+                m(
+                  'label',
+                  null,
+                  app.translator.trans('cookie-consent.admin.settings.btext')
+                ),
+                m('input', (_m2 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m2, 'type', 'text'), babelHelpers.defineProperty(_m2, 'bidi', this.setting('cookie-consent.btext')), _m2)),
+                m(
+                  'label',
+                  null,
+                  app.translator.trans('cookie-consent.admin.settings.blink')
+                ),
+                m('input', (_m3 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m3, 'type', 'text'), babelHelpers.defineProperty(_m3, 'bidi', this.setting('cookie-consent.blink')), _m3)),
+                m(
+                  'label',
+                  null,
+                  app.translator.trans('cookie-consent.admin.settings.lrntext')
+                ),
+                m('input', (_m4 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m4, 'type', 'text'), babelHelpers.defineProperty(_m4, 'bidi', this.setting('cookie-consent.lrntext')), _m4)),
+                m(
+                  'label',
+                  null,
+                  app.translator.trans('cookie-consent.admin.settings.bcolor')
+                ),
+                m('input', (_m5 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m5, 'type', 'text'), babelHelpers.defineProperty(_m5, 'bidi', this.setting('cookie-consent.bcolor')), _m5)),
+                m(
+                  'label',
+                  null,
+                  app.translator.trans('cookie-consent.admin.settings.bcolor2')
+                ),
+                m('input', (_m6 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m6, 'type', 'text'), babelHelpers.defineProperty(_m6, 'bidi', this.setting('cookie-consent.bcolor2')), _m6))
               ),
-              m('input', (_m = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m, 'type', 'text'), babelHelpers.defineProperty(_m, 'bidi', this.setting('cookie-consent.ctext')), _m)),
               m(
-                'label',
-                null,
-                app.translator.trans('cookie-consent.admin.settings.btext')
-              ),
-              m('input', (_m2 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m2, 'type', 'text'), babelHelpers.defineProperty(_m2, 'bidi', this.setting('cookie-consent.btext')), _m2)),
-              m(
-                'label',
-                null,
-                app.translator.trans('cookie-consent.admin.settings.blink')
-              ),
-              m('input', (_m3 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m3, 'type', 'text'), babelHelpers.defineProperty(_m3, 'bidi', this.setting('cookie-consent.blink')), _m3)),
-              m(
-                'label',
-                null,
-                app.translator.trans('cookie-consent.admin.settings.lrntext')
-              ),
-              m('input', (_m4 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m4, 'type', 'text'), babelHelpers.defineProperty(_m4, 'bidi', this.setting('cookie-consent.lrntext')), _m4)),
-              m(
-                'label',
-                null,
-                app.translator.trans('cookie-consent.admin.settings.bcolor')
-              ),
-              m('input', (_m5 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m5, 'type', 'text'), babelHelpers.defineProperty(_m5, 'bidi', this.setting('cookie-consent.bcolor')), _m5)),
-              m(
-                'label',
-                null,
-                app.translator.trans('cookie-consent.admin.settings.bcolor2')
-              ),
-              m('input', (_m6 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m6, 'type', 'text'), babelHelpers.defineProperty(_m6, 'bidi', this.setting('cookie-consent.bcolor2')), _m6))
+                'div',
+                { className: 'ToggleSwitch' },
+                m(
+                  'label',
+                  null,
+                  app.translator.trans('cookie-consent.admin.settings.bcolor2')
+                ),
+                m('input', (_m7 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m7, 'type', 'text'), babelHelpers.defineProperty(_m7, 'bidi', this.setting('cookie-consent.bcolor2')), _m7))
+              )
             )];
           }
         }]);
