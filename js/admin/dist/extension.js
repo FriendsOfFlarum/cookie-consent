@@ -72,10 +72,15 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
               ),
               m('input', (_m6 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m6, 'type', 'text'), babelHelpers.defineProperty(_m6, 'bidi', this.setting('cookie-consent.bcolor2')), _m6)),
               m(
-                'label',
-                { 'class': 'switch' },
-                m('input', { type: 'checkbox' }),
-                m('span', { 'class': 'slider round' })
+                'div',
+                { 'class': 'onoffswitch' },
+                m('input', { type: 'checkbox', name: 'onoffswitch', 'class': 'onoffswitch-checkbox', id: 'myonoffswitch', checked: true, bidi: this.setting('cookie-consent.bcolor3') }),
+                m(
+                  'label',
+                  { 'class': 'onoffswitch-label', 'for': 'myonoffswitch' },
+                  m('span', { 'class': 'onoffswitch-inner' }),
+                  m('span', { 'class': 'onoffswitch-switch' })
+                )
               )
             )];
           }
