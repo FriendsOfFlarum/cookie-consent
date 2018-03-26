@@ -18,7 +18,7 @@ System.register('zaptech/cookie-consent/main', ['flarum/app', 'flarum/extend', '
 
             app.initializers.add('zaptech-cookie-consent', function () {
                 extend(Page.prototype, 'init', function () {
-                    var ctext, btext, blink, lrntext, bcolor, bcolor1, bcolor2, bcolor3, fbcolor;
+                    var ctext, btext, blink, lrntext, bcolor, bcolor1, bcolor2, bcolor3, fbcolor, fbcolor1;
                     ctext = app.forum.attribute("cookie-consent.ctext");
                     btext = app.forum.attribute("cookie-consent.btext");
                     blink = app.forum.attribute("cookie-consent.blink");
@@ -29,6 +29,7 @@ System.register('zaptech/cookie-consent/main', ['flarum/app', 'flarum/extend', '
                     bcolor3 = app.forum.attribute("cookie-consent.bcolor3");
                     if (bcolor3 = 0) {
                         fbcolor = '#000000';
+                        fbcolor1 = '#ffffff';
                     } else if (bcolor3 = 1) {
                         fbcolor = '#ffffff';
                     };
