@@ -17,6 +17,7 @@ class LoadSettingsFromDatabase
     'btext',
     'blink',
     'atext',
+    'lrntext',
     'bcolor',
     'bcolor1',
     'bcolor2'
