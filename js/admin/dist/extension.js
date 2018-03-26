@@ -30,7 +30,7 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
         }, {
           key: 'form',
           value: function form() {
-            var _m, _m2, _m3, _m4, _m5, _m6, _m7;
+            var _m, _m2, _m3, _m4, _m5, _m6;
 
             return [m(
               'div',
@@ -80,10 +80,10 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
                 { className: 'ToggleSwitch' },
                 m(
                   'label',
-                  null,
-                  app.translator.trans('cookie-consent.admin.settings.bcolor2')
-                ),
-                m('input', (_m7 = { type: 'text', required: true, className: 'FormControl' }, babelHelpers.defineProperty(_m7, 'type', 'text'), babelHelpers.defineProperty(_m7, 'bidi', this.setting('cookie-consent.bcolor2')), _m7))
+                  { 'class': 'switch' },
+                  m('input', { type: 'checkbox', bidi: this.setting('cookie-consent.bcolor3') }),
+                  m('span', { 'class': 'slider round' })
+                )
               )
             )];
           }
