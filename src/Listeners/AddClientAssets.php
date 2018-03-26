@@ -27,12 +27,14 @@ class AddClientAssets
         if ($event->isForum()) {
             $event->addAssets([
                 __DIR__ . '/../../js/forum/dist/extension.js',
+                __DIR__ . '/../../resources/less/forum.less'
             ]);
             $event->addBootstrapper('zaptech/cookie-consent/main');
         }
         if ($event->isAdmin()) {
             $event->addAssets([
                 __DIR__ . '/../../js/admin/dist/extension.js',
+                __DIR__ . '/../../resources/less/admin.less'
             ]);
             $event->addBootstrapper('zaptech/cookie-consent/main');
         }
