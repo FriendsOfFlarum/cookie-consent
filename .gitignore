@@ -56,3 +56,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# IDE/editor related files/folders
+.idea

@@ -1,32 +1,47 @@
 {
-
     "name": "zaptech/cookie-consent",
-    "description": "Cookie consent notice for flarum",
+    "description": "Customizable cookie consent notice for your Flarum installation",
+    "keywords": [
+        "extension",
+        "flarum",
+        "partialdev",
+        "zaptech",
+        "customizable",
+        "cookie",
+        "consent"
+    ],
     "type": "flarum-extension",
-    "license": "Unlicense",
-    "require": {
-        "flarum/core": "^0.1.0-beta.6"
-    },
-
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joel Bond",
+            "email": "joel.bond@partialdev.com",
+            "homepage": "https://partialdev.com/"
+        }
+    ],
     "support": {
         "issues": "https://github.com/ZapTechAdmin/zaptech-cookie-consent/issues",
         "source": "https://github.com/ZapTechAdmin/zaptech-cookie-consent"
     },
-
-    "autoload": {
-        "psr-4": {
-            "ZapTech\\CConsent\\": "src/"
-        }
+    "require": {
+        "flarum/core": "^0.1.0-beta.7"
     },
-
     "extra": {
         "flarum-extension": {
             "title": "Cookie Consent",
             "icon": {
-                "name": "utensils",
+                "name": "exclamation-circle",
                 "backgroundColor": "#ff5733",
                 "color": "#f3bc00"
-            }           
+            }
+        }
+    },
+    "flagrow": {
+        "discuss": "https://discuss.flarum.org/d/10395-zaptech-cookie-consent"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZapTech\\CConsent\\": "src/"
         }
     }
 }

@@ -1,0 +1,12 @@
+cookie-consent:
+  admin:
+    settings:
+      title: Cookie Consent Configuration
+      consentText: Please enter the text you want displayed on the bar
+      buttonText: Please enter the text to be displayed on the close button
+      learnMoreLinkText: Please enter the text to be displayed on the Learn More Link
+      learnMoreLinkUrl: Please enter the URL to your Cookie Consent policy
+      ccTheme: Please enter the Cookie Consent theme you with to use
+      ccThemePlaceholderText: i.e. classic, block, or edgeless
+      backgroundColor: Please enter a HEX code for the background of the popup
+      buttonBackgroundColor: Please enter a HEX code for the color of the accept button
