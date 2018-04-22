@@ -16,11 +16,11 @@ export default class CookieConsentSettingsModal extends SettingsModal {
                 <label>
                     {app.translator.trans('cookie-consent.admin.settings.consentText')}
                 </label>
-                <textarea className="FormControl" bidi={this.setting('cookie-consent.consentText')}/>
+                <textarea required className="FormControl" bidi={this.setting('cookie-consent.consentText')}/>
                 <label>
                     {app.translator.trans('cookie-consent.admin.settings.buttonText')}
                 </label>
-                <input type="text" className="FormControl" bidi={this.setting('cookie-consent.buttonText')}/>
+                <input type="text" required className="FormControl" bidi={this.setting('cookie-consent.buttonText')}/>
                 <label>
                     {app.translator.trans('cookie-consent.admin.settings.learnMoreLinkUrl')}
                 </label>
@@ -29,27 +29,27 @@ export default class CookieConsentSettingsModal extends SettingsModal {
                 <label>
                     {app.translator.trans('cookie-consent.admin.settings.learnMoreLinkText')}
                 </label>
-                <input type="text" className="FormControl"
+                <input type="text" required className="FormControl"
                        bidi={this.setting('cookie-consent.learnMoreLinkText')}/>
                 <hr/>
                 <h2>Theme Options</h2>
                 <label>
                     {app.translator.trans('cookie-consent.admin.settings.ccTheme')}
                 </label>
-                <input type="text" className="FormControl"
+                <input type="text" required className="FormControl"
                        placeholder={app.translator.trans('cookie-consent.admin.settings.ccThemePlaceholderText')}
                        defaultValue="classic"
                        bidi={this.setting('cookie-consent.ccTheme')}/>
                 <label>
                     {app.translator.trans('cookie-consent.admin.settings.backgroundColor')}
                 </label>
-                <input type="text" className="FormControl"
+                <input type="text" required className="FormControl"
                        defaultValue="#000000"
                        bidi={this.setting('cookie-consent.backgroundColor')}/>
                 <label>
                     {app.translator.trans('cookie-consent.admin.settings.buttonBackgroundColor')}
                 </label>
-                <input type="text" className="FormControl"
+                <input type="text" required className="FormControl"
                        defaultValue="#FF0000"
                        bidi={this.setting('cookie-consent.buttonBackgroundColor')}/>
             </div>

@@ -43,13 +43,13 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
                                 null,
                                 app.translator.trans('cookie-consent.admin.settings.consentText')
                             ),
-                            m('textarea', { className: 'FormControl', bidi: this.setting('cookie-consent.consentText') }),
+                            m('textarea', { required: true, className: 'FormControl', bidi: this.setting('cookie-consent.consentText') }),
                             m(
                                 'label',
                                 null,
                                 app.translator.trans('cookie-consent.admin.settings.buttonText')
                             ),
-                            m('input', { type: 'text', className: 'FormControl', bidi: this.setting('cookie-consent.buttonText') }),
+                            m('input', { type: 'text', required: true, className: 'FormControl', bidi: this.setting('cookie-consent.buttonText') }),
                             m(
                                 'label',
                                 null,
@@ -62,7 +62,7 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
                                 null,
                                 app.translator.trans('cookie-consent.admin.settings.learnMoreLinkText')
                             ),
-                            m('input', { type: 'text', className: 'FormControl',
+                            m('input', { type: 'text', required: true, className: 'FormControl',
                                 bidi: this.setting('cookie-consent.learnMoreLinkText') }),
                             m('hr', null),
                             m(
@@ -75,7 +75,7 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
                                 null,
                                 app.translator.trans('cookie-consent.admin.settings.ccTheme')
                             ),
-                            m('input', { type: 'text', className: 'FormControl',
+                            m('input', { type: 'text', required: true, className: 'FormControl',
                                 placeholder: app.translator.trans('cookie-consent.admin.settings.ccThemePlaceholderText'),
                                 defaultValue: 'classic',
                                 bidi: this.setting('cookie-consent.ccTheme') }),
@@ -84,7 +84,7 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
                                 null,
                                 app.translator.trans('cookie-consent.admin.settings.backgroundColor')
                             ),
-                            m('input', { type: 'text', className: 'FormControl',
+                            m('input', { type: 'text', required: true, className: 'FormControl',
                                 defaultValue: '#000000',
                                 bidi: this.setting('cookie-consent.backgroundColor') }),
                             m(
@@ -92,7 +92,7 @@ System.register('zaptech/cookie-consent/components/CookieConsentSettingsModal', 
                                 null,
                                 app.translator.trans('cookie-consent.admin.settings.buttonBackgroundColor')
                             ),
-                            m('input', { type: 'text', className: 'FormControl',
+                            m('input', { type: 'text', required: true, className: 'FormControl',
                                 defaultValue: '#FF0000',
                                 bidi: this.setting('cookie-consent.buttonBackgroundColor') })
                         )];
