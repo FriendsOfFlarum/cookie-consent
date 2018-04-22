@@ -3,7 +3,7 @@
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/partialdev/mason/blob/master/LICENSE.md) [![Latest Stable Version](https://img.shields.io/packagist/v/zaptech/cookie-consent.svg)](https://packagist.org/packages/zaptech/cookie-consent) [![Total Downloads](https://img.shields.io/packagist/dt/zaptech/cookie-consent.svg)](https://packagist.org/packages/zaptech/cookie-consent)
 
 This extension adds a customizable cooke consent pop-up to your Flarum installation. 
-Are you from a country where Cookie consent laws are in place? Have no fear! We've got you covered!
+Are you from a country where Cookie Consent laws are in place? Have no fear! We've got you covered!
 
 ## Installation
 
