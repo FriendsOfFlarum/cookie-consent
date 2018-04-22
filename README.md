@@ -22,9 +22,9 @@ php flarum cache:clear
 
 ## Configuration
 
-Once enabled, a new modal to configure your desired settings will appear.
+Once enabled, a new modal to configure/customize your desired settings will appear.
 
-### Usage
+## Usage
 
 To get to the settings modal, click the triple dots that appear when hovering your mouse
 cursor over the "Cookie Consent" extension text as shown below:
