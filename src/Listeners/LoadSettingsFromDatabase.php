@@ -2,7 +2,6 @@
 
 namespace ZapTech\CConsent\Listeners;
 
-use DirectoryIterator;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Event\PrepareApiAttributes;
 use Flarum\Settings\SettingsRepositoryInterface;
@@ -12,17 +11,15 @@ class LoadSettingsFromDatabase
 {
     
     protected $packagePrefix = 'cookie-consent.';
-    protected $fieldsToGet = array(
-    'ctext',
-    'btext',
-    'blink',
-    'atext',
-    'lrntext',
-    'bcolor',
-    'bcolor1',
-    'bcolor2',
-    'bcolor3'
-    );
+    protected $fieldsToGet = [
+    'consentText',
+    'buttonText',
+    'learnMoreLinkText',
+    'learnMoreLinkUrl',
+    'backgroundColor',
+    'buttonBackgroundColor',
+    'ccTheme'
+    ];
   
     protected $settings;
     public function __construct(SettingsRepositoryInterface $settings) {
