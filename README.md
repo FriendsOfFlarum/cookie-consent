@@ -43,6 +43,15 @@ You should now be presented with a one-time cookie consent notification!
 
 Pretty simple right? Now begone heathen!
 
+## Testing
+
+In order to get the Cookie Consent bar to pop-up again, you will have to delete the cookie
+data related to your site which is named "cookieconsent_status" or, you can delete ALL of the 
+cookie data related your site (NOT THE ENTIRE BROWSER!!) (See your respected browser manuals 
+for more information about managing cookies). Once removed, refresh your forum index page
+and it shall appear once more. Repeat the process anytime you wish to change any of the setting 
+and want to see those settings live as you edit them.
+
 ## Links
 
 - [Flarum Discuss post](https://discuss.flarum.org/d/10395-zaptech-cookie-consent)
