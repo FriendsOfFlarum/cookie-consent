@@ -38,6 +38,9 @@ class AddClientAssets
         }
     }
 
+    /**
+     * @param ConfigureLocales $event
+     */
     public function addLocales(ConfigureLocales $event)
     {
         foreach (new DirectoryIterator(__DIR__ . '/../../resources/locale') as $file) {
