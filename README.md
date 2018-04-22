@@ -33,7 +33,7 @@ cursor over the "Cookie Consent" extension text as shown below:
 
 Once the settings modal pop-ups, configure/customize the settings like so:
 
-![Cookie Consent Extension Configuration](https://i.imgur.com/BAXRNqH.png)
+![Cookie Consent Extension Configuration](https://i.imgur.com/JFZ3T3J.png)
 
 Once completed, click "Save Changes" and make your way to your forum index.
 
