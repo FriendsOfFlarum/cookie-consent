@@ -54,7 +54,7 @@ and want to see those settings live as you edit them.
 
 ## Links
 
-- [Flarum Discuss post](https://discuss.flarum.org/d/10395-zaptech-cookie-consent)
+- [Flarum Discuss post](https://discuss.flarum.org/d/10395-cookie-consent-by-partialdev)
 - [Source code on GitHub](https://github.com/partialdev/zaptech-cookie-consent)
 - [Report an issue](https://github.com/partialdev/zaptech-cookie-consent/issues)
 - [Download via Packagist](https://packagist.org/packages/zaptech/cookie-consent)
