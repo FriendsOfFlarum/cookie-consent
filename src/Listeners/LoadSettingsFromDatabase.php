@@ -1,6 +1,6 @@
 <?php
 
-namespace ZapTech\CConsent\Listeners;
+namespace ReFlar\CConsent\Listeners;
 
 use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\ForumSerializer;

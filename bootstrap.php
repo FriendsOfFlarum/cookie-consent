@@ -11,7 +11,7 @@
  *  file that was distributed with this source code.
  */
 
-namespace Zaptech\CConsent;
+namespace ReFlar\CConsent;
 
 use Flarum\Extend;
 use Illuminate\Contracts\Events\Dispatcher;
