@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Zaptech\CConsent\Listener;
+namespace Zaptech\CConsent\Listeners;
 
 use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\ForumSerializer;
