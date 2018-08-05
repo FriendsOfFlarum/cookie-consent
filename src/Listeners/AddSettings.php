@@ -1,15 +1,15 @@
 <?php
 
 /*
- * This file is part of Flarum.
+ * This file is part of Reflar.
  *
- * (c) Toby Zerner <toby.zerner@gmail.com>
+ * (c) Reflar
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Flarum\Pusher\Listener;
+namespace Zaptech\CConsent\Listener;
 
 use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\ForumSerializer;
