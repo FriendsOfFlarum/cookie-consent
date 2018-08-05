@@ -24,6 +24,6 @@ return [
         ->js(__DIR__.'/js/dist/admin.js')
         ->css(__DIR__.'/resources/less/admin.less'),
     function (Dispatcher $events) {
-        $events->subscribe(Listeners\AddSettings::class);
+        $events->subscribe(Listeners\LoadSettingsFromDatabase::class);
     },
 ];
