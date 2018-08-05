@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  This file is part of reflar/enso-theme.
+ *  This file is part of reflar/cookie-consent.
  *
  *  Copyright (c) ReFlar.
  *
