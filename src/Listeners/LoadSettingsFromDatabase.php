@@ -1,15 +1,14 @@
-<?php 
+<?php
 
 namespace ZapTech\CConsent\Listeners;
 
-use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Api\Event\Serializing;
+use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class LoadSettingsFromDatabase
 {
-
     /**
      * @var string
      */
@@ -24,7 +23,7 @@ class LoadSettingsFromDatabase
     'learnMoreLinkUrl',
     'backgroundColor',
     'buttonBackgroundColor',
-    'ccTheme'
+    'ccTheme',
     ];
 
     /**
@@ -34,26 +33,30 @@ class LoadSettingsFromDatabase
 
     /**
      * LoadSettingsFromDatabase constructor.
+     * 
      * @param SettingsRepositoryInterface $settings
      */
-    public function __construct(SettingsRepositoryInterface $settings) {
+    public function __construct(SettingsRepositoryInterface $settings)
+    {
         $this->settings = $settings;
     }
 
     /**
      * @param Dispatcher $events
      */
-    public function subscribe(Dispatcher $events) {
+    public function subscribe(Dispatcher $events)
+    {
         $events->listen(Serializing::class, [$this, 'prepareApiAttributes']);
     }
 
     /**
      * @param Serializing $event
      */
-    public function prepareApiAttributes(Serializing $event) {
+    public function prepareApiAttributes(Serializing $event)
+    {
         if ($event->isSerializer(ForumSerializer::class)) {
             foreach ($this->fieldsToGet as $field) {
-              $event->attributes[$this->packagePrefix . $field] = $this->settings->get($this->packagePrefix . $field);
+                $event->attributes[$this->packagePrefix.$field] = $this->settings->get($this->packagePrefix.$field);
             }
         }
     }
