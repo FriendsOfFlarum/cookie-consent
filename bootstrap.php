@@ -20,5 +20,8 @@ return [
         ->css(__DIR__.'/resources/less/forum.less'),
     (new Extend\Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js')
-        ->css(__DIR__.'/resources/less/admin.less')
+        ->css(__DIR__.'/resources/less/admin.less'),
+    function (Dispatcher $events) {
+        $events->subscribe(Listeners\LoadSettingsFromDatabase::class);
+    },
 ];
