@@ -19,8 +19,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/ZapTechAdmin/zaptech-cookie-consent/issues",
-        "source": "https://github.com/ZapTechAdmin/zaptech-cookie-consent"
+        "issues": "https://github.com/reflar/cookie-consent/issues",
+        "source": "https://github.com/reflar/cookie-consent"
     },
     "require": {
         "flarum/core": "^0.1.0-beta.7"
@@ -36,7 +36,7 @@
         }
     },
     "flagrow": {
-        "discuss": "https://discuss.flarum.org/d/10395-zaptech-cookie-consent"
+        "discuss": "https://discuss.flarum.org/d/10395-cookie-consent"
     },
     "autoload": {
         "psr-4": {
