@@ -33,7 +33,7 @@ class LoadSettingsFromDatabase
 
     /**
      * LoadSettingsFromDatabase constructor.
-     * 
+     *
      * @param SettingsRepositoryInterface $settings
      */
     public function __construct(SettingsRepositoryInterface $settings)
