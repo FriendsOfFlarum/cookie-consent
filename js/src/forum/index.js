@@ -1,6 +1,7 @@
 import app from 'flarum/app';
 import { extend } from 'flarum/extend';
 import Page from 'flarum/components/Page';
+import cookieconsent from './components/cookieconsent';
 
 app.initializers.add('zaptech-cookie-consent', () => {
     extend(Page.prototype, 'init', function () {
@@ -12,7 +13,7 @@ app.initializers.add('zaptech-cookie-consent', () => {
         let learnMoreLinkText = app.forum.attribute("cookie-consent.learnMoreLinkText");
         let learnMoreLinkUrl = app.forum.attribute("cookie-consent.learnMoreLinkUrl");
 
-        $('head').prepend('<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>' +
+        $('head').prepend(cookieconsent +
             '<script>window.addEventListener("load", function(){window.cookieconsent.initialise({"palette":{"popup":{"background": "' + backgroundColor + '"}, "button":{"background": "' + buttonBackgroundColor + '"}}, "theme": "' + ccTheme + '", "content":{"message": "' + consentText + '", "dismiss": "' + buttonText + '", "link": "' + learnMoreLinkText + '", "href": "' + learnMoreLinkUrl + '"}})});</script>');
     });
 });
