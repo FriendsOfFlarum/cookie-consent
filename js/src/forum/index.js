@@ -12,8 +12,6 @@ app.initializers.add('zaptech-cookie-consent', () => {
         let buttonBackgroundColor = app.forum.attribute("cookie-consent.buttonBackgroundColor");
         let learnMoreLinkText = app.forum.attribute("cookie-consent.learnMoreLinkText");
         let learnMoreLinkUrl = app.forum.attribute("cookie-consent.learnMoreLinkUrl");
-
-        $('head').prepend(cookieconsent +
-            '<script>window.addEventListener("load", function(){window.cookieconsent.initialise({"palette":{"popup":{"background": "' + backgroundColor + '"}, "button":{"background": "' + buttonBackgroundColor + '"}}, "theme": "' + ccTheme + '", "content":{"message": "' + consentText + '", "dismiss": "' + buttonText + '", "link": "' + learnMoreLinkText + '", "href": "' + learnMoreLinkUrl + '"}})});</script>');
+        cookieconsent.initialise({ "palette": { "popup": { "background": "' + backgroundColor + '" }, "button": { "background": "' + buttonBackgroundColor + '" } }, "theme": "' + ccTheme + '", "content": { "message": "' + consentText + '", "dismiss": "' + buttonText + '", "link": "' + learnMoreLinkText + '", "href": "' + learnMoreLinkUrl + '" } })
     });
 });
