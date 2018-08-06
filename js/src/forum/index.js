@@ -1,7 +1,7 @@
 import app from 'flarum/app';
 import { extend } from 'flarum/extend';
 import Page from 'flarum/components/Page';
-import cookieconsent from './components/cookieconsent';
+import 'cookieconsent';
 
 app.initializers.add('zaptech-cookie-consent', () => {
     extend(Page.prototype, 'init', function () {
