@@ -1,5 +1,5 @@
 {
-    "name": "zaptech/cookie-consent",
+    "name": "reflar/cookie-consent",
     "description": "Customizable cookie consent notice for your Flarum installation",
     "keywords": [
         "extension",
@@ -27,11 +27,11 @@
     },
     "extra": {
         "flarum-extension": {
-            "title": "Cookie Consent",
+            "title": "ReFlar Cookie Consent",
             "icon": {
-                "name": "exclamation-circle",
-                "backgroundColor": "#ff5733",
-                "color": "#f3bc00"
+                "name": "fas fa-exclamation-circle",
+                "backgroundColor": "#263238",
+                "color": "#FFF"
             }
         }
     },
@@ -40,7 +40,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ReFlar\\CConsent\\": "src/"
+            "ReFlar\\CookieConsent\\": "src/"
         }
     }
 }

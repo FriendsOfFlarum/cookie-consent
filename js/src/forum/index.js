@@ -1,17 +1,44 @@
 import app from 'flarum/app';
 import { extend } from 'flarum/extend';
-import Page from 'flarum/components/Page';
 import 'cookieconsent';
 
-app.initializers.add('zaptech-cookie-consent', () => {
-    extend(Page.prototype, 'init', function () {
-        let ccTheme = app.forum.attribute("cookie-consent.ccTheme");
-        let backgroundColor = app.forum.attribute("cookie-consent.backgroundColor");
-        let consentText = app.forum.attribute("cookie-consent.consentText");
-        let buttonText = app.forum.attribute("cookie-consent.buttonText");
-        let buttonBackgroundColor = app.forum.attribute("cookie-consent.buttonBackgroundColor");
-        let learnMoreLinkText = app.forum.attribute("cookie-consent.learnMoreLinkText");
-        let learnMoreLinkUrl = app.forum.attribute("cookie-consent.learnMoreLinkUrl");
-        cookieconsent.initialise({ "palette": { "popup": { "background": "' + backgroundColor + '" }, "button": { "background": "' + buttonBackgroundColor + '" } }, "theme": "' + ccTheme + '", "content": { "message": "' + consentText + '", "dismiss": "' + buttonText + '", "link": "' + learnMoreLinkText + '", "href": "' + learnMoreLinkUrl + '" } })
+app.initializers.add('reflar-cookie-consent', () => {
+    $(document).ready(() => {
+        const ccTheme = app.forum.attribute('reflar-cookie-consent.ccTheme');
+        const backgroundColor = app.forum.attribute('reflar-cookie-consent.backgroundColor');
+        const consentText = app.forum.attribute('reflar-cookie-consent.consentText');
+        const buttonText = app.forum.attribute('reflar-cookie-consent.buttonText');
+        const buttonBackgroundColor = app.forum.attribute('reflar-cookie-consent.buttonBackgroundColor');
+        const learnMoreLinkText = app.forum.attribute('reflar-cookie-consent.learnMoreLinkText');
+        const learnMoreLinkUrl = app.forum.attribute('reflar-cookie-consent.learnMoreLinkUrl');
+
+        try {
+            cookieconsent.initialise({
+                palette: {
+                    popup: backgroundColor && {
+                        background: backgroundColor,
+                    },
+                    button: buttonBackgroundColor && {
+                        background: buttonBackgroundColor,
+                    },
+                },
+                theme: ccTheme,
+                content: {
+                    message: consentText,
+                    dismiss: buttonText,
+                    link: learnMoreLinkText,
+                    href: learnMoreLinkUrl,
+                },
+            });
+        } catch (err) {
+            if (app.forum.attribute('adminUrl')) {
+                console.error('An error occurred initializing the Cookie Consent library. Please make sure you have set all the settings properly.');
+                console.error("Please report the following error if you don't think the issue is on your end\n\n", err);
+            } else {
+                console.error('An error occurred with the cookie consent prompt. Please contact an administrator so they can fix the issue.');
+            }
+        }
+
+        delete window.cookieconsent;
     });
 });

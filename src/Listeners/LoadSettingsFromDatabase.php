@@ -1,6 +1,6 @@
 <?php
 
-namespace ReFlar\CConsent\Listeners;
+namespace ReFlar\CookieConsent\Listeners;
 
 use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\ForumSerializer;
@@ -12,18 +12,18 @@ class LoadSettingsFromDatabase
     /**
      * @var string
      */
-    protected $packagePrefix = 'cookie-consent.';
+    protected $packagePrefix = 'reflar-cookie-consent.';
     /**
      * @var array
      */
     protected $fieldsToGet = [
-    'consentText',
-    'buttonText',
-    'learnMoreLinkText',
-    'learnMoreLinkUrl',
-    'backgroundColor',
-    'buttonBackgroundColor',
-    'ccTheme',
+        'consentText',
+        'buttonText',
+        'learnMoreLinkText',
+        'learnMoreLinkUrl',
+        'backgroundColor',
+        'buttonBackgroundColor',
+        'ccTheme',
     ];
 
     /**
@@ -56,7 +56,11 @@ class LoadSettingsFromDatabase
     {
         if ($event->isSerializer(ForumSerializer::class)) {
             foreach ($this->fieldsToGet as $field) {
-                $event->attributes[$this->packagePrefix.$field] = $this->settings->get($this->packagePrefix.$field);
+                $value = $this->settings->get($this->packagePrefix.$field);
+
+                if (isset($value) && !empty($value)) {
+                    $event->attributes[$this->packagePrefix.$field] = $this->settings->get($this->packagePrefix.$field);
+                }
             }
         }
     }

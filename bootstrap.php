@@ -11,7 +11,7 @@
  *  file that was distributed with this source code.
  */
 
-namespace ReFlar\CConsent;
+namespace ReFlar\CookieConsent;
 
 use Flarum\Extend;
 use Illuminate\Contracts\Events\Dispatcher;
