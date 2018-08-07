@@ -29,7 +29,7 @@
         "flarum-extension": {
             "title": "ReFlar Cookie Consent",
             "icon": {
-                "name": "fas fa-exclamation-circle",
+                "name": "fas fa-cookie",
                 "backgroundColor": "#263238",
                 "color": "#FFF"
             }
