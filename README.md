@@ -1,6 +1,6 @@
-# Cookie Consent by PartialDev
+# Cookie Consent by Reflar
 
-[![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/partialdev/mason/blob/master/LICENSE.md) [![Latest Stable Version](https://img.shields.io/packagist/v/zaptech/cookie-consent.svg)](https://packagist.org/packages/zaptech/cookie-consent) [![Total Downloads](https://img.shields.io/packagist/dt/zaptech/cookie-consent.svg)](https://packagist.org/packages/zaptech/cookie-consent)
+[![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ReFlar/cookie-consent/blob/master/LICENSE.md) [![Latest Stable Version](https://img.shields.io/packagist/v/zaptech/cookie-consent.svg)](https://packagist.org/packages/zaptech/cookie-consent) [![Total Downloads](https://img.shields.io/packagist/dt/zaptech/cookie-consent.svg)](https://packagist.org/packages/zaptech/cookie-consent)
 
 This extension adds a customizable Cookie Consent pop-up to your Flarum installation. 
 Are you from a country where Cookie Consent laws are in place? Have no fear! We've got you covered!
@@ -54,9 +54,6 @@ and want to see those settings live as you edit them.
 
 ## Links
 
-- [Flarum Discuss post](https://discuss.flarum.org/d/10395-cookie-consent-by-partialdev)
-- [Source code on GitHub](https://github.com/PartialDev/partialdev-cookie-consent)
-- [Report an issue](https://github.com/partialdev/zaptech-cookie-consent/issues)
+- [Source code on GitHub](https://github.com/ReFlar/cookie-consent)
+- [Report an issue](https://github.com/ReFlar/cookie-consent/issues)
 - [Download via Packagist](https://packagist.org/packages/zaptech/cookie-consent)
-
-An extension by [PartialDev](https://partialdev.com).
