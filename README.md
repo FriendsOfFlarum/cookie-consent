@@ -1,6 +1,6 @@
 # Cookie Consent by Reflar
 
-[![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ReFlar/cookie-consent/blob/master/LICENSE.md) [![Latest Stable Version](https://img.shields.io/packagist/v/zaptech/cookie-consent.svg)](https://packagist.org/packages/zaptech/cookie-consent) [![Total Downloads](https://img.shields.io/packagist/dt/zaptech/cookie-consent.svg)](https://packagist.org/packages/zaptech/cookie-consent)
+[![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ReFlar/cookie-consent/blob/master/LICENSE.md) [![Latest Stable Version](https://img.shields.io/packagist/v/zaptech/cookie-consent.svg)](https://packagist.org/packages/ReFlar/cookie-consent) [![Total Downloads](https://img.shields.io/packagist/dt/zaptech/cookie-consent.svg)](https://packagist.org/packages/ReFlar/cookie-consent)
 
 This extension adds a customizable Cookie Consent pop-up to your Flarum installation. 
 Are you from a country where Cookie Consent laws are in place? Have no fear! We've got you covered!
@@ -10,13 +10,13 @@ Are you from a country where Cookie Consent laws are in place? Have no fear! We'
 Use [Bazaar](https://discuss.flarum.org/d/5151-flagrow-bazaar-the-extension-marketplace) or install manually:
 
 ```bash
-composer require zaptech/cookie-consent
+composer require reflar/cookie-consent
 ```
 
 ## Updating
 
 ```bash
-composer update zaptech/cookie-consent
+composer update reflar/cookie-consent
 php flarum cache:clear
 ```
 
@@ -56,4 +56,4 @@ and want to see those settings live as you edit them.
 
 - [Source code on GitHub](https://github.com/ReFlar/cookie-consent)
 - [Report an issue](https://github.com/ReFlar/cookie-consent/issues)
-- [Download via Packagist](https://packagist.org/packages/zaptech/cookie-consent)
+- [Download via Packagist](https://packagist.org/packages/ReFlar/cookie-consent)
