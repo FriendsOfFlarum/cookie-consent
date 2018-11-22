@@ -1,0 +1,18 @@
+{
+  "name": "@reflar/cookie-consent",
+  "version": "0.0.0",
+  "dependencies": {
+    "cookieconsent": "^3.1.0",
+    "flarum-webpack-config": "0.1.0-beta.10",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "watch": "webpack --mode development --watch",
+    "lint": "prettier --single-quote --trailing-comma es5 --print-width 150 --tab-width 4 --write src/**/* src/**/**/*"
+  },
+  "devDependencies": {
+    "prettier": "^1.15.2"
+  }
+}

@@ -1,30 +1,29 @@
-<?php 
+<?php
 
-namespace ZapTech\CConsent\Listeners;
+namespace ReFlar\CookieConsent\Listeners;
 
+use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\ForumSerializer;
-use Flarum\Event\PrepareApiAttributes;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class LoadSettingsFromDatabase
 {
-
     /**
      * @var string
      */
-    protected $packagePrefix = 'cookie-consent.';
+    protected $packagePrefix = 'reflar-cookie-consent.';
     /**
      * @var array
      */
     protected $fieldsToGet = [
-    'consentText',
-    'buttonText',
-    'learnMoreLinkText',
-    'learnMoreLinkUrl',
-    'backgroundColor',
-    'buttonBackgroundColor',
-    'ccTheme'
+        'consentText',
+        'buttonText',
+        'learnMoreLinkText',
+        'learnMoreLinkUrl',
+        'backgroundColor',
+        'buttonBackgroundColor',
+        'ccTheme',
     ];
 
     /**
@@ -34,26 +33,34 @@ class LoadSettingsFromDatabase
 
     /**
      * LoadSettingsFromDatabase constructor.
+     *
      * @param SettingsRepositoryInterface $settings
      */
-    public function __construct(SettingsRepositoryInterface $settings) {
+    public function __construct(SettingsRepositoryInterface $settings)
+    {
         $this->settings = $settings;
     }
 
     /**
      * @param Dispatcher $events
      */
-    public function subscribe(Dispatcher $events) {
-        $events->listen(PrepareApiAttributes::class, [$this, 'prepareApiAttributes']);
+    public function subscribe(Dispatcher $events)
+    {
+        $events->listen(Serializing::class, [$this, 'prepareApiAttributes']);
     }
 
     /**
-     * @param PrepareApiAttributes $event
+     * @param Serializing $event
      */
-    public function prepareApiAttributes(PrepareApiAttributes $event) {
+    public function prepareApiAttributes(Serializing $event)
+    {
         if ($event->isSerializer(ForumSerializer::class)) {
             foreach ($this->fieldsToGet as $field) {
-              $event->attributes[$this->packagePrefix . $field] = $this->settings->get($this->packagePrefix . $field);
+                $value = $this->settings->get($this->packagePrefix.$field);
+
+                if (isset($value) && !empty($value)) {
+                    $event->attributes[$this->packagePrefix.$field] = $this->settings->get($this->packagePrefix.$field);
+                }
             }
         }
     }

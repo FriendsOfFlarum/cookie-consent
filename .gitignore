@@ -59,3 +59,4 @@ typings/
 
 # IDE/editor related files/folders
 .idea
+.vs/slnx.sqlite
