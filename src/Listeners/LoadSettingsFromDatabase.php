@@ -22,7 +22,9 @@ class LoadSettingsFromDatabase
         'learnMoreLinkText',
         'learnMoreLinkUrl',
         'backgroundColor',
+        'textColor',
         'buttonBackgroundColor',
+        'buttonTextColor',
         'ccTheme',
     ];
 

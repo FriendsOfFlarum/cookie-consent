@@ -1,26 +1,32 @@
 import app from 'flarum/app';
-import { extend } from 'flarum/extend';
 import 'cookieconsent';
 
 app.initializers.add('reflar-cookie-consent', () => {
     $(document).ready(() => {
         const ccTheme = app.forum.attribute('reflar-cookie-consent.ccTheme');
         const backgroundColor = app.forum.attribute('reflar-cookie-consent.backgroundColor');
+        const textColor = app.forum.attribute('reflar-cookie-consent.textColor');
         const consentText = app.forum.attribute('reflar-cookie-consent.consentText');
         const buttonText = app.forum.attribute('reflar-cookie-consent.buttonText');
         const buttonBackgroundColor = app.forum.attribute('reflar-cookie-consent.buttonBackgroundColor');
+        const buttonTextColor = app.forum.attribute('reflar-cookie-consent.buttonTextColor');
         const learnMoreLinkText = app.forum.attribute('reflar-cookie-consent.learnMoreLinkText');
         const learnMoreLinkUrl = app.forum.attribute('reflar-cookie-consent.learnMoreLinkUrl');
 
+        const popup = {};
+        const button = {};
+
+        if (backgroundColor) popup.background = backgroundColor;
+        if (textColor) popup.text = textColor;
+
+        if (buttonBackgroundColor) button.background = buttonBackgroundColor;
+        if (buttonTextColor) button.text = buttonTextColor;
+
         try {
-            cookieconsent.initialise({
+            const settings = {
                 palette: {
-                    popup: backgroundColor && {
-                        background: backgroundColor,
-                    },
-                    button: buttonBackgroundColor && {
-                        background: buttonBackgroundColor,
-                    },
+                    popup,
+                    button,
                 },
                 theme: ccTheme,
                 content: {
@@ -29,7 +35,9 @@ app.initializers.add('reflar-cookie-consent', () => {
                     link: learnMoreLinkText,
                     href: learnMoreLinkUrl,
                 },
-            });
+            };
+
+            cookieconsent.initialise(settings);
         } catch (err) {
             if (app.forum.attribute('adminUrl')) {
                 console.error('An error occurred initializing the Cookie Consent library. Please make sure you have set all the settings properly.');
