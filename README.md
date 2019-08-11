@@ -52,6 +52,8 @@ for more information about managing cookies). Once removed, refresh your forum i
 and it shall appear once more. Repeat the process anytime you wish to change any of the setting 
 and want to see those settings live as you edit them.
 
+Or you can just enter your forum in Incognito Mode (if supported).
+
 ## Links
 
 - [Source code on GitHub](https://github.com/ReFlar/cookie-consent)
