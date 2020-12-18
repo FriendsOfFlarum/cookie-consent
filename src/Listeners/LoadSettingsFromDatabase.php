@@ -11,7 +11,6 @@
 
 namespace FoF\CookieConsent\Listeners;
 
-use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Settings\SettingsRepositoryInterface;
 
@@ -51,19 +50,18 @@ class LoadSettingsFromDatabase
         $this->settings = $settings;
     }
 
-    /**
-     * @param Serializing $event
-     */
-    public function handle(Serializing $event)
+    public function __invoke(ForumSerializer $serializer): array
     {
-        if ($event->isSerializer(ForumSerializer::class)) {
-            foreach ($this->fieldsToGet as $field) {
-                $value = $this->settings->get($this->packagePrefix.$field);
+        $attributes = [];
 
-                if (isset($value) && !empty($value)) {
-                    $event->attributes[$this->packagePrefix.$field] = $this->settings->get($this->packagePrefix.$field);
-                }
+        foreach ($this->fieldsToGet as $field) {
+            $value = $this->settings->get($this->packagePrefix.$field);
+
+            if (isset($value) && !empty($value)) {
+                $attributes[$this->packagePrefix.$field] = $this->settings->get($this->packagePrefix.$field);
             }
         }
+
+        return $attributes;
     }
 }

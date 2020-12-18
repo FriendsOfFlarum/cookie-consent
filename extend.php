@@ -11,14 +11,12 @@
 
 namespace FoF\CookieConsent;
 
-use Flarum\Api\Event\Serializing;
+use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Extend;
-use Flarum\Foundation\Application;
 use Flarum\Frontend\Assets;
 use Flarum\Frontend\Compiler\Source\SourceCollector;
 use FoF\Components\Extend\AddFofComponents;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Events\Dispatcher;
 
 return [
     (new AddFofComponents()),
@@ -32,9 +30,6 @@ return [
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 
-    (new Extend\Event())
-        ->listen(Serializing::class, Listeners\LoadSettingsFromDatabase::class),
-
     function (Container $app) {
         $app->resolving('flarum.assets.forum', function (Assets $assets) use ($app) {
             if ($app['flarum.settings']->get('reflar-cookie-consent.ccTheme') != 'no_css') {
@@ -43,6 +38,8 @@ return [
                 });
             }
         });
-
     },
+
+    (new Extend\ApiSerializer(ForumSerializer::class))
+        ->mutate(Listeners\LoadSettingsFromDatabase::class),
 ];
