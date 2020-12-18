@@ -1,11 +1,9 @@
 <?php
 
 /**
- *  This file is part of reflar/cookie-consent.
+ *  This file is part of fof/cookie-consent.
  *
- *  Copyright (c) ReFlar.
- *
- *  http://reflar.io
+ *  Copyright (c) FriendsOfFlarum.
  *
  *  For the full copyright and license information, please view the license.md
  *  file that was distributed with this source code.
