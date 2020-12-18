@@ -1,17 +1,17 @@
 import app from 'flarum/app';
 import 'cookieconsent';
 
-app.initializers.add('reflar-cookie-consent', () => {
+app.initializers.add('fof-cookie-consent', () => {
     $(document).ready(() => {
-        const ccTheme = app.forum.attribute('reflar-cookie-consent.ccTheme');
-        const backgroundColor = app.forum.attribute('reflar-cookie-consent.backgroundColor');
-        const textColor = app.forum.attribute('reflar-cookie-consent.textColor');
-        const consentText = app.forum.attribute('reflar-cookie-consent.consentText');
-        const buttonText = app.forum.attribute('reflar-cookie-consent.buttonText');
-        const buttonBackgroundColor = app.forum.attribute('reflar-cookie-consent.buttonBackgroundColor');
-        const buttonTextColor = app.forum.attribute('reflar-cookie-consent.buttonTextColor');
-        const learnMoreLinkText = app.forum.attribute('reflar-cookie-consent.learnMoreLinkText');
-        const learnMoreLinkUrl = app.forum.attribute('reflar-cookie-consent.learnMoreLinkUrl');
+        const ccTheme = app.forum.attribute('fof-cookie-consent.ccTheme');
+        const backgroundColor = app.forum.attribute('fof-cookie-consent.backgroundColor');
+        const textColor = app.forum.attribute('fof-cookie-consent.textColor');
+        const consentText = app.forum.attribute('fof-cookie-consent.consentText');
+        const buttonText = app.forum.attribute('fof-cookie-consent.buttonText');
+        const buttonBackgroundColor = app.forum.attribute('fof-cookie-consent.buttonBackgroundColor');
+        const buttonTextColor = app.forum.attribute('fof-cookie-consent.buttonTextColor');
+        const learnMoreLinkText = app.forum.attribute('fof-cookie-consent.learnMoreLinkText');
+        const learnMoreLinkUrl = app.forum.attribute('fof-cookie-consent.learnMoreLinkUrl');
 
         const popup = {};
         const button = {};

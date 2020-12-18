@@ -1,22 +1,20 @@
-# Cookie Consent by Reflar
+# Cookie Consent by FriendsOfFlarum
 
-[![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ReFlar/cookie-consent/blob/master/LICENSE.md) [![Latest Stable Version](https://img.shields.io/packagist/v/zaptech/cookie-consent.svg)](https://packagist.org/packages/ReFlar/cookie-consent) [![Total Downloads](https://img.shields.io/packagist/dt/zaptech/cookie-consent.svg)](https://packagist.org/packages/ReFlar/cookie-consent)
+[![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/friendsofflarum/cookie-consent/blob/master/LICENSE.md) [![Latest Stable Version](https://img.shields.io/packagist/v/fof/cookie-consent.svg)](https://packagist.org/packages/fof/cookie-consent) [![Total Downloads](https://img.shields.io/packagist/dt/fof/cookie-consent.svg)](https://packagist.org/packages/fof/cookie-consent) [![OpenCollective](https://img.shields.io/badge/opencollective-fof-blue.svg)](https://opencollective.com/fof/donate)
 
 This extension adds a customizable Cookie Consent pop-up to your Flarum installation. 
 Are you from a country where Cookie Consent laws are in place? Have no fear! We've got you covered!
 
 ## Installation
 
-Use [Bazaar](https://discuss.flarum.org/d/5151-flagrow-bazaar-the-extension-marketplace) or install manually:
-
 ```bash
-composer require reflar/cookie-consent
+composer require fof/cookie-consent
 ```
 
 ## Updating
 
 ```bash
-composer update reflar/cookie-consent
+composer update fof/cookie-consent
 php flarum cache:clear
 ```
 
@@ -56,6 +54,6 @@ Or you can just enter your forum in Incognito Mode (if supported).
 
 ## Links
 
-- [Source code on GitHub](https://github.com/ReFlar/cookie-consent)
-- [Report an issue](https://github.com/ReFlar/cookie-consent/issues)
-- [Download via Packagist](https://packagist.org/packages/ReFlar/cookie-consent)
+- [Source code on GitHub](https://github.com/friendsofflarum/cookie-consent)
+- [Report an issue](https://github.com/friendsofflarum/cookie-consent/issues)
+- [Download via Packagist](https://packagist.org/packages/fof/cookie-consent)

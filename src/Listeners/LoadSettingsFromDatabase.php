@@ -1,18 +1,17 @@
 <?php
 
-namespace ReFlar\CookieConsent\Listeners;
+namespace FoF\CookieConsent\Listeners;
 
 use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Settings\SettingsRepositoryInterface;
-use Illuminate\Contracts\Events\Dispatcher;
 
 class LoadSettingsFromDatabase
 {
     /**
      * @var string
      */
-    protected $packagePrefix = 'reflar-cookie-consent.';
+    protected $packagePrefix = 'fof-cookie-consent.';
     /**
      * @var array
      */
@@ -44,17 +43,9 @@ class LoadSettingsFromDatabase
     }
 
     /**
-     * @param Dispatcher $events
-     */
-    public function subscribe(Dispatcher $events)
-    {
-        $events->listen(Serializing::class, [$this, 'prepareApiAttributes']);
-    }
-
-    /**
      * @param Serializing $event
      */
-    public function prepareApiAttributes(Serializing $event)
+    public function handle(Serializing $event)
     {
         if ($event->isSerializer(ForumSerializer::class)) {
             foreach ($this->fieldsToGet as $field) {
