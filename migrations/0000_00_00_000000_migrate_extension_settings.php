@@ -1,12 +1,12 @@
 <?php
 
-/**
- *  This file is part of fof/cookie-consent.
+/*
+ * This file is part of fof/cookie-consent.
  *
- *  Copyright (c) FriendsOfFlarum.
+ * Copyright (c) 2019 - 2021 FriendsOfFlarum.
  *
- *  For the full copyright and license information, please view the license.md
- *  file that was distributed with this source code.
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  */
 
 use Illuminate\Database\Schema\Builder;
@@ -27,7 +27,7 @@ return [
             'consentText',
             'learnMoreLinkText',
             'learnMoreLinkUrl',
-            'textColor'];
+            'textColor', ];
 
         foreach ($keys as $key) {
             if ($value = $settings->get($full = "reflar-cookie-consent.$key")) {
@@ -38,5 +38,5 @@ return [
     },
     'down' => function (Builder $schema) {
         // Do nothing
-    }
+    },
 ];
