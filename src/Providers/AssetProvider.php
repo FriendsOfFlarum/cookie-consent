@@ -11,9 +11,7 @@
 
 namespace FoF\CookieConsent\Providers;
 
-use Flarum\Formatter\Formatter;
 use Flarum\Foundation\AbstractServiceProvider;
-use Flarum\Foundation\Paths;
 use Flarum\Frontend\Assets;
 use Flarum\Frontend\Compiler\Source\SourceCollector;
 
@@ -24,7 +22,7 @@ class AssetProvider extends AbstractServiceProvider
         $this->container->resolving('flarum.assets.forum', function (Assets $assets) {
             if (resolve('flarum.settings')->get('reflar-cookie-consent.ccTheme') != 'no_css') {
                 $assets->css(function (SourceCollector $sources) {
-                    $sources->addFile(__DIR__.'/resources/less/forum.less');
+                    $sources->addFile(__DIR__.'/../../resources/less/forum.less');
                 });
             }
         });
