@@ -21,7 +21,7 @@ class AssetProvider extends AbstractServiceProvider
     public function boot()
     {
         $this->container->resolving('flarum.assets.forum', function (Assets $assets) {
-            if (resolve['flarum.settings']->get('reflar-cookie-consent.ccTheme') != 'no_css') {
+            if (resolve('flarum.settings')->get('reflar-cookie-consent.ccTheme') != 'no_css') {
                 $assets->css(function (SourceCollector $sources) {
                     $sources->addFile(__DIR__.'/resources/less/forum.less');
                 });
