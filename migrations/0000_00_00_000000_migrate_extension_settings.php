@@ -19,21 +19,19 @@ return [
         $settings = resolve('flarum.settings');
 
         $keys = [
-            'backgroundColor',
-            'buttonBackgroundColor',
-            'buttonText',
-            'buttonTextColor',
-            'ccTheme',
-            'consentText',
-            'learnMoreLinkText',
-            'learnMoreLinkUrl',
-            'textColor', ];
+            'backgroundColor' => '#2b2b2b',
+            'buttonBackgroundColor' => '#178e99',
+            'buttonText' => 'I Accept',
+            'buttonTextColor' => '#ffffff',
+            'ccTheme' => '#2b2b2b',
+            'consentText' => '#ffffff',
+            'learnMoreLinkText' => 'Learn More',
+            'learnMoreLinkUrl' => 'https://learn.more/',
+            'textColor' => '#ffffff', 
+        ];
 
-        foreach ($keys as $key) {
-            if ($value = $settings->get($full = "reflar-cookie-consent.$key")) {
-                $settings->set("fof-cookie-consent.$key", $value);
-                $settings->delete($full);
-            }
+        foreach ($keys as $key => $value) {
+            $settings->set("fof-cookie-consent.$key", $value);
         }
     },
     'down' => function (Builder $schema) {
