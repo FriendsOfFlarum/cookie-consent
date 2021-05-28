@@ -1,4 +1,4 @@
-import app from 'flarum/common/app';
+import app from 'flarum/forum/app';
 import 'cookieconsent';
 
 app.initializers.add('fof-cookie-consent', () => {
