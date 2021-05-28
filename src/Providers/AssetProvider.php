@@ -15,6 +15,7 @@ use Flarum\Formatter\Formatter;
 use Flarum\Foundation\AbstractServiceProvider;
 use Flarum\Foundation\Paths;
 use Flarum\Frontend\Assets;
+use Flarum\Frontend\Compiler\Source\SourceCollector;
 
 class AssetProvider extends AbstractServiceProvider
 {
