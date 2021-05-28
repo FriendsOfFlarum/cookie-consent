@@ -30,15 +30,8 @@ return [
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 
-    function (Container $container) {
-        $container->resolving('flarum.assets.forum', function (Assets $assets) use ($container) {
-            if ($container['flarum.settings']->get('reflar-cookie-consent.ccTheme') != 'no_css') {
-                $assets->css(function (SourceCollector $sources) {
-                    $sources->addFile(__DIR__.'/resources/less/forum.less');
-                });
-            }
-        });
-    },
+    (new Extend\ServiceProvider())
+        ->register(Providers\AssetProvider::class),
 
     (new Extend\ApiSerializer(ForumSerializer::class))
         ->attributes(Listeners\LoadSettingsFromDatabase::class),
