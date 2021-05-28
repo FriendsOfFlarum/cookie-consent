@@ -31,7 +31,7 @@ return [
     new Extend\Locales(__DIR__.'/resources/locale'),
 
     (new Extend\ServiceProvider())
-        ->register(Providers\AssetProvider::class)
+        ->register(Providers\AssetProvider::class),
 
     (new Extend\ApiSerializer(ForumSerializer::class))
         ->attributes(Listeners\LoadSettingsFromDatabase::class),
