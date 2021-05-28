@@ -16,7 +16,7 @@ use Flarum\Foundation\AbstractServiceProvider;
 use Flarum\Foundation\Paths;
 use Flarum\Frontend\Assets;
 
-class PageServiceProvider extends AbstractServiceProvider
+class AssetProvider extends AbstractServiceProvider
 {
     public function boot()
     {
