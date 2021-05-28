@@ -24,7 +24,7 @@ return [
             'buttonText' => 'I Accept',
             'buttonTextColor' => '#ffffff',
             'ccTheme' => '#2b2b2b',
-            'consentText' => '#ffffff',
+            'consentText' => 'Change this text in your Flarum Admin Panel!', 
             'learnMoreLinkText' => 'Learn More',
             'learnMoreLinkUrl' => 'https://learn.more/',
             'textColor' => '#ffffff', 
