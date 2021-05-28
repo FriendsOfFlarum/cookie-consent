@@ -19,15 +19,15 @@ return [
         $settings = resolve('flarum.settings');
 
         $keys = [
-            'backgroundColor' => '#2b2b2b',
+            'backgroundColor'       => '#2b2b2b',
             'buttonBackgroundColor' => '#178e99',
-            'buttonText' => 'I Accept',
-            'buttonTextColor' => '#ffffff',
-            'ccTheme' => '#2b2b2b',
-            'consentText' => 'Change this text in your Flarum Admin Panel!', 
-            'learnMoreLinkText' => 'Learn More',
-            'learnMoreLinkUrl' => 'https://learn.more/',
-            'textColor' => '#ffffff', 
+            'buttonText'            => 'I Accept',
+            'buttonTextColor'       => '#ffffff',
+            'ccTheme'               => '#2b2b2b',
+            'consentText'           => 'Change this text in your Flarum Admin Panel!',
+            'learnMoreLinkText'     => 'Learn More',
+            'learnMoreLinkUrl'      => 'https://learn.more/',
+            'textColor'             => '#ffffff',
         ];
 
         foreach ($keys as $key => $value) {

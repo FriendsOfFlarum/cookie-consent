@@ -13,10 +13,7 @@ namespace FoF\CookieConsent;
 
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Extend;
-use Flarum\Frontend\Assets;
-use Flarum\Frontend\Compiler\Source\SourceCollector;
 use FoF\Components\Extend\AddFofComponents;
-use Illuminate\Contracts\Container\Container;
 
 return [
     (new AddFofComponents()),
