@@ -1,0 +1,25 @@
+fof-cookie-consent:
+  admin:
+    settings:
+      configuration_title: Opcions de configuracion
+      consentText: Contengut del messatge
+      buttonText: Tèxt del boton de refús
+      configuration_button_title: Boton Ne saber mai
+      learnMoreLinkText: Tèxt
+      learnMoreLinkUrl: Ligam
+
+      theme_title: Opcion de tèma
+      ccTheme: Tèma
+      theme_popup_title: Colors fenèstra sorgissenta
+      backgroundColor: Rèireplan
+      textColor: Tèxt
+      theme_dismiss_title: Colors boton ignorar
+      buttonBackgroundColor: Rèireplan
+      buttonTextColor: Tèxt
+
+      themes:
+        blocky: Blocky
+        edgeless: Edgeless
+        classic: Classic
+        custom: Personalizat
+        no_css: Cap de CSS
