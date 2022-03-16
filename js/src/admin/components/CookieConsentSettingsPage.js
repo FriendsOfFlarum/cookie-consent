@@ -2,7 +2,7 @@ import app from 'flarum/admin/app';
 import ExtensionPage from 'flarum/admin/components/ExtensionPage';
 import ItemList from 'flarum/common/utils/ItemList';
 
-export default class CookieConsentSettingsModal extends ExtensionPage {
+export default class CookieConsentSettingsPage extends ExtensionPage {
   oninit(vnode) {
     super.oninit(vnode);
 
@@ -121,7 +121,7 @@ export default class CookieConsentSettingsModal extends ExtensionPage {
     items.add(
       'background',
       this.buildSettingComponent({
-        type: 'string',
+        type: 'color-preview',
         setting: 'fof-cookie-consent.backgroundColor',
         label: app.translator.trans('fof-cookie-consent.admin.settings.backgroundColor'),
       }),
@@ -130,7 +130,7 @@ export default class CookieConsentSettingsModal extends ExtensionPage {
     items.add(
       'text',
       this.buildSettingComponent({
-        type: 'string',
+        type: 'color-preview',
         setting: 'fof-cookie-consent.textColor',
         label: app.translator.trans('fof-cookie-consent.admin.settings.textColor'),
       }),
@@ -146,7 +146,7 @@ export default class CookieConsentSettingsModal extends ExtensionPage {
     items.add(
       'background',
       this.buildSettingComponent({
-        type: 'string',
+        type: 'color-preview',
         setting: 'fof-cookie-consent.buttonBackgroundColor',
         label: app.translator.trans('fof-cookie-consent.admin.settings.buttonBackgroundColor'),
       }),
@@ -155,7 +155,7 @@ export default class CookieConsentSettingsModal extends ExtensionPage {
     items.add(
       'text',
       this.buildSettingComponent({
-        type: 'string',
+        type: 'color-preview',
         setting: 'fof-cookie-consent.buttonTextColor',
         label: app.translator.trans('fof-cookie-consent.admin.settings.buttonTextColor'),
       }),
