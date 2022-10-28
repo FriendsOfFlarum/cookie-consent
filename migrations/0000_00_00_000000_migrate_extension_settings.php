@@ -13,10 +13,7 @@ use Illuminate\Database\Schema\Builder;
 
 return [
     'up' => function (Builder $schema) {
-        /**
-         * @var \Flarum\Settings\SettingsRepositoryInterface
-         */
-        $settings = resolve('flarum.settings');
+        $db = $schema->getConnection();
 
         $keys = [
             'backgroundColor'       => '#2b2b2b',
@@ -31,7 +28,21 @@ return [
         ];
 
         foreach ($keys as $key => $value) {
-            $settings->set("fof-cookie-consent.$key", $value);
+            $oldKey = "reflar-cookie-consent.$key";
+            $newKey = "fof-cookie-consent.$key";
+
+            // Use the new key in the query to avoid inserting a duplicate key
+            $old = $db->table('settings')->whereIn('key', [$oldKey, $newKey]);
+
+            if ($old->exists()) {
+                $old->update(['key' => $newKey]);
+            } else {
+                $db->table('settings')
+                    ->insert([
+                        'key'   => $newKey,
+                        'value' => $value,
+                    ]);
+            }
         }
     },
     'down' => function (Builder $schema) {
