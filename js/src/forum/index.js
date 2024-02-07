@@ -16,18 +16,16 @@ app.initializers.add('fof-cookie-consent', () => {
     const popup = {};
     const button = {};
 
-    if (backgroundColor) popup.background = backgroundColor;
-    if (textColor) popup.text = textColor;
+    if (ccTheme !== 'no_css') {
+      if (backgroundColor) popup.background = backgroundColor;
+      if (textColor) popup.text = textColor;
 
-    if (buttonBackgroundColor) button.background = buttonBackgroundColor;
-    if (buttonTextColor) button.text = buttonTextColor;
+      if (buttonBackgroundColor) button.background = buttonBackgroundColor;
+      if (buttonTextColor) button.text = buttonTextColor;
+    }
 
     try {
       const settings = {
-        palette: {
-          popup,
-          button,
-        },
         theme: ccTheme,
         content: {
           message: consentText,
@@ -36,6 +34,13 @@ app.initializers.add('fof-cookie-consent', () => {
           href: learnMoreLinkUrl,
         },
       };
+
+      if (ccTheme !== 'no_css') {
+        settings.palette = {
+          popup,
+          button,
+        };
+      }
 
       cookieconsent.initialise(settings);
     } catch (err) {
