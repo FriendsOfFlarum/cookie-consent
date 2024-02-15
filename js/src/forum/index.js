@@ -3,48 +3,35 @@ import 'cookieconsent';
 
 app.initializers.add('fof-cookie-consent', () => {
   $(document).ready(() => {
-    const ccTheme = app.forum.attribute('fof-cookie-consent.ccTheme');
-    const backgroundColor = app.forum.attribute('fof-cookie-consent.backgroundColor');
-    const textColor = app.forum.attribute('fof-cookie-consent.textColor');
-    const consentText = app.forum.attribute('fof-cookie-consent.consentText');
-    const buttonText = app.forum.attribute('fof-cookie-consent.buttonText');
-    const buttonBackgroundColor = app.forum.attribute('fof-cookie-consent.buttonBackgroundColor');
-    const buttonTextColor = app.forum.attribute('fof-cookie-consent.buttonTextColor');
-    const learnMoreLinkText = app.forum.attribute('fof-cookie-consent.learnMoreLinkText');
-    const learnMoreLinkUrl = app.forum.attribute('fof-cookie-consent.learnMoreLinkUrl');
+    const getAttribute = (key) => app.forum.attribute(`fof-cookie-consent.${key}`);
 
-    const popup = {};
-    const button = {};
+    let settings = {
+      theme: getAttribute('ccTheme'),
+      content: {
+        message: getAttribute('consentText'),
+        dismiss: getAttribute('buttonText'),
+        link: getAttribute('learnMoreLinkText'),
+        href: getAttribute('learnMoreLinkUrl'),
+      },
+    };
 
-    if (backgroundColor) popup.background = backgroundColor;
-    if (textColor) popup.text = textColor;
-
-    if (buttonBackgroundColor) button.background = buttonBackgroundColor;
-    if (buttonTextColor) button.text = buttonTextColor;
-
-    try {
-      const settings = {
-        palette: {
-          popup,
-          button,
+    if (getAttribute('ccTheme') !== 'no_css') {
+      settings.palette = {
+        popup: {
+          background: getAttribute('backgroundColor') || undefined,
+          text: getAttribute('textColor') || undefined,
         },
-        theme: ccTheme,
-        content: {
-          message: consentText,
-          dismiss: buttonText,
-          link: learnMoreLinkText,
-          href: learnMoreLinkUrl,
+        button: {
+          background: getAttribute('buttonBackgroundColor') || undefined,
+          text: getAttribute('buttonTextColor') || undefined,
         },
       };
+    }
 
+    try {
       cookieconsent.initialise(settings);
     } catch (err) {
-      if (app.forum.attribute('adminUrl')) {
-        console.error('An error occurred initializing the Cookie Consent library. Please make sure you have set all the settings properly.');
-        console.error("Please report the following error if you don't think the issue is on your end\n\n", err);
-      } else {
-        console.error('An error occurred with the cookie consent prompt. Please contact an administrator so they can fix the issue.');
-      }
+      console.error('An error occurred initializing the Cookie Consent library:', err);
     }
 
     delete window.cookieconsent;
