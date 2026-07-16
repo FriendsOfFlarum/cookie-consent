@@ -16,32 +16,27 @@ return [
         $db = $schema->getConnection();
 
         $keys = [
-            'backgroundColor'       => '#2b2b2b',
-            'buttonBackgroundColor' => '#178e99',
-            'buttonText'            => 'I Accept',
-            'buttonTextColor'       => '#ffffff',
-            'ccTheme'               => '#2b2b2b',
-            'consentText'           => 'Change this text in your Flarum Admin Panel!',
-            'learnMoreLinkText'     => 'Learn More',
-            'learnMoreLinkUrl'      => 'https://learn.more/',
-            'textColor'             => '#ffffff',
+            'backgroundColor',
+            'buttonBackgroundColor',
+            'buttonText',
+            'buttonTextColor',
+            'ccTheme',
+            'consentText',
+            'learnMoreLinkText',
+            'learnMoreLinkUrl',
+            'textColor',
         ];
 
-        foreach ($keys as $key => $value) {
+        // Default values are registered through the Settings extender, so this
+        // migration only carries over settings from reflar/cookie-consent.
+        foreach ($keys as $key) {
             $oldKey = "reflar-cookie-consent.$key";
             $newKey = "fof-cookie-consent.$key";
 
-            // Use the new key in the query to avoid inserting a duplicate key
-            $old = $db->table('settings')->whereIn('key', [$oldKey, $newKey]);
-
-            if ($old->exists()) {
-                $old->update(['key' => $newKey]);
+            if ($db->table('settings')->where('key', $newKey)->exists()) {
+                $db->table('settings')->where('key', $oldKey)->delete();
             } else {
-                $db->table('settings')
-                    ->insert([
-                        'key'   => $newKey,
-                        'value' => $value,
-                    ]);
+                $db->table('settings')->where('key', $oldKey)->update(['key' => $newKey]);
             }
         }
     },

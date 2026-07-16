@@ -2,7 +2,7 @@ import app from 'flarum/forum/app';
 import 'cookieconsent';
 
 app.initializers.add('fof-cookie-consent', () => {
-  $(document).ready(() => {
+  app.beforeMount(() => {
     const getAttribute = (key) => app.forum.attribute(`fof-cookie-consent.${key}`);
 
     let settings = {
