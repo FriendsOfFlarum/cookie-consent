@@ -17,7 +17,7 @@ use Flarum\Frontend\Compiler\Source\SourceCollector;
 
 class AssetProvider extends AbstractServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->container->resolving('flarum.assets.forum', function (Assets $assets) {
             if (resolve('flarum.settings')->get('fof-cookie-consent.ccTheme') != 'no_css') {

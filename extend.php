@@ -15,18 +15,27 @@ use Flarum\Extend;
 
 return [
     (new Extend\Frontend('forum'))
-        ->js(__DIR__ . '/js/dist/forum.js'),
+        ->js(__DIR__.'/js/dist/forum.js'),
 
     (new Extend\Frontend('admin'))
-        ->js(__DIR__ . '/js/dist/admin.js')
-        ->css(__DIR__ . '/resources/less/admin.less'),
+        ->js(__DIR__.'/js/dist/admin.js')
+        ->css(__DIR__.'/resources/less/admin.less'),
 
-    new Extend\Locales(__DIR__ . '/resources/locale'),
+    new Extend\Locales(__DIR__.'/resources/locale'),
 
     (new Extend\ServiceProvider())
         ->register(Providers\AssetProvider::class),
 
     (new Extend\Settings())
+        ->default('fof-cookie-consent.consentText', 'Change this text in your Flarum Admin Panel!')
+        ->default('fof-cookie-consent.buttonText', 'I Accept')
+        ->default('fof-cookie-consent.learnMoreLinkText', 'Learn More')
+        ->default('fof-cookie-consent.learnMoreLinkUrl', 'https://learn.more/')
+        ->default('fof-cookie-consent.backgroundColor', '#2b2b2b')
+        ->default('fof-cookie-consent.textColor', '#ffffff')
+        ->default('fof-cookie-consent.buttonBackgroundColor', '#178e99')
+        ->default('fof-cookie-consent.buttonTextColor', '#ffffff')
+        ->default('fof-cookie-consent.ccTheme', 'blocky')
         ->serializeToForum('fof-cookie-consent.consentText', 'fof-cookie-consent.consentText')
         ->serializeToForum('fof-cookie-consent.buttonText', 'fof-cookie-consent.buttonText')
         ->serializeToForum('fof-cookie-consent.learnMoreLinkText', 'fof-cookie-consent.learnMoreLinkText')
