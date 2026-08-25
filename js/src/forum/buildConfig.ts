@@ -8,7 +8,7 @@ type Translator = (key: string) => string;
 const T = 'fof-cookie-consent.forum';
 
 /** A category as serialized by the backend's CategoryRegistry. */
-type SerializedCategory = {
+export type SerializedCategory = {
   enabled: boolean;
   readOnly: boolean;
   autoClear?: { cookies: { name: string }[]; reloadPage?: boolean };
@@ -117,7 +117,8 @@ function buildDescription(text: string, linkText: string, linkUrl: string): stri
 export default function buildConfig(
   get: SettingReader,
   trans: Translator,
-  serialized: Record<string, SerializedCategory> = NECESSARY
+  serialized: Record<string, SerializedCategory> = NECESSARY,
+  onConsent?: () => void
 ): CookieConsentConfig {
   const layout = get('layout') as ConsentModalLayout;
   const position = get('position') as ConsentModalPosition;
@@ -125,6 +126,10 @@ export default function buildConfig(
   return {
     // The banner is a notice, not a blocker — never trap the reader.
     disablePageInteraction: false,
+
+    // Fired on first consent and on every later change, so the catch-all
+    // sweep runs whenever the visitor's choice is recorded.
+    ...(onConsent ? { onConsent, onChange: onConsent } : {}),
 
     guiOptions: {
       consentModal: {

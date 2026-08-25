@@ -46,6 +46,14 @@ class CoreCookiesTest extends TestCase
     }
 
     #[Test]
+    public function the_locale_cookie_is_declared(): void
+    {
+        // Core reads an unprefixed `locale` cookie to pick the display
+        // language. It is necessary — losing it resets the visitor's language.
+        $this->assertContains('locale', $this->necessary());
+    }
+
+    #[Test]
     public function the_consent_cookie_itself_is_declared(): void
     {
         $this->assertContains('cc_cookie', $this->necessary());

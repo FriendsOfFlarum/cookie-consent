@@ -27,6 +27,9 @@ class CategoryRegistry
     /** The cookie vanilla-cookieconsent stores the visitor's choice in. */
     public const CONSENT_COOKIE = 'cc_cookie';
 
+    /** Core's display-language cookie, which is not prefixed. */
+    public const LOCALE_COOKIE = 'locale';
+
     /** @var array<string, Category> */
     private array $categories = [];
 
@@ -45,6 +48,11 @@ class CategoryRegistry
                 ->cookie($cookies->getName('session'))
                 ->cookie($cookies->getName('remember'));
         }
+
+        // Core reads an unprefixed `locale` cookie to choose the display
+        // language, so it is necessary — losing it resets the visitor's
+        // language on every visit.
+        $necessary->cookie(self::LOCALE_COOKIE);
 
         // The consent record itself; without it the banner cannot remember
         // that the visitor answered.

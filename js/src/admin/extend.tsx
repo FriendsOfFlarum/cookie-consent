@@ -75,6 +75,25 @@ export default [
       }),
       30
     )
+    .customSetting(() => <h2>{app.translator.trans('fof-cookie-consent.admin.settings.catchall_title')}</h2>, 28)
+    .setting(
+      () => ({
+        setting: 'fof-cookie-consent.sweepUndeclared',
+        label: app.translator.trans('fof-cookie-consent.admin.settings.sweepUndeclared'),
+        help: app.translator.trans('fof-cookie-consent.admin.settings.sweepUndeclared_help'),
+        type: 'boolean',
+      }),
+      27
+    )
+    .setting(
+      () => ({
+        setting: 'fof-cookie-consent.allowedCookies',
+        label: app.translator.trans('fof-cookie-consent.admin.settings.allowedCookies'),
+        help: app.translator.trans('fof-cookie-consent.admin.settings.allowedCookies_help'),
+        type: 'textarea',
+      }),
+      26
+    )
     .customSetting(() => <h3>{app.translator.trans('fof-cookie-consent.admin.settings.theme_popup_title')}</h3>, 25)
     .customSetting(
       () => (

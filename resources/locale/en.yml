@@ -20,6 +20,19 @@ fof-cookie-consent:
       colors_help: |
         The banner follows your forum's theme, including dark mode. Set a colour
         only to override it — leave blank to inherit.
+      catchall_title: Undeclared Cookies
+      sweepUndeclared: Erase cookies no extension has declared
+      sweepUndeclared_help: |
+        When a visitor declines, also erase cookies that no extension declared
+        through the cookie consent extender. This catches trackers from
+        extensions that have not adopted it — but will also erase cookies an
+        extension genuinely needs, which may break it. Use the allow list below
+        to spare those.
+      allowedCookies: Never erase these cookies
+      allowedCookies_help: |
+        One name per line. Wrap in slashes for a pattern, e.g. /^app_/.
+        Cookies Flarum sets itself are always kept.
+
       theme_popup_title: Popup Colors
       backgroundColor: Background
       textColor: Text
