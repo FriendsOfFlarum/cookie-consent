@@ -2,24 +2,45 @@ fof-cookie-consent:
   admin:
     settings:
       configuration_title: Configuration Options
-      consentText: Content Message
-      buttonText: Dismiss Button Text
-      configuration_button_title: Learn More Button
+      consentText: Consent Message
+      buttonText: Accept Button Text
+      declineButtonText: Decline Button Text
+      declineButtonText_help: Shown alongside the accept button, letting visitors refuse non-essential cookies.
+      configuration_button_title: Learn More Link
+
       learnMoreLinkText: Text
       learnMoreLinkUrl: Link
 
-      theme_title: Theme Options
-      ccTheme: Theme
+      appearance_title: Appearance
+      layout: Layout
+      layout_help: Controls the shape of the consent banner.
+      position: Position
+      equalWeightButtons: Give both buttons equal weight
+      equalWeightButtons_help: Recommended. Styling accept and decline identically avoids nudging visitors toward accepting.
+
       theme_popup_title: Popup Colors
       backgroundColor: Background
       textColor: Text
-      theme_dismiss_title: Dismiss Button Colors
+      theme_dismiss_title: Button Colors
       buttonBackgroundColor: Background
       buttonTextColor: Text
 
-      themes:
-        blocky: Blocky
-        edgeless: Edgeless
-        classic: Classic
-        custom: Custom
-        no_css: No CSS
+      layouts:
+        box: Box
+        box_wide: Box (wide)
+        box_inline: Box (inline)
+        cloud: Cloud
+        cloud_inline: Cloud (inline)
+        bar: Bar
+        bar_inline: Bar (inline)
+
+      positions:
+        top_left: Top left
+        top_center: Top center
+        top_right: Top right
+        middle_left: Middle left
+        middle_center: Middle center
+        middle_right: Middle right
+        bottom_left: Bottom left
+        bottom_center: Bottom center
+        bottom_right: Bottom right

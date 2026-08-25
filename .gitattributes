@@ -1,4 +1,7 @@
 js/src export-ignore
+js/tests export-ignore
+tests export-ignore
 .git* export-ignore
 
 js/dist/*.js -diff
+resources/less/vendor-cookieconsent.css linguist-vendored

@@ -2,3 +2,5 @@ js/dist
 js/node_modules
 vendor
 composer.lock
+.phpunit.cache
+.phpunit.result.cache
