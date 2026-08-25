@@ -15,21 +15,24 @@
   --cc-primary-color: @fof-cookie-consent-text-color;
   --cc-secondary-color: var(--muted-color);
 
+  // Buttons inherit Flarum's own button variables, including the hover and
+  // active variants it precomputes per theme (see .Button--color-vars), so the
+  // banner's buttons react exactly like every other button on the forum.
   --cc-btn-primary-bg: @fof-cookie-consent-button-background-color;
   --cc-btn-primary-border-color: @fof-cookie-consent-button-background-color;
   --cc-btn-primary-color: @fof-cookie-consent-button-text-color;
-  --cc-btn-primary-hover-bg: var(--primary-color);
-  --cc-btn-primary-hover-border-color: var(--primary-color);
-  --cc-btn-primary-hover-color: var(--body-bg);
+  --cc-btn-primary-hover-bg: @fof-cookie-consent-button-hover-color;
+  --cc-btn-primary-hover-border-color: @fof-cookie-consent-button-hover-color;
+  --cc-btn-primary-hover-color: @fof-cookie-consent-button-text-color;
 
-  // Secondary (decline) button: readable on the banner background in either
-  // theme, without needing settings of its own.
-  --cc-btn-secondary-bg: var(--control-bg);
-  --cc-btn-secondary-color: var(--control-color);
-  --cc-btn-secondary-border-color: var(--control-bg);
-  --cc-btn-secondary-hover-bg: var(--control-bg-shaded);
-  --cc-btn-secondary-hover-color: var(--control-color);
-  --cc-btn-secondary-hover-border-color: var(--control-bg-shaded);
+  // Secondary (decline) button: Flarum's neutral button, so it is readable on
+  // the banner background in either theme without settings of its own.
+  --cc-btn-secondary-bg: var(--button-bg);
+  --cc-btn-secondary-color: var(--button-color);
+  --cc-btn-secondary-border-color: var(--button-bg);
+  --cc-btn-secondary-hover-bg: var(--button-bg-hover);
+  --cc-btn-secondary-hover-color: var(--button-color);
+  --cc-btn-secondary-hover-border-color: var(--button-bg-hover);
 
   // Category blocks in the preferences modal. These were left at the library's
   // light defaults before, which is why the rows read as near-white on a dark

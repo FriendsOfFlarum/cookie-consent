@@ -55,6 +55,9 @@ return [
         // stylesheet whenever one is saved.
         ->registerLessConfigVar('fof-cookie-consent-background-color', 'fof-cookie-consent.backgroundColor', Color::sanitizer('var(--body-bg)'))
         ->registerLessConfigVar('fof-cookie-consent-text-color', 'fof-cookie-consent.textColor', Color::sanitizer('var(--text-color)'))
-        ->registerLessConfigVar('fof-cookie-consent-button-background-color', 'fof-cookie-consent.buttonBackgroundColor', Color::sanitizer('var(--primary-color)'))
-        ->registerLessConfigVar('fof-cookie-consent-button-text-color', 'fof-cookie-consent.buttonTextColor', Color::sanitizer('var(--body-bg)')),
+        ->registerLessConfigVar('fof-cookie-consent-button-background-color', 'fof-cookie-consent.buttonBackgroundColor', Color::sanitizer('var(--button-primary-bg)'))
+        ->registerLessConfigVar('fof-cookie-consent-button-text-color', 'fof-cookie-consent.buttonTextColor', Color::sanitizer('var(--button-primary-color)'))
+        // Hovering shades the admin's own colour rather than jumping to
+        // Flarum's; unset, Flarum's precomputed hover applies.
+        ->registerLessConfigVar('fof-cookie-consent-button-hover-color', 'fof-cookie-consent.buttonBackgroundColor', Color::hoverSanitizer('var(--button-primary-bg-hover)')),
 ];

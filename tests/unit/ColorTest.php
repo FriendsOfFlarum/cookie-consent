@@ -60,6 +60,29 @@ class ColorTest extends TestCase
     }
 
     #[Test]
+    public function darken_shades_a_colour_towards_black(): void
+    {
+        $this->assertSame('#168791', Color::darken('#178e99', 0.05));
+        $this->assertSame('#f2f2f2', Color::darken('#ffffff', 0.05));
+        $this->assertSame('#000000', Color::darken('#000000', 0.05));
+    }
+
+    #[Test]
+    public function darken_expands_shorthand_hex(): void
+    {
+        $this->assertSame('#f2f2f2', Color::darken('#fff', 0.05));
+    }
+
+    #[Test]
+    public function darken_leaves_a_non_hex_value_alone(): void
+    {
+        // rgb() and CSS variables cannot be darkened arithmetically here; they
+        // are passed through rather than mangled.
+        $this->assertSame('var(--button-primary-bg)', Color::darken('var(--button-primary-bg)', 0.05));
+        $this->assertSame('rgb(1, 2, 3)', Color::darken('rgb(1, 2, 3)', 0.05));
+    }
+
+    #[Test]
     #[DataProvider('invalidColors')]
     public function invalid_colors_are_rejected(string $value): void
     {
