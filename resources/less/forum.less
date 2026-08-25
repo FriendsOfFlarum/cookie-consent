@@ -3,7 +3,8 @@
 @import (less) 'vendor-cookieconsent.css';
 
 // Bridge the extension's colour settings onto the library's CSS variables.
-// `@fof-cookie-consent-*` are injected by the AssetProvider from settings.
+// The `@fof-cookie-consent-*` variables are registered in extend.php via
+// `Extend\Settings::registerLessConfigVar`, so saving a colour recompiles this.
 #cc-main {
   --cc-bg: @fof-cookie-consent-background-color;
   --cc-primary-color: @fof-cookie-consent-text-color;

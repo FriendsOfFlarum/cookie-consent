@@ -13,16 +13,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "ProfileSlayer",
-            "email": "profileslayer@gmail.com"
-        },
-        {
-            "name": "IanM",
-            "homepage": "https://discuss.flarum.org/u/ianm"
-        },
-        {
-            "name": "Katos",
-            "homepage": "https://discuss.flarum.org/u/Katos"
+            "name": "FoF Team",
+            "email": "team@friendsofflarum.org"
         }
     ],
     "support": {

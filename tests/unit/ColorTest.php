@@ -11,27 +11,20 @@
 
 namespace FoF\CookieConsent\Tests\unit;
 
-use FoF\CookieConsent\Providers\AssetProvider;
+use FoF\CookieConsent\Color;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use ReflectionMethod;
 
 /**
  * Colour settings are admin-authored and interpolated straight into a
  * stylesheet, so anything that is not clearly a colour must be rejected.
  */
-class AssetProviderTest extends TestCase
+class ColorTest extends TestCase
 {
     private function sanitize(string $value): string
     {
-        $method = new ReflectionMethod(AssetProvider::class, 'sanitizeColor');
-        $method->setAccessible(true);
-
-        return $method->invoke(
-            (new \ReflectionClass(AssetProvider::class))->newInstanceWithoutConstructor(),
-            $value
-        );
+        return Color::sanitize($value);
     }
 
     public static function validColors(): array
