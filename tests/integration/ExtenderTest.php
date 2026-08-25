@@ -61,6 +61,18 @@ class ExtenderTest extends TestCase
     }
 
     #[Test]
+    public function a_category_declared_before_the_provider_registers_still_lands(): void
+    {
+        // Extenders run before service providers, so the extender cannot rely
+        // on the container binding already existing.
+        $this->extend(
+            (new CookieConsent())->category('marketing', fn (Category $c) => $c->cookie('_fbp'))
+        );
+
+        $this->assertArrayHasKey('marketing', $this->registry()->all());
+    }
+
+    #[Test]
     public function two_extensions_may_contribute_to_the_same_category(): void
     {
         $this->extend(

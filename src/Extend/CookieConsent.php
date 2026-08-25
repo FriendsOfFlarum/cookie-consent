@@ -66,13 +66,19 @@ class CookieConsent implements ExtenderInterface
     public function extend(Container $container, ?Extension $extension = null): void
     {
         if ($this->categories !== []) {
-            $container->extend('fof-cookie-consent.categories', function (array $categories) {
-                foreach ($this->categories as $key => $configurators) {
-                    $categories[$key] = array_merge($categories[$key] ?? [], $configurators);
-                }
+            // Extenders run before service providers register, and in an order
+            // that is not guaranteed between extensions, so the binding may not
+            // exist yet. Seed it rather than relying on `extend()`, which is a
+            // silent no-op against an unbound key.
+            $existing = $container->bound('fof-cookie-consent.categories')
+                ? $container->make('fof-cookie-consent.categories')
+                : [];
 
-                return $categories;
-            });
+            foreach ($this->categories as $key => $configurators) {
+                $existing[$key] = array_merge($existing[$key] ?? [], $configurators);
+            }
+
+            $container->instance('fof-cookie-consent.categories', $existing);
         }
 
         foreach ($this->gated as $category) {
