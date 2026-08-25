@@ -61,7 +61,21 @@ class CategoryTest extends TestCase
 
         $this->assertTrue($compiled['enabled']);
         $this->assertTrue($compiled['readOnly']);
+
+        // Never erased...
         $this->assertArrayNotHasKey('autoClear', $compiled);
+
+        // ...but still listed, so the preferences modal can show visitors what
+        // the forum stores and why.
+        $this->assertSame(['flarum_session'], $compiled['declaredCookies']);
+    }
+
+    #[Test]
+    public function an_optional_category_also_lists_its_cookies(): void
+    {
+        $compiled = (new Category('analytics'))->cookie('_ga')->cookiePattern('^_gat')->toArray();
+
+        $this->assertSame(['_ga', '/^_gat/'], $compiled['declaredCookies']);
     }
 
     #[Test]

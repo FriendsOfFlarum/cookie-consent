@@ -12,6 +12,8 @@ type SerializedCategory = {
   enabled: boolean;
   readOnly: boolean;
   autoClear?: { cookies: { name: string }[]; reloadPage?: boolean };
+  /** Every cookie the category declares, erased or not — shown to visitors. */
+  declaredCookies?: string[];
 };
 
 const NECESSARY: Record<string, SerializedCategory> = {
@@ -77,9 +79,17 @@ function escapeHtml(value: string): string {
   return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 
-/** Plain text for contexts that are not rendered as HTML. */
-function stripTags(value: string): string {
-  return value.replace(/<[^>]*>/g, '');
+/**
+ * Describe a cookie's purpose. Cookie names are not always known ahead of
+ * time — a forum may rename core's via `cookie.name`, and extensions declare
+ * their own — so fall back to a generic description rather than showing a raw
+ * translation key.
+ */
+function describeCookie(trans: Translator, name: string): string {
+  const key = `${T}.cookies.${name}`;
+  const described = trans(key);
+
+  return described === key ? trans(`${T}.cookies.unknown`) : described;
 }
 
 /**
@@ -109,7 +119,6 @@ export default function buildConfig(
   trans: Translator,
   serialized: Record<string, SerializedCategory> = NECESSARY
 ): CookieConsentConfig {
-  const declinable = Object.entries(serialized).filter(([, c]) => !c.readOnly);
   const layout = get('layout') as ConsentModalLayout;
   const position = get('position') as ConsentModalPosition;
 
@@ -135,8 +144,10 @@ export default function buildConfig(
             description: buildDescription(trans(`${T}.banner.description`), trans(`${T}.banner.learn_more`), get('learnMoreLinkUrl') || ''),
             acceptAllBtn: trans(`${T}.banner.accept`),
             acceptNecessaryBtn: trans(`${T}.banner.decline`),
-            // Only worth offering when there is something to choose between.
-            ...(declinable.length > 0 ? { showPreferencesBtn: trans(`${T}.banner.preferences`) } : {}),
+            // Always offered, as visitors expect from a cookie banner. Even
+            // with nothing declinable the modal explains what is stored and
+            // why, which is the transparency the banner exists to provide.
+            showPreferencesBtn: trans(`${T}.banner.preferences`),
           },
           preferencesModal: {
             title: trans(`${T}.preferences.title`),
@@ -144,13 +155,29 @@ export default function buildConfig(
             acceptNecessaryBtn: trans(`${T}.banner.decline`),
             savePreferencesBtn: trans(`${T}.preferences.save`),
             sections: [
-              { description: stripTags(trans(`${T}.banner.description`)) },
+              { description: trans(`${T}.preferences.description`) },
               // Each category names its own strings, so an extension that
               // declares one ships the matching translations with it.
-              ...Object.keys(serialized).map((key) => ({
+              ...Object.entries(serialized).map(([key, category]) => ({
                 title: trans(`${T}.categories.${key}.title`),
                 description: trans(`${T}.categories.${key}.description`),
                 linkedCategory: key,
+                // Naming the actual cookies is the transparency the modal is
+                // for; a category that declares none gets no empty table.
+                ...(category.declaredCookies?.length
+                  ? {
+                      cookieTable: {
+                        headers: {
+                          name: trans(`${T}.preferences.cookie_table.name`),
+                          description: trans(`${T}.preferences.cookie_table.description`),
+                        },
+                        body: category.declaredCookies.map((name) => ({
+                          name,
+                          description: describeCookie(trans, name),
+                        })),
+                      },
+                    }
+                  : {}),
               })),
             ],
           },

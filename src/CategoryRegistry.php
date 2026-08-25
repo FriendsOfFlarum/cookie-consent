@@ -11,6 +11,8 @@
 
 namespace FoF\CookieConsent;
 
+use Flarum\Http\CookieFactory;
+
 /**
  * Holds the consent categories declared across the installation.
  *
@@ -22,15 +24,33 @@ class CategoryRegistry
 {
     public const NECESSARY = 'necessary';
 
+    /** The cookie vanilla-cookieconsent stores the visitor's choice in. */
+    public const CONSENT_COOKIE = 'cc_cookie';
+
     /** @var array<string, Category> */
     private array $categories = [];
 
     /**
      * @param array<string, callable[]> $declarations Category key => configurators.
      */
-    public function __construct(array $declarations = [])
+    public function __construct(array $declarations = [], ?CookieFactory $cookies = null)
     {
-        $this->categories[self::NECESSARY] = (new Category(self::NECESSARY))->essential();
+        $necessary = (new Category(self::NECESSARY))->essential();
+
+        // Flarum's own cookies, so the preferences modal can account for what
+        // the forum stores rather than listing only third-party extensions.
+        // `cookie.name` in config.php renames them, so ask core for the names.
+        if ($cookies !== null) {
+            $necessary
+                ->cookie($cookies->getName('session'))
+                ->cookie($cookies->getName('remember'));
+        }
+
+        // The consent record itself; without it the banner cannot remember
+        // that the visitor answered.
+        $necessary->cookie(self::CONSENT_COOKIE);
+
+        $this->categories[self::NECESSARY] = $necessary;
 
         foreach ($declarations as $key => $configurators) {
             foreach ($configurators as $configure) {

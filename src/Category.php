@@ -87,29 +87,31 @@ class Category
      */
     public function toArray(): array
     {
+        $names = array_merge(
+            $this->cookies,
+            array_map(fn (string $pattern) => "/$pattern/", $this->patterns)
+        );
+
         $compiled = [
             'enabled'  => $this->essential,
             'readOnly' => $this->essential,
+            // Listed whether or not they are erased, so the preferences modal
+            // can tell visitors what this category stores.
+            'declaredCookies' => $names,
         ];
 
         // An essential category is never cleared, so it carries no autoClear
         // block — the library ignores autoClear on read-only categories anyway.
-        if ($this->essential) {
+        if ($this->essential || $names === []) {
             return $compiled;
         }
 
-        $cookies = array_map(fn (string $name) => ['name' => $name], $this->cookies);
+        $compiled['autoClear'] = [
+            'cookies' => array_map(fn (string $name) => ['name' => $name], $names),
+        ];
 
-        foreach ($this->patterns as $pattern) {
-            $cookies[] = ['name' => "/$pattern/"];
-        }
-
-        if ($cookies !== []) {
-            $compiled['autoClear'] = ['cookies' => $cookies];
-
-            if ($this->reloadOnReject) {
-                $compiled['autoClear']['reloadPage'] = true;
-            }
+        if ($this->reloadOnReject) {
+            $compiled['autoClear']['reloadPage'] = true;
         }
 
         return $compiled;

@@ -73,8 +73,56 @@ describe('buildConfig', () => {
     expect(modal.acceptNecessaryBtn).toBe('Decline');
   });
 
-  it('does not offer a preferences button when nothing is declinable', () => {
-    expect(build().language.translations.en.consentModal.showPreferencesBtn).toBeUndefined();
+  it('always offers a preferences button, as visitors expect', () => {
+    // Even with nothing declinable, the modal explains what the forum stores
+    // and why — which is the transparency the banner is there to provide.
+    expect(build().language.translations.en.consentModal.showPreferencesBtn).toBeTruthy();
+  });
+
+  it('shows the declared cookies in a table so visitors can see what is stored', () => {
+    const config = build(
+      {},
+      {
+        necessary: { enabled: true, readOnly: true, declaredCookies: ['flarum_session', 'cc_cookie'] },
+      }
+    );
+
+    const section = config.language.translations.en.preferencesModal.sections.find((s: any) => s.linkedCategory === 'necessary');
+
+    expect(section.cookieTable.body).toEqual([expect.objectContaining({ name: 'flarum_session' }), expect.objectContaining({ name: 'cc_cookie' })]);
+  });
+
+  it('falls back to a generic purpose when a cookie has no description', () => {
+    const config = build(
+      {},
+      {
+        necessary: { enabled: true, readOnly: true, declaredCookies: ['discuss_session'] },
+      }
+    );
+
+    const section = config.language.translations.en.preferencesModal.sections.find((s: any) => s.linkedCategory === 'necessary');
+
+    // A renamed core cookie has no matching key; the row must still be usable.
+    expect(section.cookieTable.body[0].description).toBe('fof-cookie-consent.forum.cookies.unknown');
+  });
+
+  it('omits the cookie table for a category that declares nothing', () => {
+    const config = build({}, { necessary: { enabled: true, readOnly: true, declaredCookies: [] } });
+
+    const section = config.language.translations.en.preferencesModal.sections.find((s: any) => s.linkedCategory === 'necessary');
+
+    expect(section.cookieTable).toBeUndefined();
+  });
+
+  it('lists the necessary category in the preferences modal', () => {
+    const sections = build().language.translations.en.preferencesModal.sections;
+
+    expect(sections).toContainEqual(
+      expect.objectContaining({
+        title: 'fof-cookie-consent.forum.categories.necessary.title',
+        linkedCategory: 'necessary',
+      })
+    );
   });
 
   it('offers a preferences button once a declinable category exists', () => {

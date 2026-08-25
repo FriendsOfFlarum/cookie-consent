@@ -55,10 +55,22 @@ fof-cookie-consent:
     preferences:
       title: Cookie preferences
       save: Save preferences
+      description: >-
+        Cookies are small files this site stores in your browser. Below is what
+        is stored and why. You can change your choice at any time.
+      cookie_table:
+        name: Cookie
+        description: Purpose
+
+    cookies:
+      flarum_session: Keeps you signed in while you browse.
+      flarum_remember: Signs you back in automatically on your next visit.
+      cc_cookie: Remembers your cookie choice so you are not asked again.
+      unknown: Used by this forum or one of its extensions.
 
     categories:
       necessary:
         title: Strictly necessary
         description: >-
           Required for the site to work — signing in, staying signed in, and
-          keeping your session secure. These cannot be turned off.
+          remembering your cookie choice. These cannot be turned off.

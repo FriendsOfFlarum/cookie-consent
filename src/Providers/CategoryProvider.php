@@ -12,6 +12,7 @@
 namespace FoF\CookieConsent\Providers;
 
 use Flarum\Foundation\AbstractServiceProvider;
+use Flarum\Http\CookieFactory;
 use FoF\CookieConsent\CategoryRegistry;
 
 class CategoryProvider extends AbstractServiceProvider
@@ -23,7 +24,10 @@ class CategoryProvider extends AbstractServiceProvider
         $this->container->instance('fof-cookie-consent.gated', []);
 
         $this->container->singleton(CategoryRegistry::class, function ($container) {
-            return new CategoryRegistry($container->make('fof-cookie-consent.categories'));
+            return new CategoryRegistry(
+                $container->make('fof-cookie-consent.categories'),
+                $container->make(CookieFactory::class)
+            );
         });
     }
 
