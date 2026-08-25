@@ -13,49 +13,6 @@ namespace FoF\CookieConsent;
 
 use Flarum\Extend;
 
-$settings = [
-    'consentText'           => 'Change this text in your Flarum Admin Panel!',
-    'buttonText'            => 'I Accept',
-    'declineButtonText'     => 'Decline',
-    'learnMoreLinkText'     => 'Learn More',
-    'learnMoreLinkUrl'      => '',
-    'backgroundColor'       => '#2b2b2b',
-    'textColor'             => '#ffffff',
-    'buttonBackgroundColor' => '#178e99',
-    'buttonTextColor'       => '#ffffff',
-    'layout'                => 'box',
-    'position'              => 'bottom right',
-    'equalWeightButtons'    => '1',
-];
-
-/**
- * Colour settings, mapped to the Less variable each is exposed through.
- * Registering them with `registerLessConfigVar` means core recompiles the
- * stylesheet whenever one is saved.
- */
-$colors = [
-    'fof-cookie-consent-background-color'        => 'backgroundColor',
-    'fof-cookie-consent-text-color'              => 'textColor',
-    'fof-cookie-consent-button-background-color' => 'buttonBackgroundColor',
-    'fof-cookie-consent-button-text-color'       => 'buttonTextColor',
-];
-
-$settingsExtender = new Extend\Settings();
-
-foreach ($settings as $key => $default) {
-    $settingsExtender = $settingsExtender
-        ->default("fof-cookie-consent.$key", $default)
-        ->serializeToForum("fof-cookie-consent.$key", "fof-cookie-consent.$key");
-}
-
-foreach ($colors as $variable => $key) {
-    $settingsExtender = $settingsExtender->registerLessConfigVar(
-        $variable,
-        "fof-cookie-consent.$key",
-        fn ($value) => Color::sanitize($value, $settings[$key])
-    );
-}
-
 return [
     (new Extend\Frontend('forum'))
         ->js(__DIR__.'/js/dist/forum.js')
@@ -66,5 +23,35 @@ return [
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 
-    $settingsExtender,
+    (new Extend\Settings())
+        ->default('fof-cookie-consent.consentText', 'Change this text in your Flarum Admin Panel!')
+        ->default('fof-cookie-consent.buttonText', 'I Accept')
+        ->default('fof-cookie-consent.declineButtonText', 'Decline')
+        ->default('fof-cookie-consent.learnMoreLinkText', 'Learn More')
+        ->default('fof-cookie-consent.learnMoreLinkUrl', '')
+        ->default('fof-cookie-consent.backgroundColor', Color::BACKGROUND)
+        ->default('fof-cookie-consent.textColor', Color::TEXT)
+        ->default('fof-cookie-consent.buttonBackgroundColor', Color::BUTTON_BACKGROUND)
+        ->default('fof-cookie-consent.buttonTextColor', Color::BUTTON_TEXT)
+        ->default('fof-cookie-consent.layout', 'box')
+        ->default('fof-cookie-consent.position', 'bottom right')
+        ->default('fof-cookie-consent.equalWeightButtons', '1')
+        ->serializeToForum('fof-cookie-consent.consentText', 'fof-cookie-consent.consentText')
+        ->serializeToForum('fof-cookie-consent.buttonText', 'fof-cookie-consent.buttonText')
+        ->serializeToForum('fof-cookie-consent.declineButtonText', 'fof-cookie-consent.declineButtonText')
+        ->serializeToForum('fof-cookie-consent.learnMoreLinkText', 'fof-cookie-consent.learnMoreLinkText')
+        ->serializeToForum('fof-cookie-consent.learnMoreLinkUrl', 'fof-cookie-consent.learnMoreLinkUrl')
+        ->serializeToForum('fof-cookie-consent.layout', 'fof-cookie-consent.layout')
+        ->serializeToForum('fof-cookie-consent.position', 'fof-cookie-consent.position')
+        ->serializeToForum('fof-cookie-consent.equalWeightButtons', 'fof-cookie-consent.equalWeightButtons')
+        ->serializeToForum('fof-cookie-consent.backgroundColor', 'fof-cookie-consent.backgroundColor')
+        ->serializeToForum('fof-cookie-consent.textColor', 'fof-cookie-consent.textColor')
+        ->serializeToForum('fof-cookie-consent.buttonBackgroundColor', 'fof-cookie-consent.buttonBackgroundColor')
+        ->serializeToForum('fof-cookie-consent.buttonTextColor', 'fof-cookie-consent.buttonTextColor')
+        // Registering the colours as Less config vars means core recompiles the
+        // stylesheet whenever one is saved.
+        ->registerLessConfigVar('fof-cookie-consent-background-color', 'fof-cookie-consent.backgroundColor', Color::sanitizer(Color::BACKGROUND))
+        ->registerLessConfigVar('fof-cookie-consent-text-color', 'fof-cookie-consent.textColor', Color::sanitizer(Color::TEXT))
+        ->registerLessConfigVar('fof-cookie-consent-button-background-color', 'fof-cookie-consent.buttonBackgroundColor', Color::sanitizer(Color::BUTTON_BACKGROUND))
+        ->registerLessConfigVar('fof-cookie-consent-button-text-color', 'fof-cookie-consent.buttonTextColor', Color::sanitizer(Color::BUTTON_TEXT)),
 ];

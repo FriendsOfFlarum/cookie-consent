@@ -1,8 +1,6 @@
-// The vanilla-cookieconsent stylesheet, vendored from the npm package so it
-// ships inside the Composer package (node_modules is not exported).
-@import (less) 'vendor-cookieconsent.css';
-
-// Bridge the extension's colour settings onto the library's CSS variables.
+// The library's own stylesheet is bundled into forum.js by webpack and
+// injected at runtime, so only the settings bridge lives here.
+//
 // The `@fof-cookie-consent-*` variables are registered in extend.php via
 // `Extend\Settings::registerLessConfigVar`, so saving a colour recompiles this.
 #cc-main {

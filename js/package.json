@@ -5,13 +5,16 @@
   "devDependencies": {
     "@flarum/jest-config": "^2.0.2",
     "@flarum/prettier-config": "^1.0.0",
+    "css-loader": "^7.1.4",
     "flarum-tsconfig": "^2.0.0",
     "flarum-webpack-config": "^3.0.0",
     "prettier": "^3.0.3",
+    "style-loader": "^4.0.0",
     "typescript": "^5.9.3",
     "typescript-coverage-report": "^0.6.1",
     "webpack": "^5.109.2",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-merge": "^6.0.1"
   },
   "scripts": {
     "dev": "webpack --mode development --watch",

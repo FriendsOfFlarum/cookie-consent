@@ -4,4 +4,3 @@ tests export-ignore
 .git* export-ignore
 
 js/dist/*.js -diff
-resources/less/vendor-cookieconsent.css linguist-vendored
