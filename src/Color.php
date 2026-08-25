@@ -15,14 +15,13 @@ use Closure;
 
 class Color
 {
-    public const BACKGROUND = '#2b2b2b';
-    public const TEXT = '#ffffff';
-    public const BUTTON_BACKGROUND = '#178e99';
-    public const BUTTON_TEXT = '#ffffff';
-
     /**
-     * Build the callback `registerLessConfigVar` applies to a stored colour,
-     * falling back to the setting's shipped default when the value is unusable.
+     * Build the callback `registerLessConfigVar` applies to a stored colour.
+     *
+     * Colours are optional. Left unset — or set to something that is not a
+     * colour — the variable falls back to the given Flarum theme variable, so
+     * the banner follows the forum's light/dark scheme instead of carrying a
+     * palette of its own.
      */
     public static function sanitizer(string $fallback): Closure
     {
@@ -35,7 +34,7 @@ class Color
      * rejected — a value such as `#fff; } body { display: none` would
      * otherwise escape its declaration.
      */
-    public static function sanitize(?string $value, string $fallback = 'transparent'): string
+    public static function sanitize(?string $value, string $fallback = ''): string
     {
         $value = trim((string) $value);
 

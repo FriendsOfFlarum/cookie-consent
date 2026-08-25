@@ -40,10 +40,6 @@ return [
 
     (new Extend\Settings())
         ->default('fof-cookie-consent.learnMoreLinkUrl', '')
-        ->default('fof-cookie-consent.backgroundColor', Color::BACKGROUND)
-        ->default('fof-cookie-consent.textColor', Color::TEXT)
-        ->default('fof-cookie-consent.buttonBackgroundColor', Color::BUTTON_BACKGROUND)
-        ->default('fof-cookie-consent.buttonTextColor', Color::BUTTON_TEXT)
         ->default('fof-cookie-consent.layout', 'box')
         ->default('fof-cookie-consent.position', 'bottom right')
         ->default('fof-cookie-consent.equalWeightButtons', '1')
@@ -57,8 +53,8 @@ return [
         ->serializeToForum('fof-cookie-consent.buttonTextColor', 'fof-cookie-consent.buttonTextColor')
         // Registering the colours as Less config vars means core recompiles the
         // stylesheet whenever one is saved.
-        ->registerLessConfigVar('fof-cookie-consent-background-color', 'fof-cookie-consent.backgroundColor', Color::sanitizer(Color::BACKGROUND))
-        ->registerLessConfigVar('fof-cookie-consent-text-color', 'fof-cookie-consent.textColor', Color::sanitizer(Color::TEXT))
-        ->registerLessConfigVar('fof-cookie-consent-button-background-color', 'fof-cookie-consent.buttonBackgroundColor', Color::sanitizer(Color::BUTTON_BACKGROUND))
-        ->registerLessConfigVar('fof-cookie-consent-button-text-color', 'fof-cookie-consent.buttonTextColor', Color::sanitizer(Color::BUTTON_TEXT)),
+        ->registerLessConfigVar('fof-cookie-consent-background-color', 'fof-cookie-consent.backgroundColor', Color::sanitizer('var(--body-bg)'))
+        ->registerLessConfigVar('fof-cookie-consent-text-color', 'fof-cookie-consent.textColor', Color::sanitizer('var(--text-color)'))
+        ->registerLessConfigVar('fof-cookie-consent-button-background-color', 'fof-cookie-consent.buttonBackgroundColor', Color::sanitizer('var(--primary-color)'))
+        ->registerLessConfigVar('fof-cookie-consent-button-text-color', 'fof-cookie-consent.buttonTextColor', Color::sanitizer('var(--body-bg)')),
 ];

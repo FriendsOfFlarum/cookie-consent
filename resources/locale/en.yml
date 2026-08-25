@@ -17,6 +17,9 @@ fof-cookie-consent:
       equalWeightButtons: Give both buttons equal weight
       equalWeightButtons_help: Recommended. Styling accept and decline identically avoids nudging visitors toward accepting.
 
+      colors_help: |
+        The banner follows your forum's theme, including dark mode. Set a colour
+        only to override it — leave blank to inherit.
       theme_popup_title: Popup Colors
       backgroundColor: Background
       textColor: Text

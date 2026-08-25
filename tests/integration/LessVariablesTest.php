@@ -59,11 +59,10 @@ class LessVariablesTest extends TestCase
 
         $this->assertSame('#2b2b2b', $callback('#2b2b2b'));
 
-        // An unsafe value falls back to the shipped default rather than
-        // `transparent`, so the banner stays legible instead of losing its
-        // background entirely.
-        $this->assertSame('#2b2b2b', $callback('#fff; } body { display: none'));
-        $this->assertSame('#2b2b2b', $callback('url(https://evil.example/x.png)'));
+        // An unsafe value falls back to the forum's theme variable, so the
+        // banner stays legible rather than losing its background entirely.
+        $this->assertSame('var(--body-bg)', $callback('#fff; } body { display: none'));
+        $this->assertSame('var(--body-bg)', $callback('url(https://evil.example/x.png)'));
     }
 
     #[Test]
@@ -72,6 +71,7 @@ class LessVariablesTest extends TestCase
         $config = $this->lessConfig();
         $callback = $config['fof-cookie-consent-text-color']['callback'];
 
-        $this->assertSame('#ffffff', $callback(null));
+        // Unset means "use the forum's theme", not a hardcoded colour.
+        $this->assertSame('var(--text-color)', $callback(null));
     }
 }

@@ -24,7 +24,7 @@ class ColorTest extends TestCase
 {
     private function sanitize(string $value): string
     {
-        return Color::sanitize($value);
+        return Color::sanitize($value, 'transparent');
     }
 
     public static function validColors(): array

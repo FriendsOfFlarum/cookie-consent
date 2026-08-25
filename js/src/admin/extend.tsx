@@ -76,6 +76,14 @@ export default [
       30
     )
     .customSetting(() => <h3>{app.translator.trans('fof-cookie-consent.admin.settings.theme_popup_title')}</h3>, 25)
+    .customSetting(
+      () => (
+        <div className="Form-group">
+          <div className="helpText">{app.translator.trans('fof-cookie-consent.admin.settings.colors_help')}</div>
+        </div>
+      ),
+      24.5
+    )
     .setting(
       () => ({
         setting: 'fof-cookie-consent.backgroundColor',
