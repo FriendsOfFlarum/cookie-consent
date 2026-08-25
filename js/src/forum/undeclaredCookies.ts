@@ -11,6 +11,24 @@
  * outcome: they are necessary and must not be touched.
  */
 
+/**
+ * Every path a cookie visible from `location.pathname` could be scoped to.
+ *
+ * A cookie is only deleted when the delete is issued at the exact path it was
+ * set on, and `document.cookie` exposes names but never paths. A server that
+ * omits `Path` — Clockwork does — gets the request URI's directory instead of
+ * `/`, so erasing at `/` alone silently misses it. Walking the hierarchy
+ * covers every path the current URL could have produced.
+ */
+export function candidatePaths(pathname: string): string[] {
+  const segments = pathname.split('/').filter(Boolean);
+
+  return segments.reduce(
+    (paths: string[], segment) => [...paths, `${paths[paths.length - 1] === '/' ? '' : paths[paths.length - 1]}/${segment}`],
+    ['/']
+  );
+}
+
 /** Parse `document.cookie` into the set of names it holds. */
 function names(jar: string): string[] {
   return Array.from(

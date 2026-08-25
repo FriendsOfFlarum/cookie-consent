@@ -10,8 +10,10 @@ type SweepOptions = {
   declared: string[];
   /** Admin-listed names or `/patterns/` to spare. */
   allowed: string[];
-  /** Erases one cookie; injected so this stays pure and testable. */
-  erase: (name: string) => void;
+  /** Paths to attempt deletion at — see `candidatePaths`. */
+  paths: string[];
+  /** Erases one cookie at one path; injected so this stays pure and testable. */
+  erase: (name: string, path: string) => void;
 };
 
 /**
@@ -26,11 +28,13 @@ type SweepOptions = {
  * hatch: an admin can spare a cookie that is genuinely necessary while its
  * author catches up.
  */
-export default function sweepUndeclared({ jar, declared, allowed, erase }: SweepOptions): void {
+export default function sweepUndeclared({ jar, declared, allowed, paths, erase }: SweepOptions): void {
   // The consent cookie is spared unconditionally rather than relying on it
   // being declared — a misconfiguration must not make the banner forget the
   // visitor's answer and reappear on every page.
   const spared = [...declared, ...allowed, CONSENT_COOKIE];
 
-  findUndeclared(jar, spared).forEach(erase);
+  // A cookie is only removed when the delete is issued at the path it was set
+  // on, which `document.cookie` does not reveal — so every candidate is tried.
+  findUndeclared(jar, spared).forEach((name) => paths.forEach((path) => erase(name, path)));
 }

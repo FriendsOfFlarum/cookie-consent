@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from '@jest/globals';
 import { createRequire } from 'module';
 import buildConfig from '../../src/forum/buildConfig';
 import sweepUndeclared from '../../src/forum/sweepUndeclared';
+import { candidatePaths } from '../../src/forum/undeclaredCookies';
 
 const CC = createRequire(import.meta.url)('vanilla-cookieconsent') as typeof import('vanilla-cookieconsent');
 
@@ -9,8 +10,7 @@ const CC = createRequire(import.meta.url)('vanilla-cookieconsent') as typeof imp
  * Exercises the catch-all against the real library: an undeclared cookie is
  * actually erased from the browser, and a spared one is not.
  */
-const get = (key: string) =>
-  ({ layout: 'box', position: 'bottom right' } as Record<string, string>)[key];
+const get = (key: string) => (({ layout: 'box', position: 'bottom right' }) as Record<string, string>)[key];
 
 const trans = (key: string) => key;
 
@@ -36,7 +36,8 @@ describe('catch-all sweep', () => {
       jar: document.cookie,
       declared: Object.values(categories).flatMap((c) => c.declaredCookies ?? []),
       allowed,
-      erase: (name) => CC.eraseCookies(name),
+      paths: candidatePaths(window.location.pathname),
+      erase: (name, path) => CC.eraseCookies(name, path),
     });
 
   it('erases an undeclared tracker but keeps declared cookies', async () => {
@@ -57,6 +58,21 @@ describe('catch-all sweep', () => {
     sweep(['app_theme']);
 
     expect(document.cookie).toContain('app_theme=dark');
+  });
+
+  it('erases a cookie scoped to a sub-path, not just the root', async () => {
+    // Clockwork omits `Path`, so the browser scopes the cookie to the request
+    // URI's directory. Erasing only at `/` would silently miss it.
+    // jsdom only accepts a cookie whose path matches the document URL.
+    history.replaceState({}, '', '/api/audit');
+
+    document.cookie = 'x-clockwork=abc;path=/api/audit';
+    expect(document.cookie).toContain('x-clockwork');
+
+    await CC.run(buildConfig(get, trans, categories as any));
+    sweep();
+
+    expect(document.cookie).not.toContain('x-clockwork');
   });
 
   it('never erases the consent record itself', async () => {

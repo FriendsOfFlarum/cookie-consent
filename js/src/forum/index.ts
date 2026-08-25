@@ -3,6 +3,7 @@ import * as CookieConsent from 'vanilla-cookieconsent';
 import 'vanilla-cookieconsent/dist/cookieconsent.css';
 import buildConfig, { SerializedCategory } from './buildConfig';
 import sweepUndeclared from './sweepUndeclared';
+import { candidatePaths } from './undeclaredCookies';
 import syncThemeMode from './syncThemeMode';
 
 /** Split a textarea setting into a list, ignoring blank lines. */
@@ -29,7 +30,11 @@ app.initializers.add('fof-cookie-consent', () => {
             jar: document.cookie,
             declared: Object.values(categories).flatMap((category) => category.declaredCookies ?? []),
             allowed: lines(setting('allowedCookies')),
-            erase: (name) => CookieConsent.eraseCookies(name),
+            // A cookie set without an explicit `Path` is scoped to the request
+            // URI's directory, which document.cookie does not reveal — so the
+            // delete is attempted across the whole path hierarchy.
+            paths: candidatePaths(window.location.pathname),
+            erase: (name, path) => CookieConsent.eraseCookies(name, path),
           })
       : undefined;
 
