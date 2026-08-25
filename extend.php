@@ -12,6 +12,9 @@
 namespace FoF\CookieConsent;
 
 use Flarum\Extend;
+use Flarum\Api\Resource\ForumResource;
+use Flarum\Api\Schema;
+use FoF\CookieConsent\CategoryRegistry;
 
 return [
     (new Extend\Frontend('forum'))
@@ -23,10 +26,25 @@ return [
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 
+    (new Extend\ServiceProvider())
+        ->register(Providers\CategoryProvider::class),
+
+    (new Extend\ApiResource(ForumResource::class))
+        ->fields(fn () => [
+            // The declared categories, compiled into the shape the frontend
+            // library expects. Only `necessary` exists until an extension
+            // declares more through `Extend\CookieConsent`.
+            Schema\Arr::make('fof-cookie-consent.categories')
+                ->get(fn () => resolve(CategoryRegistry::class)->toArray()),
+        ]),
+
     (new Extend\Settings())
         ->default('fof-cookie-consent.consentText', 'Change this text in your Flarum Admin Panel!')
         ->default('fof-cookie-consent.buttonText', 'I Accept')
         ->default('fof-cookie-consent.declineButtonText', 'Decline')
+        ->default('fof-cookie-consent.preferencesButtonText', 'Manage preferences')
+        ->default('fof-cookie-consent.preferencesTitle', 'Cookie preferences')
+        ->default('fof-cookie-consent.savePreferencesText', 'Save preferences')
         ->default('fof-cookie-consent.learnMoreLinkText', 'Learn More')
         ->default('fof-cookie-consent.learnMoreLinkUrl', '')
         ->default('fof-cookie-consent.backgroundColor', Color::BACKGROUND)
@@ -39,6 +57,9 @@ return [
         ->serializeToForum('fof-cookie-consent.consentText', 'fof-cookie-consent.consentText')
         ->serializeToForum('fof-cookie-consent.buttonText', 'fof-cookie-consent.buttonText')
         ->serializeToForum('fof-cookie-consent.declineButtonText', 'fof-cookie-consent.declineButtonText')
+        ->serializeToForum('fof-cookie-consent.preferencesButtonText', 'fof-cookie-consent.preferencesButtonText')
+        ->serializeToForum('fof-cookie-consent.preferencesTitle', 'fof-cookie-consent.preferencesTitle')
+        ->serializeToForum('fof-cookie-consent.savePreferencesText', 'fof-cookie-consent.savePreferencesText')
         ->serializeToForum('fof-cookie-consent.learnMoreLinkText', 'fof-cookie-consent.learnMoreLinkText')
         ->serializeToForum('fof-cookie-consent.learnMoreLinkUrl', 'fof-cookie-consent.learnMoreLinkUrl')
         ->serializeToForum('fof-cookie-consent.layout', 'fof-cookie-consent.layout')

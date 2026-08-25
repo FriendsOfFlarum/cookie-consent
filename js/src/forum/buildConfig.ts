@@ -2,6 +2,48 @@ import type { CookieConsentConfig, ConsentModalLayout, ConsentModalPosition } fr
 
 type SettingReader = (key: string) => string | undefined;
 
+/** A category as serialized by the backend's CategoryRegistry. */
+type SerializedCategory = {
+  enabled: boolean;
+  readOnly: boolean;
+  autoClear?: { cookies: { name: string }[]; reloadPage?: boolean };
+};
+
+const NECESSARY: Record<string, SerializedCategory> = {
+  necessary: { enabled: true, readOnly: true },
+};
+
+/**
+ * Cookie names arrive as strings. A name wrapped in slashes denotes a pattern
+ * and is converted back into the RegExp the library expects, so a category can
+ * clear a whole family of cookies (`_ga`, `_gat`, `_gid`).
+ */
+function toCookieMatcher(name: string): { name: string | RegExp } {
+  const pattern = name.match(/^\/(.*)\/$/);
+
+  return { name: pattern ? new RegExp(pattern[1]) : name };
+}
+
+function toCategories(serialized: Record<string, SerializedCategory>) {
+  return Object.fromEntries(
+    Object.entries(serialized).map(([key, category]) => [
+      key,
+      {
+        enabled: category.enabled,
+        readOnly: category.readOnly,
+        ...(category.autoClear
+          ? {
+              autoClear: {
+                cookies: category.autoClear.cookies.map((c) => toCookieMatcher(c.name)),
+                ...(category.autoClear.reloadPage ? { reloadPage: true } : {}),
+              },
+            }
+          : {}),
+      },
+    ])
+  );
+}
+
 const LAYOUTS: ConsentModalLayout[] = ['box', 'box wide', 'box inline', 'cloud', 'cloud inline', 'bar', 'bar inline'];
 
 const POSITIONS: ConsentModalPosition[] = [
@@ -30,6 +72,11 @@ function escapeHtml(value: string): string {
   return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 
+/** Plain text for contexts that are not rendered as HTML. */
+function stripTags(value: string): string {
+  return value.replace(/<[^>]*>/g, '');
+}
+
 /**
  * Build the consent modal description: the admin's message, plus an optional
  * link to their privacy policy. Both halves are escaped.
@@ -52,7 +99,8 @@ function buildDescription(text: string, linkText: string, linkUrl: string): stri
  * shows a cookie notice with accept/decline rather than managing granular
  * consent, so there is nothing for a preferences modal to toggle.
  */
-export default function buildConfig(get: SettingReader): CookieConsentConfig {
+export default function buildConfig(get: SettingReader, serialized: Record<string, SerializedCategory> = NECESSARY): CookieConsentConfig {
+  const declinable = Object.entries(serialized).filter(([, c]) => !c.readOnly);
   const layout = get('layout') as ConsentModalLayout;
   const position = get('position') as ConsentModalPosition;
 
@@ -68,12 +116,7 @@ export default function buildConfig(get: SettingReader): CookieConsentConfig {
       },
     },
 
-    categories: {
-      necessary: {
-        enabled: true,
-        readOnly: true,
-      },
-    },
+    categories: toCategories(serialized),
 
     language: {
       default: 'en',
@@ -83,9 +126,22 @@ export default function buildConfig(get: SettingReader): CookieConsentConfig {
             description: buildDescription(get('consentText') || '', get('learnMoreLinkText') || '', get('learnMoreLinkUrl') || ''),
             acceptAllBtn: get('buttonText') || '',
             acceptNecessaryBtn: get('declineButtonText') || '',
+            // Only worth offering when there is something to choose between.
+            ...(declinable.length > 0 ? { showPreferencesBtn: get('preferencesButtonText') || 'Manage preferences' } : {}),
           },
-          // No togglable categories, so the preferences modal is never shown.
-          preferencesModal: { sections: [] },
+          preferencesModal: {
+            title: get('preferencesTitle') || 'Cookie preferences',
+            acceptAllBtn: get('buttonText') || '',
+            acceptNecessaryBtn: get('declineButtonText') || '',
+            savePreferencesBtn: get('savePreferencesText') || 'Save preferences',
+            sections: [
+              { description: stripTags(get('consentText') || '') },
+              ...Object.keys(serialized).map((key) => ({
+                title: key,
+                linkedCategory: key,
+              })),
+            ],
+          },
         },
       },
     },

@@ -6,6 +6,9 @@ fof-cookie-consent:
       buttonText: Accept Button Text
       declineButtonText: Decline Button Text
       declineButtonText_help: Shown alongside the accept button, letting visitors refuse non-essential cookies.
+      preferencesButtonText: Manage Preferences Button Text
+      preferencesTitle: Preferences Modal Title
+      savePreferencesText: Save Preferences Button Text
       configuration_button_title: Learn More Link
 
       learnMoreLinkText: Text

@@ -20,12 +20,40 @@ const settings = (overrides: Record<string, string> = {}): Record<string, string
 const get = (s: Record<string, string>) => (key: string) => s[`fof-cookie-consent.${key}`];
 
 describe('buildConfig', () => {
-  it('declares a single always-on necessary category', () => {
+  it('declares a single always-on necessary category by default', () => {
     const config = buildConfig(get(settings()));
 
     expect(Object.keys(config.categories)).toEqual(['necessary']);
     expect(config.categories.necessary.enabled).toBe(true);
     expect(config.categories.necessary.readOnly).toBe(true);
+  });
+
+  it('uses the categories declared by other extensions', () => {
+    const config = buildConfig(get(settings()), {
+      necessary: { enabled: true, readOnly: true },
+      analytics: { enabled: false, readOnly: false, autoClear: { cookies: [{ name: '_ga' }] } },
+    });
+
+    expect(Object.keys(config.categories)).toEqual(['necessary', 'analytics']);
+    expect(config.categories.analytics.autoClear.cookies).toEqual([{ name: '_ga' }]);
+  });
+
+  it('converts serialized cookie patterns back into regular expressions', () => {
+    const config = buildConfig(get(settings()), {
+      analytics: { enabled: false, readOnly: false, autoClear: { cookies: [{ name: '/^_ga/' }] } },
+    });
+
+    expect(config.categories.analytics.autoClear.cookies[0].name).toBeInstanceOf(RegExp);
+  });
+
+  it('offers a preferences button once a declinable category exists', () => {
+    const config = buildConfig(get(settings()), {
+      necessary: { enabled: true, readOnly: true },
+      analytics: { enabled: false, readOnly: false },
+    });
+
+    expect(config.language.translations.en.consentModal.showPreferencesBtn).toBeTruthy();
+    expect(config.language.translations.en.preferencesModal.sections.length).toBeGreaterThan(1);
   });
 
   it('maps the consent text and both button labels', () => {
