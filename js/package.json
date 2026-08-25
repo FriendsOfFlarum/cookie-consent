@@ -24,7 +24,7 @@
     "format-check": "prettier --check src tests",
     "clean-typings": "npx rimraf dist-typings && mkdir dist-typings",
     "build-typings": "npm run clean-typings && ([ -e src/@types ] && cp -r src/@types dist-typings/@types || true) && tsc && npm run post-build-typings",
-    "post-build-typings": "find dist-typings -type f -name '*.d.ts' -print0 | xargs -0 sed -i 's,../src/@types,@types,g'",
+    "post-build-typings": "[ -d dist-typings/@types ] && find dist-typings -type f -name '*.d.ts' -print0 | xargs -0 perl -pi -e 's,\\.\\./src/\\@types,\\@types,g' || true",
     "check-typings": "tsc --noEmit --emitDeclarationOnly false",
     "check-typings-coverage": "typescript-coverage-report",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
