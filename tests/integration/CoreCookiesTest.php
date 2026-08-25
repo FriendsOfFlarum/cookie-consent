@@ -14,9 +14,9 @@ namespace FoF\CookieConsent\Tests\integration;
 use Flarum\Foundation\Config;
 use Flarum\Http\CookieFactory;
 use Flarum\Testing\integration\TestCase;
-use Symfony\Component\Yaml\Yaml;
 use FoF\CookieConsent\CategoryRegistry;
 use PHPUnit\Framework\Attributes\Test;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * The banner should account for the cookies Flarum itself sets, so the
