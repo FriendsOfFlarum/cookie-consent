@@ -91,7 +91,7 @@ class CategoryRegistry
      */
     public function optional(): array
     {
-        return array_keys(array_filter($this->categories, fn (Category $c) => ! $c->essential));
+        return array_keys(array_filter($this->categories, fn (Category $c) => !$c->essential));
     }
 
     /**

@@ -23,7 +23,7 @@ class CategoryProvider extends AbstractServiceProvider
         // extenders may already have seeded them — extenders run before
         // providers register, so only bind a default when nothing is there.
         foreach (['fof-cookie-consent.categories', 'fof-cookie-consent.gated'] as $key) {
-            if (! $this->container->bound($key)) {
+            if (!$this->container->bound($key)) {
                 $this->container->instance($key, []);
             }
         }
@@ -35,5 +35,4 @@ class CategoryProvider extends AbstractServiceProvider
             );
         });
     }
-
 }

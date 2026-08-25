@@ -78,7 +78,7 @@ class ScriptGate
             return true;
         }
 
-        if (! preg_match('/\btype\s*=\s*("([^"]*)"|\'([^\']*)\'|([^\s>]+))/i', $attributes, $type)) {
+        if (!preg_match('/\btype\s*=\s*("([^"]*)"|\'([^\']*)\'|([^\s>]+))/i', $attributes, $type)) {
             return false;
         }
 

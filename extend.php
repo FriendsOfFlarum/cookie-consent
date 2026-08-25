@@ -11,10 +11,9 @@
 
 namespace FoF\CookieConsent;
 
-use Flarum\Extend;
 use Flarum\Api\Resource\ForumResource;
 use Flarum\Api\Schema;
-use FoF\CookieConsent\CategoryRegistry;
+use Flarum\Extend;
 
 return [
     (new Extend\Frontend('forum'))

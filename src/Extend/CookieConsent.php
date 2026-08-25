@@ -41,7 +41,7 @@ class CookieConsent implements ExtenderInterface
     /**
      * Declare a category of cookies, or add to one another extension declared.
      *
-     * @param string $key A category name, e.g. `analytics` or `marketing`.
+     * @param string                    $key       A category name, e.g. `analytics` or `marketing`.
      * @param callable(Category): mixed $configure Receives the category to configure.
      */
     public function category(string $key, callable $configure): self

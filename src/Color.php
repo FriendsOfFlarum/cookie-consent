@@ -51,7 +51,7 @@ class Color
      */
     public static function darken(string $hex, float $amount): string
     {
-        if (! preg_match('/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/', $hex, $match)) {
+        if (!preg_match('/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/', $hex, $match)) {
             return $hex;
         }
 
