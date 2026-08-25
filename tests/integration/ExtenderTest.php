@@ -48,6 +48,51 @@ class ExtenderTest extends TestCase
     }
 
     #[Test]
+    public function the_known_categories_carry_our_own_translations(): void
+    {
+        $yaml = \Symfony\Component\Yaml\Yaml::parseFile(__DIR__.'/../../resources/locale/en.yml');
+        $categories = $yaml['fof-cookie-consent']['forum']['categories'];
+
+        // Owned here so three extensions declaring `analytics` do not each
+        // ship competing wording for the same section.
+        foreach (['necessary', 'analytics', 'marketing'] as $key) {
+            $this->assertArrayHasKey($key, $categories, "no translations for the `$key` category");
+            $this->assertArrayHasKey('title', $categories[$key]);
+            $this->assertArrayHasKey('description', $categories[$key]);
+        }
+    }
+
+    #[Test]
+    public function a_known_category_ignores_translation_keys_an_extension_supplies(): void
+    {
+        $this->extend(
+            (new CookieConsent())->category('analytics', fn (Category $c) => $c
+                ->cookie('_ga')
+                ->translations('some-extension.forum.analytics.title'))
+        );
+
+        $compiled = $this->registry()->toArray()['analytics'];
+
+        // Ours wins, so the section reads consistently however many
+        // extensions contribute cookies to it.
+        $this->assertNull($compiled['titleKey']);
+    }
+
+    #[Test]
+    public function a_third_party_category_keeps_its_own_translations(): void
+    {
+        $this->extend(
+            (new CookieConsent())->category('livechat', fn (Category $c) => $c
+                ->cookie('_lc')
+                ->translations('acme-livechat.forum.consent.title'))
+        );
+
+        $compiled = $this->registry()->toArray()['livechat'];
+
+        $this->assertSame('acme-livechat.forum.consent.title', $compiled['titleKey']);
+    }
+
+    #[Test]
     public function an_extension_can_declare_a_category(): void
     {
         $this->extend(

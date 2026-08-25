@@ -81,8 +81,8 @@ fof-cookie-consent:
     cookies:
       flarum_session: Keeps you signed in while you browse.
       flarum_remember: Signs you back in automatically on your next visit.
+      locale: Remembers the language you chose.
       cc_cookie: Remembers your cookie choice so you are not asked again.
-      unknown: Used by this forum or one of its extensions.
 
     categories:
       necessary:
@@ -90,3 +90,14 @@ fof-cookie-consent:
         description: >-
           Required for the site to work — signing in, staying signed in, and
           remembering your cookie choice. These cannot be turned off.
+
+      analytics:
+        title: Analytics
+        description: >-
+          Help us understand how the forum is used, so we can improve it.
+          Nothing here is needed for the forum to work.
+
+      marketing:
+        title: Marketing
+        description: >-
+          Used to measure advertising and to show you ads on other sites.

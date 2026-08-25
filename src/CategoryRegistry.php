@@ -22,7 +22,22 @@ use Flarum\Http\CookieFactory;
  */
 class CategoryRegistry
 {
+    /** Container key holding the category declarations extensions contribute. */
+    public const DECLARATIONS = 'fof-cookie-consent.categories';
+
     public const NECESSARY = 'necessary';
+    public const ANALYTICS = 'analytics';
+    public const MARKETING = 'marketing';
+
+    /**
+     * Categories this extension defines and translates itself.
+     *
+     * Several extensions may contribute cookies to the same one — three
+     * analytics providers should share a single section rather than each
+     * shipping competing wording for it. Anything else is a third-party
+     * category, which keeps whatever translations its author supplied.
+     */
+    public const KNOWN = [self::NECESSARY, self::ANALYTICS, self::MARKETING];
 
     /** The cookie vanilla-cookieconsent stores the visitor's choice in. */
     public const CONSENT_COOKIE = 'cc_cookie';
@@ -31,7 +46,7 @@ class CategoryRegistry
     public const LOCALE_COOKIE = 'locale';
 
     /** @var array<string, Category> */
-    private array $categories = [];
+    protected array $categories = [];
 
     /**
      * @param array<string, callable[]> $declarations Category key => configurators.
@@ -74,6 +89,12 @@ class CategoryRegistry
     public function category(string $key): Category
     {
         return $this->categories[$key] ??= new Category($key);
+    }
+
+    /** Whether this extension owns the wording for a category. */
+    public static function isKnown(string $key): bool
+    {
+        return in_array($key, self::KNOWN, true);
     }
 
     /**

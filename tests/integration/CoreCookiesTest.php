@@ -14,6 +14,7 @@ namespace FoF\CookieConsent\Tests\integration;
 use Flarum\Foundation\Config;
 use Flarum\Http\CookieFactory;
 use Flarum\Testing\integration\TestCase;
+use Symfony\Component\Yaml\Yaml;
 use FoF\CookieConsent\CategoryRegistry;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -73,6 +74,17 @@ class CoreCookiesTest extends TestCase
 
         $this->assertContains('discuss_session', $registry->all()['necessary']->cookies);
         $this->assertContains('discuss_remember', $registry->all()['necessary']->cookies);
+    }
+
+    #[Test]
+    public function every_declared_core_cookie_has_a_description(): void
+    {
+        $yaml = Yaml::parseFile(__DIR__.'/../../resources/locale/en.yml');
+        $described = $yaml['fof-cookie-consent']['forum']['cookies'] ?? [];
+
+        foreach ($this->necessary() as $cookie) {
+            $this->assertArrayHasKey($cookie, $described, "no description for the `$cookie` cookie");
+        }
     }
 
     #[Test]

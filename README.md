@@ -42,7 +42,9 @@ To test, clear the `cc_cookie` cookie for your site, or use a private window.
 
 ## Cookie categories
 
-Out of the box there is one category, `necessary`, covering Flarum's own cookies:
+Three categories are built in — `necessary`, `analytics` and `marketing`. Only `necessary` is used until an extension declares cookies for the others, so a forum running nothing that tracks shows a single section.
+
+`necessary` covers Flarum's own cookies:
 
 | Cookie | Purpose |
 | --- | --- |
@@ -93,8 +95,8 @@ If your extension sets cookies, or loads a script that does, declare it. Add thi
         (new FoF\CookieConsent\Extend\CookieConsent())
             ->category('analytics', function (FoF\CookieConsent\Category $category) {
                 $category
-                    ->cookiePattern('^_ga')
-                    ->cookie('_gid');
+                    ->cookiePattern('^_ga', 'acme-analytics.forum.cookies.ga')
+                    ->cookie('_gid', 'acme-analytics.forum.cookies.gid');
             })
             ->gate('analytics'),
     ]),
@@ -102,18 +104,31 @@ If your extension sets cookies, or loads a script that does, declare it. Add thi
 
 `Extend\Conditional` keeps it a soft dependency — without fof/cookie-consent installed, your extension behaves as before.
 
+Add it to your `composer.json` so it boots first:
+
+```json
+"extra": {
+    "flarum-extension": {
+        "optional-dependencies": ["fof/cookie-consent"]
+    }
+}
+```
+
 ### Declaring cookies
 
 `category()` creates a category, or adds to one another extension already declared, so several extensions can share `analytics`.
 
 | Method | Does |
 | --- | --- |
-| `cookie('_gid')` | Declares one cookie |
-| `cookiePattern('^_pk_')` | Declares a family of cookies |
+| `cookie('_gid', $key)` | Declares one cookie, with a translation key describing it |
+| `cookiePattern('^_pk_', $key)` | Same, for a family of cookies |
 | `essential()` | Always on, can't be declined, never erased |
 | `reloadOnReject()` | Reloads the page after rejection |
+| `translations($title, $description)` | Names the category's own strings — third-party categories only |
 
 Declared cookies are erased when the category is declined, and listed in the preferences dialog either way.
+
+The description key is optional but worth supplying: without one the dialog shows the cookie name and an empty purpose.
 
 `reloadOnReject()` is for scripts that can't cleanly undo themselves once loaded — most analytics libraries.
 
@@ -125,20 +140,31 @@ Tags you add to the document head are rewritten to `type="text/plain"` with a `d
 
 Tags you've already marked `type="text/plain"` are left alone, so you can gate them yourself. JSON-LD, import maps and speculation rules are never gated.
 
-### Translations
+### Categories and translations
 
-Category strings resolve under this extension's namespace. Flarum merges locale files, so ship them with your own extension:
+`necessary`, `analytics` and `marketing` are defined here, translations included. Use those keys where they fit — several extensions contributing to `analytics` then share one section, rather than each shipping its own wording for it. Passing `translations()` on one of these does nothing; ours win.
 
-```yml
-fof-cookie-consent:
-  forum:
-    categories:
-      analytics:
-        title: Analytics
-        description: Helps us understand how the forum is used.
+Any other key is yours, and needs its own strings:
+
+```php
+->category('livechat', function (Category $category) {
+    $category
+        ->cookie('_lc', 'acme-livechat.forum.consent.cookies.lc')
+        ->translations('acme-livechat.forum.consent.title', 'acme-livechat.forum.consent.description');
+})
 ```
 
-Individual cookies go under `fof-cookie-consent.forum.cookies.<name>`. Anything undescribed gets a generic line.
+Cookie descriptions are always yours, whichever category they sit in — only you know what `_lc` does. Ship the strings with your extension:
+
+```yml
+acme-livechat:
+  forum:
+    consent:
+      title: Live chat
+      description: Powers the chat widget in the corner.
+      cookies:
+        lc: Keeps your chat session open between pages.
+```
 
 ### Reacting to consent
 

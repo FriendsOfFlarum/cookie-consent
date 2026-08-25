@@ -45,6 +45,49 @@ class CategoryTest extends TestCase
     }
 
     #[Test]
+    public function a_cookie_may_carry_its_own_translation_key(): void
+    {
+        $category = (new Category('analytics'))
+            ->cookie('_gid', 'fof-analytics.forum.cookies._gid')
+            ->cookiePattern('^_ga', 'fof-analytics.forum.cookies._ga');
+
+        $this->assertSame([
+            '_gid'   => 'fof-analytics.forum.cookies._gid',
+            '/^_ga/' => 'fof-analytics.forum.cookies._ga',
+        ], $category->descriptions);
+    }
+
+    #[Test]
+    public function a_cookie_without_a_key_has_no_description(): void
+    {
+        $this->assertSame([], (new Category('analytics'))->cookie('_gid')->descriptions);
+    }
+
+    #[Test]
+    public function a_third_party_category_may_name_its_own_title_and_description(): void
+    {
+        // `analytics` and friends are translated by this extension; anything
+        // else keeps whatever its author supplied.
+        $category = (new Category('livechat'))
+            ->translations('acme-livechat.forum.consent.title', 'acme-livechat.forum.consent.description');
+
+        $this->assertSame('acme-livechat.forum.consent.title', $category->titleKey);
+        $this->assertSame('acme-livechat.forum.consent.description', $category->descriptionKey);
+    }
+
+    #[Test]
+    public function translation_keys_are_compiled_for_the_frontend(): void
+    {
+        $compiled = (new Category('livechat'))
+            ->cookie('_gid', 'fof-analytics.forum.cookies._gid')
+            ->translations('acme-livechat.forum.consent.title')
+            ->toArray();
+
+        $this->assertSame('acme-livechat.forum.consent.title', $compiled['titleKey']);
+        $this->assertSame(['_gid' => 'fof-analytics.forum.cookies._gid'], $compiled['descriptions']);
+    }
+
+    #[Test]
     public function it_compiles_to_the_libraries_category_shape(): void
     {
         $compiled = (new Category('analytics'))->cookie('_ga')->cookiePattern('^_gat')->toArray();

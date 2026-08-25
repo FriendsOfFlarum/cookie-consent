@@ -15,6 +15,7 @@ use Flarum\Extend\ExtenderInterface;
 use Flarum\Extension\Extension;
 use Flarum\Frontend\Document;
 use FoF\CookieConsent\Category;
+use FoF\CookieConsent\CategoryRegistry;
 use FoF\CookieConsent\ScriptGate;
 use Illuminate\Contracts\Container\Container;
 
@@ -35,8 +36,8 @@ use Illuminate\Contracts\Container\Container;
  */
 class CookieConsent implements ExtenderInterface
 {
-    private array $categories = [];
-    private array $gated = [];
+    protected array $categories = [];
+    protected array $gated = [];
 
     /**
      * Declare a category of cookies, or add to one another extension declared.
@@ -44,7 +45,7 @@ class CookieConsent implements ExtenderInterface
      * @param string                    $key       A category name, e.g. `analytics` or `marketing`.
      * @param callable(Category): mixed $configure Receives the category to configure.
      */
-    public function category(string $key, callable $configure): self
+    public function category(string $key, callable $configure): static
     {
         $this->categories[$key][] = $configure;
 
@@ -56,7 +57,7 @@ class CookieConsent implements ExtenderInterface
      * accepted. Tags already marked `type="text/plain"` are left alone, so an
      * extension may gate its own scripts explicitly instead.
      */
-    public function gate(string $category): self
+    public function gate(string $category): static
     {
         $this->gated[] = $category;
 
@@ -66,19 +67,13 @@ class CookieConsent implements ExtenderInterface
     public function extend(Container $container, ?Extension $extension = null): void
     {
         if ($this->categories !== []) {
-            // Extenders run before service providers register, and in an order
-            // that is not guaranteed between extensions, so the binding may not
-            // exist yet. Seed it rather than relying on `extend()`, which is a
-            // silent no-op against an unbound key.
-            $existing = $container->bound('fof-cookie-consent.categories')
-                ? $container->make('fof-cookie-consent.categories')
-                : [];
+            $container->extend(CategoryRegistry::DECLARATIONS, function (array $declarations) {
+                foreach ($this->categories as $key => $configurators) {
+                    $declarations[$key] = array_merge($declarations[$key] ?? [], $configurators);
+                }
 
-            foreach ($this->categories as $key => $configurators) {
-                $existing[$key] = array_merge($existing[$key] ?? [], $configurators);
-            }
-
-            $container->instance('fof-cookie-consent.categories', $existing);
+                return $declarations;
+            });
         }
 
         foreach ($this->gated as $category) {

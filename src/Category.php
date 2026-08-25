@@ -32,6 +32,20 @@ class Category
     /** Whether to reload once the category's scripts have been revoked. */
     public bool $reloadOnReject = false;
 
+    /**
+     * Translation keys describing individual cookies, keyed by the name or
+     * pattern they describe.
+     *
+     * @var array<string, string>
+     */
+    public array $descriptions = [];
+
+    /** Translation key for the category's own title. */
+    public ?string $titleKey = null;
+
+    /** Translation key for the category's own description. */
+    public ?string $descriptionKey = null;
+
     public function __construct(
         public readonly string $key
     ) {
@@ -40,9 +54,13 @@ class Category
     /**
      * Declare a cookie erased when the visitor declines this category.
      */
-    public function cookie(string $name): self
+    public function cookie(string $name, ?string $description = null): static
     {
         $this->cookies[] = $name;
+
+        if ($description !== null) {
+            $this->descriptions[$name] = $description;
+        }
 
         return $this;
     }
@@ -53,9 +71,34 @@ class Category
      *
      * The expression is passed through as-is; do not include delimiters.
      */
-    public function cookiePattern(string $pattern): self
+    public function cookiePattern(string $pattern, ?string $description = null): static
     {
         $this->patterns[] = $pattern;
+
+        if ($description !== null) {
+            $this->descriptions["/$pattern/"] = $description;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Name the translation keys for this category's title and description, so
+     * the extension declaring it ships its own wording.
+     *
+     * Without these the frontend falls back to
+     * `fof-cookie-consent.forum.categories.<key>.*`.
+     */
+    public function translations(?string $title = null, ?string $description = null): static
+    {
+        // The categories this extension defines are translated here, so that a
+        // section contributed to by several extensions reads consistently.
+        if (CategoryRegistry::isKnown($this->key)) {
+            return $this;
+        }
+
+        $this->titleKey = $title ?? $this->titleKey;
+        $this->descriptionKey = $description ?? $this->descriptionKey;
 
         return $this;
     }
@@ -64,7 +107,7 @@ class Category
      * Mark the category as strictly necessary. It is always enabled, cannot be
      * toggled off, and its cookies are never erased.
      */
-    public function essential(bool $essential = true): self
+    public function essential(bool $essential = true): static
     {
         $this->essential = $essential;
 
@@ -75,7 +118,7 @@ class Category
      * Reload the page once this category is declined. Use when scripts cannot
      * cleanly undo themselves at runtime.
      */
-    public function reloadOnReject(bool $reload = true): self
+    public function reloadOnReject(bool $reload = true): static
     {
         $this->reloadOnReject = $reload;
 
@@ -98,6 +141,11 @@ class Category
             // Listed whether or not they are erased, so the preferences modal
             // can tell visitors what this category stores.
             'declaredCookies' => $names,
+            // Translation keys supplied by whichever extension declared this,
+            // so it ships its own wording rather than relying on ours.
+            'descriptions'    => $this->descriptions,
+            'titleKey'        => $this->titleKey,
+            'descriptionKey'  => $this->descriptionKey,
         ];
 
         // An essential category is never cleared, so it carries no autoClear

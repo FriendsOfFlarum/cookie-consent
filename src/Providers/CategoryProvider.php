@@ -19,18 +19,12 @@ class CategoryProvider extends AbstractServiceProvider
 {
     public function register(): void
     {
-        // Extensions contribute to these through `Extend\CookieConsent`, whose
-        // extenders may already have seeded them — extenders run before
-        // providers register, so only bind a default when nothing is there.
-        foreach (['fof-cookie-consent.categories', 'fof-cookie-consent.gated'] as $key) {
-            if (!$this->container->bound($key)) {
-                $this->container->instance($key, []);
-            }
-        }
+        // Extensions contribute to this through `Extend\CookieConsent`.
+        $this->container->singleton(CategoryRegistry::DECLARATIONS, fn () => []);
 
         $this->container->singleton(CategoryRegistry::class, function ($container) {
             return new CategoryRegistry(
-                $container->make('fof-cookie-consent.categories'),
+                $container->make(CategoryRegistry::DECLARATIONS),
                 $container->make(CookieFactory::class)
             );
         });

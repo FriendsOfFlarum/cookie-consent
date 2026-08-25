@@ -25,6 +25,11 @@ const strings: Record<string, string> = {
   'fof-cookie-consent.forum.banner.accept': 'I Accept',
   'fof-cookie-consent.forum.banner.decline': 'Decline',
   'fof-cookie-consent.forum.banner.learn_more': 'Learn More',
+  // Keys a declaring extension would ship, so `translated()` sees them as real.
+  'fof-analytics.forum.consent.title': 'Analytics (from fof/analytics)',
+  'fof-analytics.forum.consent.description': 'Declared by fof/analytics',
+  'fof-analytics.forum.cookies._gid': 'Distinguishes users, set by Google Analytics',
+  'fof-cookie-consent.forum.categories.necessary.title': 'Strictly necessary',
 };
 
 /** Stands in for `app.translator.trans`, returning the key when unmapped. */
@@ -102,8 +107,9 @@ describe('buildConfig', () => {
 
     const section = config.language.translations.en.preferencesModal.sections.find((s: any) => s.linkedCategory === 'necessary');
 
-    // A renamed core cookie has no matching key; the row must still be usable.
-    expect(section.cookieTable.body[0].description).toBe('fof-cookie-consent.forum.cookies.unknown');
+    // A renamed core cookie has no matching key. Rather than inventing a
+    // vague purpose, the cell is left empty.
+    expect(section.cookieTable.body[0].description).toBe('');
   });
 
   it('omits the cookie table for a category that declares nothing', () => {
@@ -117,12 +123,7 @@ describe('buildConfig', () => {
   it('lists the necessary category in the preferences modal', () => {
     const sections = build().language.translations.en.preferencesModal.sections;
 
-    expect(sections).toContainEqual(
-      expect.objectContaining({
-        title: 'fof-cookie-consent.forum.categories.necessary.title',
-        linkedCategory: 'necessary',
-      })
-    );
+    expect(sections).toContainEqual(expect.objectContaining({ title: 'Strictly necessary', linkedCategory: 'necessary' }));
   });
 
   it('offers a preferences button once a declinable category exists', () => {
@@ -138,6 +139,54 @@ describe('buildConfig', () => {
     expect(config.language.translations.en.preferencesModal.sections.length).toBeGreaterThan(1);
   });
 
+  it('uses the translation keys a category supplies for itself', () => {
+    const config = build(
+      {},
+      {
+        analytics: {
+          enabled: false,
+          readOnly: false,
+          titleKey: 'fof-analytics.forum.consent.title',
+          descriptionKey: 'fof-analytics.forum.consent.description',
+        },
+      }
+    );
+
+    const section = config.language.translations.en.preferencesModal.sections.find((s: any) => s.linkedCategory === 'analytics');
+
+    expect(section.title).toBe('Analytics (from fof/analytics)');
+    expect(section.description).toBe('Declared by fof/analytics');
+  });
+
+  it('falls back to a readable title when a category has no translation', () => {
+    const config = build({}, { analytics: { enabled: false, readOnly: false } });
+
+    const section = config.language.translations.en.preferencesModal.sections.find((s: any) => s.linkedCategory === 'analytics');
+
+    // Never show a raw translation key to visitors.
+    expect(section.title).not.toContain('fof-cookie-consent.');
+    expect(section.title).toBe('Analytics');
+    expect(section.description).toBe('');
+  });
+
+  it('uses a cookie description supplied by the declaring extension', () => {
+    const config = build(
+      {},
+      {
+        analytics: {
+          enabled: false,
+          readOnly: false,
+          declaredCookies: ['_gid'],
+          descriptions: { _gid: 'fof-analytics.forum.cookies._gid' },
+        },
+      }
+    );
+
+    const section = config.language.translations.en.preferencesModal.sections.find((s: any) => s.linkedCategory === 'analytics');
+
+    expect(section.cookieTable.body[0].description).toBe('Distinguishes users, set by Google Analytics');
+  });
+
   it('labels each category section from its own translation key', () => {
     const config = build(
       {},
@@ -149,12 +198,7 @@ describe('buildConfig', () => {
 
     const sections = config.language.translations.en.preferencesModal.sections;
 
-    expect(sections).toContainEqual(
-      expect.objectContaining({
-        title: 'fof-cookie-consent.forum.categories.analytics.title',
-        linkedCategory: 'analytics',
-      })
-    );
+    expect(sections).toContainEqual(expect.objectContaining({ linkedCategory: 'analytics' }));
   });
 
   it('appends the learn-more link when a url is configured', () => {

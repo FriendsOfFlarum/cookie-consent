@@ -14,6 +14,12 @@ export type SerializedCategory = {
   autoClear?: { cookies: { name: string }[]; reloadPage?: boolean };
   /** Every cookie the category declares, erased or not — shown to visitors. */
   declaredCookies?: string[];
+  /** Translation keys per cookie, supplied by the declaring extension. */
+  descriptions?: Record<string, string>;
+  /** Translation key for the category's own title. */
+  titleKey?: string | null;
+  /** Translation key for the category's own description. */
+  descriptionKey?: string | null;
 };
 
 const NECESSARY: Record<string, SerializedCategory> = {
@@ -85,11 +91,37 @@ function escapeHtml(value: string): string {
  * their own — so fall back to a generic description rather than showing a raw
  * translation key.
  */
-function describeCookie(trans: Translator, name: string): string {
-  const key = `${T}.cookies.${name}`;
-  const described = trans(key);
+/**
+ * Translate a key, or return null when it has no translation.
+ *
+ * `trans` echoes the key back when nothing matches, which must never reach a
+ * visitor.
+ */
+function translated(trans: Translator, key: string | null | undefined): string | null {
+  if (!key) return null;
 
-  return described === key ? trans(`${T}.cookies.unknown`) : described;
+  const value = trans(key);
+
+  return value === key ? null : value;
+}
+
+/**
+ * Turn a category key into something readable, for a category whose declaring
+ * extension shipped no translation. `analytics` becomes `Analytics`.
+ */
+function humanise(key: string): string {
+  return key
+    .replace(/[_-]+/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .trim();
+}
+
+/**
+ * Describe a cookie's purpose, preferring the key the declaring extension
+ * supplied over this extension's own list.
+ */
+function describeCookie(trans: Translator, name: string, supplied?: string): string {
+  return translated(trans, supplied) ?? translated(trans, `${T}.cookies.${name}`) ?? '';
 }
 
 /**
@@ -164,8 +196,10 @@ export default function buildConfig(
               // Each category names its own strings, so an extension that
               // declares one ships the matching translations with it.
               ...Object.entries(serialized).map(([key, category]) => ({
-                title: trans(`${T}.categories.${key}.title`),
-                description: trans(`${T}.categories.${key}.description`),
+                // Prefer the declaring extension's own keys, then ours, then
+                // a readable form of the key itself — never a raw key.
+                title: translated(trans, category.titleKey) ?? translated(trans, `${T}.categories.${key}.title`) ?? humanise(key),
+                description: translated(trans, category.descriptionKey) ?? translated(trans, `${T}.categories.${key}.description`) ?? '',
                 linkedCategory: key,
                 // Naming the actual cookies is the transparency the modal is
                 // for; a category that declares none gets no empty table.
@@ -178,7 +212,7 @@ export default function buildConfig(
                         },
                         body: category.declaredCookies.map((name) => ({
                           name,
-                          description: describeCookie(trans, name),
+                          description: describeCookie(trans, name, category.descriptions?.[name]),
                         })),
                       },
                     }
