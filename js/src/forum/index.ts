@@ -2,10 +2,10 @@ import app from 'flarum/forum/app';
 import 'cookieconsent';
 
 app.initializers.add('fof-cookie-consent', () => {
-  $(document).ready(() => {
-    const getAttribute = (key) => app.forum.attribute(`fof-cookie-consent.${key}`);
+  app.beforeMount(() => {
+    const getAttribute = (key: string) => app.forum.attribute<string>(`fof-cookie-consent.${key}`);
 
-    let settings = {
+    const settings: CookieConsentOptions = {
       theme: getAttribute('ccTheme'),
       content: {
         message: getAttribute('consentText'),

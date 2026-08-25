@@ -38,8 +38,10 @@
         }
     ],
     "require": {
-        "flarum/core": "^1.2.0"
+        "flarum/core": "^2.0.0"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "replace": {
         "reflar/cookie-consent": "*"
     },
@@ -68,7 +70,7 @@
         }
     },
     "require-dev": {
-        "flarum/phpstan": "*"
+        "flarum/phpstan": "^2.0.0"
     },
     "scripts": {
         "analyse:phpstan": "phpstan analyse",
