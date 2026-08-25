@@ -13,10 +13,6 @@ jest.unstable_mockModule('vanilla-cookieconsent', () => ({
 }));
 
 const ATTRIBUTES: Record<string, string> = {
-  'fof-cookie-consent.consentText': 'We use cookies.',
-  'fof-cookie-consent.buttonText': 'I Accept',
-  'fof-cookie-consent.declineButtonText': 'Decline',
-  'fof-cookie-consent.learnMoreLinkText': 'Learn More',
   'fof-cookie-consent.learnMoreLinkUrl': 'https://example.com/privacy',
   'fof-cookie-consent.layout': 'box',
   'fof-cookie-consent.position': 'bottom right',
@@ -68,13 +64,14 @@ describe('forum initializer', () => {
 
     const config = run.mock.calls[0][0] as any;
 
-    expect(config.language.translations.en.consentModal.acceptAllBtn).toBe('I Accept');
-    expect(config.language.translations.en.consentModal.acceptNecessaryBtn).toBe('Decline');
+    // Text comes from the locale file, not from settings.
+    expect(config.language.translations.en.consentModal.acceptAllBtn).toBeTruthy();
+    expect(config.language.translations.en.consentModal.acceptNecessaryBtn).toBeTruthy();
     expect(config.categories.necessary.readOnly).toBe(true);
   });
 
   it('still renders the banner when optional settings are missing', async () => {
-    await bootExtension({ 'fof-cookie-consent.consentText': 'Cookies.' });
+    await bootExtension({});
 
     expect(run).toHaveBeenCalledTimes(1);
   });

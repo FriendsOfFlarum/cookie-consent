@@ -7,15 +7,13 @@ import buildConfig from '../../src/forum/buildConfig';
  * config that makes vanilla-cookieconsent do that.
  */
 const settings: Record<string, string> = {
-  'fof-cookie-consent.consentText': 'We use cookies.',
-  'fof-cookie-consent.buttonText': 'Accept',
-  'fof-cookie-consent.declineButtonText': 'Decline',
   'fof-cookie-consent.layout': 'box',
   'fof-cookie-consent.position': 'bottom right',
   'fof-cookie-consent.equalWeightButtons': '1',
 };
 
 const get = (key: string) => settings[`fof-cookie-consent.${key}`];
+const trans = (key: string) => key;
 
 const withAnalytics = {
   necessary: { enabled: true, readOnly: true },
@@ -28,14 +26,14 @@ const withAnalytics = {
 
 describe('declining', () => {
   it('leaves an optional category disabled until it is accepted', () => {
-    const { categories } = buildConfig(get, withAnalytics);
+    const { categories } = buildConfig(get, trans, withAnalytics);
 
     expect(categories.analytics.enabled).toBe(false);
     expect(categories.analytics.readOnly).toBe(false);
   });
 
   it('erases the declared cookies of a declined category', () => {
-    const { categories } = buildConfig(get, withAnalytics);
+    const { categories } = buildConfig(get, trans, withAnalytics);
     const cookies = categories.analytics.autoClear!.cookies;
 
     expect(cookies).toContainEqual({ name: '_gid' });
@@ -43,14 +41,14 @@ describe('declining', () => {
   });
 
   it('never erases cookies in the necessary category', () => {
-    const { categories } = buildConfig(get, withAnalytics);
+    const { categories } = buildConfig(get, trans, withAnalytics);
 
     expect(categories.necessary.autoClear).toBeUndefined();
     expect(categories.necessary.readOnly).toBe(true);
   });
 
   it('leaves script tag management enabled so gated scripts stay inert', () => {
-    const config = buildConfig(get, withAnalytics);
+    const config = buildConfig(get, trans, withAnalytics);
 
     // The library manages `data-category` script tags unless told otherwise;
     // switching it off would silently un-gate every declared script.
@@ -58,7 +56,7 @@ describe('declining', () => {
   });
 
   it('does not auto-enable optional categories before consent', () => {
-    const config = buildConfig(get, withAnalytics);
+    const config = buildConfig(get, trans, withAnalytics);
 
     // `opt-out` mode would run scripts before the visitor answers.
     expect(config.mode).not.toBe('opt-out');

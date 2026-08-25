@@ -33,10 +33,6 @@ describe('admin settings', () => {
 
     expect(keys).toEqual(
       expect.arrayContaining([
-        'fof-cookie-consent.consentText',
-        'fof-cookie-consent.buttonText',
-        'fof-cookie-consent.declineButtonText',
-        'fof-cookie-consent.learnMoreLinkText',
         'fof-cookie-consent.learnMoreLinkUrl',
         'fof-cookie-consent.layout',
         'fof-cookie-consent.position',
@@ -45,15 +41,18 @@ describe('admin settings', () => {
     );
   });
 
-  it('offers the decline button text as an editable field', async () => {
+  it('does not expose visitor-facing text as free-text settings', async () => {
     const { default: bootstrapAdmin } = await import('@flarum/jest-config/src/bootstrap/admin');
     bootstrapAdmin();
 
     const [admin] = await loadExtenders();
-    const decline = settingsOf(admin).find((s) => s.setting === 'fof-cookie-consent.declineButtonText');
+    const keys = settingsOf(admin).map((s) => s.setting);
 
-    expect(decline).toBeDefined();
-    expect(decline.type).toBe('text');
+    // Wording lives in the locale file so it can be translated; admins
+    // override it with fof/linguist or a language pack.
+    for (const retired of ['consentText', 'buttonText', 'declineButtonText', 'learnMoreLinkText']) {
+      expect(keys).not.toContain(`fof-cookie-consent.${retired}`);
+    }
   });
 
   it('constrains layout and position to the values the library accepts', async () => {

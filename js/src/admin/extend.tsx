@@ -27,41 +27,15 @@ function options(values: string[], prefix: string): Record<string, string> {
 export default [
   new Extend.Admin()
     .customSetting(() => <h2>{app.translator.trans('fof-cookie-consent.admin.settings.configuration_title')}</h2>, 110)
-    .setting(
-      () => ({
-        setting: 'fof-cookie-consent.consentText',
-        label: app.translator.trans('fof-cookie-consent.admin.settings.consentText'),
-        type: 'textarea',
-        required: true,
-      }),
-      100
-    )
-    .setting(
-      () => ({
-        setting: 'fof-cookie-consent.buttonText',
-        label: app.translator.trans('fof-cookie-consent.admin.settings.buttonText'),
-        type: 'text',
-      }),
-      95
-    )
-    .setting(
-      () => ({
-        setting: 'fof-cookie-consent.declineButtonText',
-        label: app.translator.trans('fof-cookie-consent.admin.settings.declineButtonText'),
-        help: app.translator.trans('fof-cookie-consent.admin.settings.declineButtonText_help'),
-        type: 'text',
-      }),
-      90
+    .customSetting(
+      () => (
+        <div className="Form-group">
+          <div className="helpText">{app.translator.trans('fof-cookie-consent.admin.settings.text_help')}</div>
+        </div>
+      ),
+      105
     )
     .customSetting(() => <h3>{app.translator.trans('fof-cookie-consent.admin.settings.configuration_button_title')}</h3>, 80)
-    .setting(
-      () => ({
-        setting: 'fof-cookie-consent.learnMoreLinkText',
-        label: app.translator.trans('fof-cookie-consent.admin.settings.learnMoreLinkText'),
-        type: 'text',
-      }),
-      72
-    )
     .setting(
       () => ({
         setting: 'fof-cookie-consent.learnMoreLinkUrl',

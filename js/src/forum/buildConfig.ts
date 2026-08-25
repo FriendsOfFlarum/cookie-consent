@@ -2,6 +2,11 @@ import type { CookieConsentConfig, ConsentModalLayout, ConsentModalPosition } fr
 
 type SettingReader = (key: string) => string | undefined;
 
+/** Stands in for `app.translator.trans`. */
+type Translator = (key: string) => string;
+
+const T = 'fof-cookie-consent.forum';
+
 /** A category as serialized by the backend's CategoryRegistry. */
 type SerializedCategory = {
   enabled: boolean;
@@ -99,7 +104,11 @@ function buildDescription(text: string, linkText: string, linkUrl: string): stri
  * shows a cookie notice with accept/decline rather than managing granular
  * consent, so there is nothing for a preferences modal to toggle.
  */
-export default function buildConfig(get: SettingReader, serialized: Record<string, SerializedCategory> = NECESSARY): CookieConsentConfig {
+export default function buildConfig(
+  get: SettingReader,
+  trans: Translator,
+  serialized: Record<string, SerializedCategory> = NECESSARY
+): CookieConsentConfig {
   const declinable = Object.entries(serialized).filter(([, c]) => !c.readOnly);
   const layout = get('layout') as ConsentModalLayout;
   const position = get('position') as ConsentModalPosition;
@@ -123,21 +132,24 @@ export default function buildConfig(get: SettingReader, serialized: Record<strin
       translations: {
         en: {
           consentModal: {
-            description: buildDescription(get('consentText') || '', get('learnMoreLinkText') || '', get('learnMoreLinkUrl') || ''),
-            acceptAllBtn: get('buttonText') || '',
-            acceptNecessaryBtn: get('declineButtonText') || '',
+            description: buildDescription(trans(`${T}.banner.description`), trans(`${T}.banner.learn_more`), get('learnMoreLinkUrl') || ''),
+            acceptAllBtn: trans(`${T}.banner.accept`),
+            acceptNecessaryBtn: trans(`${T}.banner.decline`),
             // Only worth offering when there is something to choose between.
-            ...(declinable.length > 0 ? { showPreferencesBtn: get('preferencesButtonText') || 'Manage preferences' } : {}),
+            ...(declinable.length > 0 ? { showPreferencesBtn: trans(`${T}.banner.preferences`) } : {}),
           },
           preferencesModal: {
-            title: get('preferencesTitle') || 'Cookie preferences',
-            acceptAllBtn: get('buttonText') || '',
-            acceptNecessaryBtn: get('declineButtonText') || '',
-            savePreferencesBtn: get('savePreferencesText') || 'Save preferences',
+            title: trans(`${T}.preferences.title`),
+            acceptAllBtn: trans(`${T}.banner.accept`),
+            acceptNecessaryBtn: trans(`${T}.banner.decline`),
+            savePreferencesBtn: trans(`${T}.preferences.save`),
             sections: [
-              { description: stripTags(get('consentText') || '') },
+              { description: stripTags(trans(`${T}.banner.description`)) },
+              // Each category names its own strings, so an extension that
+              // declares one ships the matching translations with it.
               ...Object.keys(serialized).map((key) => ({
-                title: key,
+                title: trans(`${T}.categories.${key}.title`),
+                description: trans(`${T}.categories.${key}.description`),
                 linkedCategory: key,
               })),
             ],

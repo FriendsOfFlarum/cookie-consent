@@ -2,17 +2,13 @@ fof-cookie-consent:
   admin:
     settings:
       configuration_title: Configuration Options
-      consentText: Consent Message
-      buttonText: Accept Button Text
-      declineButtonText: Decline Button Text
-      declineButtonText_help: Shown alongside the accept button, letting visitors refuse non-essential cookies.
-      preferencesButtonText: Manage Preferences Button Text
-      preferencesTitle: Preferences Modal Title
-      savePreferencesText: Save Preferences Button Text
       configuration_button_title: Learn More Link
+      text_help: |
+        Wording shown to visitors lives in this extension's language files, so it
+        can be translated. Override it with FoF Linguist or a language pack.
 
-      learnMoreLinkText: Text
       learnMoreLinkUrl: Link
+      learnMoreLinkUrl_help: Leave blank to hide the link.
 
       appearance_title: Appearance
       layout: Layout
@@ -47,3 +43,22 @@ fof-cookie-consent:
         bottom_left: Bottom left
         bottom_center: Bottom center
         bottom_right: Bottom right
+
+  forum:
+    banner:
+      description: We use cookies to make this site work and to understand how it is used.
+      accept: Accept
+      decline: Decline
+      preferences: Manage preferences
+      learn_more: Learn more
+
+    preferences:
+      title: Cookie preferences
+      save: Save preferences
+
+    categories:
+      necessary:
+        title: Strictly necessary
+        description: >-
+          Required for the site to work — signing in, staying signed in, and
+          keeping your session secure. These cannot be turned off.

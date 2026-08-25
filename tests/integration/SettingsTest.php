@@ -32,8 +32,6 @@ class SettingsTest extends TestCase
     {
         $settings = $this->app()->getContainer()->make(SettingsRepositoryInterface::class);
 
-        $this->assertSame('I Accept', $settings->get('fof-cookie-consent.buttonText'));
-        $this->assertSame('Decline', $settings->get('fof-cookie-consent.declineButtonText'));
         $this->assertSame('box', $settings->get('fof-cookie-consent.layout'));
         $this->assertSame('bottom right', $settings->get('fof-cookie-consent.position'));
     }
@@ -46,11 +44,22 @@ class SettingsTest extends TestCase
         $data = json_decode($response->getBody()->getContents(), true);
         $attributes = $data['data']['attributes'];
 
-        $this->assertArrayHasKey('fof-cookie-consent.consentText', $attributes);
-        $this->assertArrayHasKey('fof-cookie-consent.declineButtonText', $attributes);
         $this->assertArrayHasKey('fof-cookie-consent.layout', $attributes);
         $this->assertArrayHasKey('fof-cookie-consent.position', $attributes);
         $this->assertArrayHasKey('fof-cookie-consent.equalWeightButtons', $attributes);
+    }
+
+    #[Test]
+    public function visitor_facing_text_is_not_a_setting(): void
+    {
+        $response = $this->send($this->request('GET', '/api'));
+
+        $attributes = json_decode($response->getBody()->getContents(), true)['data']['attributes'];
+
+        // Wording lives in the locale file so it can be translated.
+        foreach (['consentText', 'buttonText', 'declineButtonText', 'learnMoreLinkText'] as $retired) {
+            $this->assertArrayNotHasKey("fof-cookie-consent.$retired", $attributes);
+        }
     }
 
     #[Test]
