@@ -18,8 +18,7 @@ return [
         ->js(__DIR__.'/js/dist/forum.js'),
 
     (new Extend\Frontend('admin'))
-        ->js(__DIR__.'/js/dist/admin.js')
-        ->css(__DIR__.'/resources/less/admin.less'),
+        ->js(__DIR__.'/js/dist/admin.js'),
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 

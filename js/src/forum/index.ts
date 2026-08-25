@@ -3,9 +3,9 @@ import 'cookieconsent';
 
 app.initializers.add('fof-cookie-consent', () => {
   app.beforeMount(() => {
-    const getAttribute = (key) => app.forum.attribute(`fof-cookie-consent.${key}`);
+    const getAttribute = (key: string) => app.forum.attribute<string>(`fof-cookie-consent.${key}`);
 
-    let settings = {
+    const settings: CookieConsentOptions = {
       theme: getAttribute('ccTheme'),
       content: {
         message: getAttribute('consentText'),
