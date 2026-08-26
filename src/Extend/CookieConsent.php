@@ -36,6 +36,13 @@ use Illuminate\Contracts\Container\Container;
  */
 class CookieConsent implements ExtenderInterface
 {
+    /**
+     * Content priorities bracketing the declaring extension's own callbacks,
+     * which run at the default priority of 0.
+     */
+    private const BEFORE_EXTENSION_CONTENT = 100;
+    private const AFTER_EXTENSION_CONTENT = -100;
+
     protected array $categories = [];
     protected array $gated = [];
 
@@ -78,16 +85,24 @@ class CookieConsent implements ExtenderInterface
 
         foreach ($this->gated as $category) {
             $container->resolving('flarum.frontend.forum', function ($frontend) use ($category) {
-                // Snapshot the head before and after the other content
-                // callbacks run, so only entries added while this category is
-                // active are gated. Runs last (lowest priority) for that reason.
-                $frontend->content(function (Document $document) use ($category) {
+                // Snapshot the head before the extension's own content
+                // callbacks run...
+                $before = [];
+
+                $frontend->content(function (Document $document) use (&$before) {
+                    $before = $document->head;
+                }, self::BEFORE_EXTENSION_CONTENT);
+
+                // ...and gate only what appeared since. The head also carries
+                // core's scripts — the FontAwesome kit, the XSLT polyfill —
+                // which must keep working for visitors who decline.
+                $frontend->content(function (Document $document) use ($category, &$before) {
                     foreach ($document->head as $i => $content) {
-                        if (is_string($content)) {
+                        if (is_string($content) && ! in_array($content, $before, true)) {
                             $document->head[$i] = ScriptGate::gate($content, $category);
                         }
                     }
-                }, -100);
+                }, self::AFTER_EXTENSION_CONTENT);
             });
         }
     }
