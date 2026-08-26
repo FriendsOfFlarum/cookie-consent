@@ -98,7 +98,7 @@ class CookieConsent implements ExtenderInterface
                 // which must keep working for visitors who decline.
                 $frontend->content(function (Document $document) use ($category, &$before) {
                     foreach ($document->head as $i => $content) {
-                        if (is_string($content) && ! in_array($content, $before, true)) {
+                        if (is_string($content) && !in_array($content, $before, true)) {
                             $document->head[$i] = ScriptGate::gate($content, $category);
                         }
                     }
