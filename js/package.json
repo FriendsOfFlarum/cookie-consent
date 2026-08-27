@@ -3,27 +3,33 @@
   "version": "0.0.0",
   "prettier": "@flarum/prettier-config",
   "devDependencies": {
-    "prettier": "^3.0.3",
-    "typescript": "^5.9.3",
+    "@flarum/jest-config": "^2.0.2",
     "@flarum/prettier-config": "^1.0.0",
+    "css-loader": "^7.1.4",
     "flarum-tsconfig": "^2.0.0",
     "flarum-webpack-config": "^3.0.0",
+    "prettier": "^3.0.3",
+    "style-loader": "^4.0.0",
+    "typescript": "^5.9.3",
+    "typescript-coverage-report": "^0.6.1",
     "webpack": "^5.109.2",
     "webpack-cli": "^5.1.4",
-    "typescript-coverage-report": "^0.6.1",
-    "cookieconsent": "^3.1.1"
+    "webpack-merge": "^6.0.1"
   },
   "scripts": {
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "analyze": "cross-env ANALYZER=true npm run build",
-    "format": "prettier --write src",
-    "format-check": "prettier --check src",
+    "format": "prettier --write src tests",
+    "format-check": "prettier --check src tests",
     "clean-typings": "npx rimraf dist-typings && mkdir dist-typings",
     "build-typings": "npm run clean-typings && ([ -e src/@types ] && cp -r src/@types dist-typings/@types || true) && tsc && npm run post-build-typings",
-    "post-build-typings": "find dist-typings -type f -name '*.d.ts' -print0 | xargs -0 sed -i 's,../src/@types,@types,g'",
+    "post-build-typings": "[ -d dist-typings/@types ] && find dist-typings -type f -name '*.d.ts' -print0 | xargs -0 perl -pi -e 's,\\.\\./src/\\@types,\\@types,g' || true",
     "check-typings": "tsc --noEmit --emitDeclarationOnly false",
     "check-typings-coverage": "typescript-coverage-report",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
+  },
+  "dependencies": {
+    "vanilla-cookieconsent": "^3.1.0"
   }
 }
